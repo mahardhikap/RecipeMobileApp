@@ -11,7 +11,7 @@ export const login = (data, navigate) => async (dispatch) => {
     await AsyncStorage.setItem("token", getToken);
     dispatch({ type: "USER_LOGIN_SUCCESS", payload: response.data.data });
     setTimeout(() => {
-      navigate('MyTabs');
+      navigate('IndexRoute');
     }, 2000);
   } catch (err) {
     console.error("Error during login:", err);

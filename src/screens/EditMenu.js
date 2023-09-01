@@ -68,12 +68,12 @@ const EditMenu = () => {
 
   const uploadRecipe = async () => {
     let formData = new FormData();
-    formData.append('title', inputData.title);
-    formData.append('ingredients', inputData.ingredients);
-    formData.append('category_id', inputData.category_id);
+    formData.append('title', inputData?.title);
+    formData.append('ingredients', inputData?.ingredients);
+    formData.append('category_id', inputData?.category_id);
     if (selectedImage) {
         formData.append('photo', {
-          uri: selectedImage.uri,
+          uri: selectedImage?.uri,
           name: 'photo.jpg',
           type: 'image/jpeg',
         });
@@ -93,12 +93,12 @@ const EditMenu = () => {
   useEffect(() => {
     if (data) {
       setInputData({
-        title: data.title,
-        ingredients: data.ingredients,
-        category_id: data.category_id,
-        photo_url: data.photo,
+        title: data?.title,
+        ingredients: data?.ingredients,
+        category_id: data?.category_id,
+        photo_url: data?.photo,
       });
-      setSelectedOption(data.category_id)
+      setSelectedOption(data?.category_id)
     }
   }, [data]);
 
@@ -127,7 +127,7 @@ const EditMenu = () => {
             <View>
               <TextInput
                 onChangeText={value => onChangeInput('title', value)}
-                value={inputData.title}
+                value={inputData?.title}
                 placeholder="Title"
                 placeholderTextColor={GlobalStyle.color_recipe.font_g}
                 style={{
@@ -140,7 +140,7 @@ const EditMenu = () => {
               />
               <TextInput
                 onChangeText={value => onChangeInput('ingredients', value)}
-                value={inputData.ingredients}
+                value={inputData?.ingredients}
                 placeholder="Ingredients"
                 placeholderTextColor={GlobalStyle.color_recipe.font_g}
                 multiline={true}
@@ -218,15 +218,15 @@ const EditMenu = () => {
                   <Image
                     resizeMode="cover"
                     style={{height: 200, width: 200}}
-                    source={{uri: selectedImage.uri}}
+                    source={{uri: selectedImage?.uri}}
                   />
                 )}
                 {!selectedImage &&
-                  inputData.photo_url && ( // Use inputData.photo_url here
+                  inputData?.photo_url && ( // Use inputData.photo_url here
                     <Image
                       resizeMode="cover"
                       style={{height: 200, width: 200}}
-                      source={{uri: inputData.photo_url}}
+                      source={{uri: inputData?.photo_url}}
                     />
                   )}
               </View>

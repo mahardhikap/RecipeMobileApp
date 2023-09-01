@@ -1,32 +1,39 @@
 const initialState = {
   data: null,
-  errorMessage: "",
+  errorMessage: '',
   isLoading: false,
   isError: false,
 };
 
-const loginUser = (state = initialState,{type, payload}) => {
+const loginUser = (state = initialState, {type, payload}) => {
   switch (type) {
-    case "USER_LOGIN_PENDING":
+    case 'USER_LOGIN_PENDING':
       return {
         ...state,
         isLoading: true,
       };
-    case "USER_LOGIN_SUCCESS":
+    case 'USER_LOGIN_SUCCESS':
       return {
         ...state,
         data: payload,
         isLoading: false,
-        errorMessage: "",
+        errorMessage: '',
         isError: false,
       };
-    case "USER_LOGIN_FAILED":
+    case 'USER_LOGIN_FAILED':
       return {
         ...state,
         data: null,
         errorMessage: payload,
         isLoading: false,
         isError: true,
+      };
+    case 'USER_DELETE_TOKEN':
+      return {
+        ...state,
+        data: payload,
+        isLoading: false,
+        isError: false,
       };
     default:
       return state;
