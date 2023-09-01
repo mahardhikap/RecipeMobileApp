@@ -1,4 +1,5 @@
 import { instance } from "../../../utils/serviceApi";
+import { getMenuUser } from "./getMenuUser";
 
 const url = "https://fluffy-ox-lapel.cyclic.app";
 
@@ -7,6 +8,7 @@ export const editMenu = (data, id, navigate) => async (dispatch) => {
     dispatch({ type: "EDIT_MENU_PENDING" });
     const response = await instance.put(`${url}/menu/${id}`, data); 
     dispatch({ type: "EDIT_MENU_SUCCESS", payload: response.data.data });
+    dispatch(getMenuUser())
     setTimeout(() => {
         navigate('InputMenu');
       }, 2000);
