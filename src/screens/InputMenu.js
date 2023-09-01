@@ -80,84 +80,84 @@ const InputMenu = () => {
           {data?.rows && data.rows?.length > 0 ? (
             data.rows?.map(item => {
               return (
-                <>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    backgroundColor: 'white',
+                    padding: 10,
+                    borderRadius: 10,
+                    position: 'relative',
+                    marginTop: 35,
+                  }}
+                  key={item.id}>
+                  <View>
+                    <Image
+                      style={{resizeMode: 'cover', width: 90, height: 90}}
+                      source={{uri: item.photo_menu}}
+                    />
+                  </View>
                   <View
                     style={{
-                      flexDirection: 'row',
-                      backgroundColor: 'white',
-                      padding: 10,
-                      borderRadius: 10,
-                      position: 'relative',
-                      marginTop: 35,
+                      flexDirection: 'column',
+                      marginStart: 20,
+                      width: 150,
                     }}>
-                    <View key={item.id}>
-                      <Image
-                        style={{resizeMode: 'cover', width: 90, height: 90}}
-                        source={{uri: item.photo_menu}}
-                      />
-                    </View>
-                    <View
-                      style={{
-                        flexDirection: 'column',
-                        marginStart: 20,
-                        width: 150,
-                      }}>
-                      <Text style={{fontFamily: 'Poppins-Bold', fontSize: 20}}>
-                        {item.title}
-                      </Text>
-                      <Text
-                        style={{fontFamily: 'Poppins-Medium', fontSize: 18}}>
-                        {item.category}
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        flexDirection: 'column',
-                        position: 'absolute',
-                        right: 10,
-                        top: 13,
-                      }}>
-                      <TouchableOpacity
-                      onPress={() => navigation.navigate('EditMenu', {id: item.id})}
-                        style={{
-                          backgroundColor: '#30C0F3',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          borderRadius: 5,
-                          marginVertical: 5,
-                          paddingHorizontal: 10,
-                          paddingVertical: 5,
-                        }}>
-                        <Text
-                          style={{
-                            color: 'white',
-                            fontFamily: 'Poppins-Medium',
-                          }}>
-                          Edit
-                        </Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        style={{
-                          backgroundColor: '#F57E71',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          borderRadius: 5,
-                          marginVertical: 5,
-                          paddingHorizontal: 10,
-                          paddingVertical: 5,
-                        }}
-                        onPress={() => handleDelete(item.id)}>
-                        <Text
-                          style={{
-                            color: 'white',
-                            fontFamily: 'Poppins-Medium',
-                          }}>
-                          Delete
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
+                    <Text style={{fontFamily: 'Poppins-Bold', fontSize: 20}}>
+                      {item.title}
+                    </Text>
+                    <Text style={{fontFamily: 'Poppins-Medium', fontSize: 18}}>
+                      {item.category}
+                    </Text>
                   </View>
-                </>
+                  <View
+                    style={{
+                      flexDirection: 'column',
+                      position: 'absolute',
+                      right: 10,
+                      top: 13,
+                    }}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate('EditMenu', {id: item.id})
+                      }
+                      style={{
+                        backgroundColor: '#30C0F3',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: 5,
+                        marginVertical: 5,
+                        paddingHorizontal: 10,
+                        paddingVertical: 5,
+                      }}>
+                      <Text
+                        style={{
+                          color: 'white',
+                          fontFamily: 'Poppins-Medium',
+                        }}>
+                        Edit
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: '#F57E71',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: 5,
+                        marginVertical: 5,
+                        paddingHorizontal: 10,
+                        paddingVertical: 5,
+                      }}
+                      onPress={() => handleDelete(item.id)}>
+                      <Text
+                        style={{
+                          color: 'white',
+                          fontFamily: 'Poppins-Medium',
+                        }}>
+                        Delete
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               );
             })
           ) : (
