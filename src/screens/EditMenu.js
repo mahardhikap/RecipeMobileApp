@@ -3,16 +3,13 @@ import {
   Text,
   TextInput,
   ScrollView,
-  StyleSheet,
   TouchableOpacity,
-  Alert,
   Image,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import GlobalStyle from '../assets/styles/style';
 import {Picker} from '@react-native-picker/picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {postMenu} from '../redux/actions/menu/postMenu';
 import {useDispatch, useSelector} from 'react-redux';
 import {useRoute} from '@react-navigation/native';
 import {getMenuById} from '../redux/actions/menu/getMenuById';
@@ -26,7 +23,7 @@ const EditMenu = () => {
   const {data} = useSelector(state => state.getMenuById);
   const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedOption, setSelectedOption] = useState(selectedOption);
+  const [selectedOption, setSelectedOption] = useState(data?.category_id);
   const [inputData, setInputData] = useState({
     title: '',
     ingredients: '',

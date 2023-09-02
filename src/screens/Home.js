@@ -3,22 +3,27 @@ import {Card, ListItem, Button, Icon} from 'react-native-elements';
 import React, {useState} from 'react';
 import SearchBar from '../components/SearchBar';
 import GlobalStyle from '../assets/styles/style';
+import { useNavigation } from '@react-navigation/native';
 
-const Home = ({navigation}) => (
-  <ScrollView>
+const Home = () => {
+  const navigation = useNavigation()
+  return (
+    <ScrollView>
     <View style={GlobalStyle.container_bootstrap}>
-      <View style={{marginTop:20}}>
+      <View style={{marginTop: 20}}>
         <SearchBar />
       </View>
-      <Text
-        style={{
-          fontFamily: 'Poppins-SemiBold',
-          fontSize: 20,
-          marginTop: 40,
-          padding: 0,
-        }}>
-        Popular Recipes
-      </Text>
+      <TouchableOpacity onPress={()=> {navigation.navigate('PopularMenu')}}>
+        <Text
+          style={{
+            fontFamily: 'Poppins-SemiBold',
+            fontSize: 20,
+            marginTop: 40,
+            padding: 0,
+          }}>
+          Popular Recipes
+        </Text>
+      </TouchableOpacity>
       <Text style={{fontFamily: 'Poppins-Bold'}}>Popular check</Text>
       <ScrollView horizontal={true} style={{flexDirection: 'row'}}>
         <View style={{position: 'relative', marginRight: 10}}>
@@ -64,19 +69,27 @@ const Home = ({navigation}) => (
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View>
           <Image source={require('../assets/images/Group_48.png')} />
-          <Text style={{textAlign: 'center', fontFamily:'Poppins-Medium'}}>Soup</Text>
+          <Text style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
+            Soup
+          </Text>
         </View>
         <View>
           <Image source={require('../assets/images/Group_47.png')} />
-          <Text style={{textAlign: 'center', fontFamily:'Poppins-Medium'}}>Chicken</Text>
+          <Text style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
+            Chicken
+          </Text>
         </View>
         <View>
           <Image source={require('../assets/images/Group_49.png')} />
-          <Text style={{textAlign: 'center', fontFamily:'Poppins-Medium'}}>Seafood</Text>
+          <Text style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
+            Seafood
+          </Text>
         </View>
         <View>
           <Image source={require('../assets/images/Group_50.png')} />
-          <Text style={{textAlign: 'center', fontFamily:'Poppins-Medium'}}>Dessert</Text>
+          <Text style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
+            Dessert
+          </Text>
         </View>
       </View>
       <Text
@@ -155,6 +168,9 @@ const Home = ({navigation}) => (
       </ScrollView>
     </View>
   </ScrollView>
-);
+  )
+
+}
+
 
 export default Home;

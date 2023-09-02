@@ -26,7 +26,9 @@ const Profile = () => {
             alignItems: 'center',
           }}>
           <Image
-            source={{uri: data?.photo || 'https://i.ibb.co/M2JSRmW/noimage.png'}}
+            source={{
+              uri: data?.photo || 'https://i.ibb.co/M2JSRmW/noimage.png',
+            }}
             style={{
               marginTop: 50,
               resizeMode: 'cover',
@@ -53,30 +55,35 @@ const Profile = () => {
             marginTop: -50,
             marginHorizontal: 10,
           }}>
-          <View
-            style={{
-              padding: 20,
-              flexDirection: 'row',
-              alignItems: 'center',
-              position: 'relative',
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('EditProfile');
             }}>
-            <Image
-              source={require('../assets/images/Group.png')}
-              style={{marginRight: 5}}
-            />
-            <Text
+            <View
               style={{
-                fontSize: 15,
-                fontFamily: 'Poppins-SemiBold',
-                marginLeft: 20,
+                padding: 20,
+                flexDirection: 'row',
+                alignItems: 'center',
+                position: 'relative',
               }}>
-              Edit Profile
-            </Text>
-            <Image
-              source={require('../assets/images/ic-chevron.png')}
-              style={{position: 'absolute', right: 10}}
-            />
-          </View>
+              <Image
+                source={require('../assets/images/Group.png')}
+                style={{marginRight: 5}}
+              />
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Poppins-SemiBold',
+                  marginLeft: 20,
+                }}>
+                Edit Profile
+              </Text>
+              <Image
+                source={require('../assets/images/ic-chevron.png')}
+                style={{position: 'absolute', right: 10}}
+              />
+            </View>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('InputMenu');
@@ -103,51 +110,61 @@ const Profile = () => {
               />
             </View>
           </TouchableOpacity>
-          <View
-            style={{
-              padding: 20,
-              flexDirection: 'row',
-              alignItems: 'center',
-              position: 'relative',
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('SavedLikedMenu');
             }}>
-            <Image source={require('../assets/images/Group_5.png')} />
-            <Text
+            <View
               style={{
-                fontSize: 15,
-                fontFamily: 'Poppins-SemiBold',
-                marginLeft: 20,
+                padding: 20,
+                flexDirection: 'row',
+                alignItems: 'center',
+                position: 'relative',
               }}>
-              Saved Recipe
-            </Text>
-            <Image
-              source={require('../assets/images/ic-chevron.png')}
-              style={{position: 'absolute', right: 10}}
-            />
-          </View>
-          <View
-            style={{
-              padding: 20,
-              flexDirection: 'row',
-              alignItems: 'center',
-              position: 'relative',
+              <Image source={require('../assets/images/Group_5.png')} />
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Poppins-SemiBold',
+                  marginLeft: 20,
+                }}>
+                Saved Recipe
+              </Text>
+              <Image
+                source={require('../assets/images/ic-chevron.png')}
+                style={{position: 'absolute', right: 10}}
+              />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('SavedLikedMenu');
             }}>
-            <Image
-              source={require('../assets/images/Vector.png')}
-              style={{marginRight: 5}}
-            />
-            <Text
+            <View
               style={{
-                fontSize: 15,
-                fontFamily: 'Poppins-SemiBold',
-                marginLeft: 20,
+                padding: 20,
+                flexDirection: 'row',
+                alignItems: 'center',
+                position: 'relative',
               }}>
-              Liked Recipe
-            </Text>
-            <Image
-              source={require('../assets/images/ic-chevron.png')}
-              style={{position: 'absolute', right: 10}}
-            />
-          </View>
+              <Image
+                source={require('../assets/images/Vector.png')}
+                style={{marginRight: 5}}
+              />
+              <Text
+                style={{
+                  fontSize: 15,
+                  fontFamily: 'Poppins-SemiBold',
+                  marginLeft: 20,
+                }}>
+                Liked Recipe
+              </Text>
+              <Image
+                source={require('../assets/images/ic-chevron.png')}
+                style={{position: 'absolute', right: 10}}
+              />
+            </View>
+          </TouchableOpacity>
           <View
             style={{
               justifyContent: 'center',

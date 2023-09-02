@@ -52,7 +52,7 @@ const InputMenu = () => {
           style={{
             textAlign: 'center',
             color: GlobalStyle.color_recipe.font_y,
-            fontSize: 30,
+            fontSize: 25,
             fontFamily: 'Poppins-Bold',
             marginTop: 25,
           }}>

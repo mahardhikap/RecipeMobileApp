@@ -10,6 +10,9 @@ import Register from './src/screens/Register';
 import EditMenu from './src/screens/EditMenu';
 import IndexRoute from './src/IndexRoute';
 import InputMenu from './src/screens/InputMenu';
+import EditProfile from './src/screens/EditProfile';
+import SavedLikedMenu from './src/screens/SavedLikedMenu';
+import PopularMenu from './src/screens/PopularMenu';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +30,9 @@ function App() {
         <Stack.Screen name="AddMenu" component={AddMenu} />
         <Stack.Screen name="EditMenu" component={EditMenu} />
         <Stack.Screen name="InputMenu" component={InputMenu} />
+        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="SavedLikedMenu" component={SavedLikedMenu} />
+        <Stack.Screen name="PopularMenu" component={PopularMenu} />
       </Stack.Navigator>
     // </NavigationContainer>
   );

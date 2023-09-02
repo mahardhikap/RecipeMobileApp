@@ -15,7 +15,7 @@ const Home = ({navigation}) => {
           } else {
             navigation.dispatch(StackActions.replace('Login'));
           }
-        }, 1000);
+        }, 500);
       }
       alreadyLogin();
     } catch (error) {
