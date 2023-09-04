@@ -20,19 +20,13 @@ const AddMenu = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation()
   const [selectedImage, setSelectedImage] = useState(null);
-  const [uploadedImage, setUploadedImage] = useState(null);
   const [selectedOption, setSelectedOption] = useState('2');
-  const [photo, setPhoto] = useState(null);
   const [inputData, setInputData] = useState({
     title: '',
     ingredients: '',
     category_id: '2',
     photo_url: '',
   });
-
-  const handleOptionChange = itemValue => {
-    return setSelectedOption(itemValue);
-  };
 
   const cameraLaunch = async () => {
     let options = {
