@@ -1,7 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { instance } from "../../../utils/serviceApi";
+import {RN_BASE_URL} from "@env"
 
-const url = "https://fluffy-ox-lapel.cyclic.app";
+const url = RN_BASE_URL;
 
 export const login = (data, navigate) => async (dispatch) => {
   try {

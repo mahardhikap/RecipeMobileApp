@@ -1,6 +1,7 @@
 import { instance } from "../../../utils/serviceApi";
+import {RN_BASE_URL} from "@env"
 
-const url = "https://fluffy-ox-lapel.cyclic.app";
+const url = RN_BASE_URL;
 
 export const getMenuById = (id) => async (dispatch) => {
   try {

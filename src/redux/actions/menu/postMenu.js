@@ -1,7 +1,8 @@
 import { instance } from "../../../utils/serviceApi";
 import { getMenuUser } from "./getMenuUser";
+import {RN_BASE_URL} from "@env"
 
-const url = "https://fluffy-ox-lapel.cyclic.app";
+const url = RN_BASE_URL;
 
 export const postMenu = (data, navigate) => async (dispatch) => {
   try {
