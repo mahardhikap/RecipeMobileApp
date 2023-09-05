@@ -29,7 +29,7 @@ const Home = () => {
   }, [search]);
   const navigation = useNavigation();
   return (
-    <View>
+    <ScrollView>
       <View style={GlobalStyle.container_bootstrap}>
         <View style={{marginTop: 20}}>
           <SearchBar changeText={handleSearchChange} />
@@ -276,7 +276,7 @@ const Home = () => {
           </View>
         </ScrollView>
       )}
-    </View>
+    </ScrollView>
   );
 };
 
