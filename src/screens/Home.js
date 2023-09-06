@@ -46,12 +46,12 @@ const Home = () => {
                     marginTop: 20,
                     flexDirection: 'row',
                     alignItems: 'center',
-                    backgroundColor: '#00E092',
+                    backgroundColor: 'white',
                     padding: 10,
                     borderRadius: 10,
                   }}>
                   <Image
-                    style={{width: 120, height: 120, resizeMode: 'cover'}}
+                    style={{width: 100, height: 100, resizeMode: 'cover'}}
                     source={{uri: item.photo_menu}}
                   />
                   <View
@@ -61,10 +61,10 @@ const Home = () => {
                       width: 140,
                     }}>
                     <Text
-                      style={{fontFamily: 'Poppins-SemiBold', fontSize: 20}}>
+                      style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>
                       {item.title}
                     </Text>
-                    <Text style={{fontFamily: 'Poppins-Medium', fontSize: 18}}>
+                    <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14}}>
                       {item.category}
                     </Text>
                     <View
@@ -74,10 +74,10 @@ const Home = () => {
                         width: 90,
                       }}>
                       <Image
-                        style={{width: 30, height: 30}}
+                        style={{width: 20, height: 20}}
                         source={require('../assets/images/user.png')}
                       />
-                      <Text style={{fontFamily: 'Poppins-Bold'}}>
+                      <Text style={{fontFamily: 'Poppins-Bold', fontSize:12}}>
                         {item.username}
                       </Text>
                     </View>

@@ -11,13 +11,12 @@ import GlobalStyle from '../assets/styles/style';
 import {Picker} from '@react-native-picker/picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {useDispatch, useSelector} from 'react-redux';
-import {useRoute} from '@react-navigation/native';
+import {useRoute, useNavigation} from '@react-navigation/native';
 import {getMenuById} from '../redux/actions/menu/getMenuById';
-import { editMenu } from '../redux/actions/menu/editMenu';
-import { useNavigation } from '@react-navigation/native';
+import {editMenu} from '../redux/actions/menu/editMenu';
 
 const EditMenu = () => {
-    const navigation = useNavigation()
+  const navigation = useNavigation();
   const route = useRoute();
   const {id} = route.params;
   const {data} = useSelector(state => state.getMenuById);
@@ -27,8 +26,8 @@ const EditMenu = () => {
   const [inputData, setInputData] = useState({
     title: '',
     ingredients: '',
-    category_id: selectedOption,
-    photo_url: '',
+    category_id: '',
+    photo: '',
   });
 
   const getMenu = () => {
@@ -68,13 +67,23 @@ const EditMenu = () => {
     formData.append('title', inputData?.title);
     formData.append('ingredients', inputData?.ingredients);
     formData.append('category_id', inputData?.category_id);
-    if (selectedImage) {
-        formData.append('photo', {
-          uri: selectedImage?.uri,
-          name: 'photo.jpg',
-          type: 'image/jpeg',
-        });
-      }
+  
+    // Check if selectedImage.uri is available, otherwise use inputData.photo
+    if (selectedImage && selectedImage.uri) {
+      formData.append('photo', {
+        uri: selectedImage.uri,
+        name: 'photo.jpg',
+        type: 'image/jpeg',
+      });
+    } else if (inputData.photo) {
+      // Use inputData.photo if selectedImage.uri is not available
+      formData.append('photo', {
+        uri: inputData.photo,
+        name: 'photo.jpg',
+        type: 'image/jpeg',
+      });
+    }
+  
     dispatch(editMenu(formData, id, navigation.navigate));
   };
 
@@ -93,16 +102,16 @@ const EditMenu = () => {
         title: data?.title,
         ingredients: data?.ingredients,
         category_id: data?.category_id,
-        photo_url: data?.photo,
+        photo: data?.photo_menu,
       });
-      setSelectedOption(data?.category_id)
+      // setSelectedOption(data?.category_id);
     }
   }, [data]);
 
   const categoryOptions = [
-    { label: 'Appetizer', value: '1' },
-    { label: 'Main Course', value: '2' },
-    { label: 'Dessert', value: '3' },
+    {label: 'Appetizer', value: '1'},
+    {label: 'Main Course', value: '2'},
+    {label: 'Dessert', value: '3'},
   ];
 
   return (
@@ -161,7 +170,7 @@ const EditMenu = () => {
                 selectedValue={selectedOption}
                 onValueChange={itemValue => {
                   setSelectedOption(itemValue);
-                  setInputData({...inputData, category_id: itemValue});
+                  onChangeInput('category_id', itemValue);
                 }}>
                 {categoryOptions.map(option => (
                   <Picker.Item
@@ -211,21 +220,20 @@ const EditMenu = () => {
                   alignItems: 'center',
                   marginTop: 20,
                 }}>
-                {selectedImage && (
+                {selectedImage && selectedImage.uri && (
                   <Image
                     resizeMode="cover"
                     style={{height: 200, width: 200}}
-                    source={{uri: selectedImage?.uri}}
+                    source={{uri: selectedImage.uri}}
                   />
                 )}
-                {!selectedImage &&
-                  inputData?.photo_url && ( // Use inputData.photo_url here
-                    <Image
-                      resizeMode="cover"
-                      style={{height: 200, width: 200}}
-                      source={{uri: inputData?.photo_url}}
-                    />
-                  )}
+                {!selectedImage && inputData.photo && (
+                  <Image
+                    resizeMode="cover"
+                    style={{height: 200, width: 200}}
+                    source={{uri: inputData.photo}}
+                  />
+                )}
               </View>
               <TouchableOpacity
                 onPress={uploadRecipe}
