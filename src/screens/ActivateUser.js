@@ -33,7 +33,7 @@ const ActivateUser = () => {
         <Modal isVisible={isModalVisible}>
           <View
             style={{ backgroundColor: 'white', padding: 20, borderRadius: 10 }}>
-            <Text>{errorMessage.message || 'Activation success! You can login now.'}</Text>
+            <Text>{errorMessage.message || data.message}</Text>
             <TouchableOpacity title="Hide modal" onPress={toggleModal} style={{backgroundColor:GlobalStyle.color_recipe.font_y, borderRadius:5, marginHorizontal:100, marginTop:10}}>
               <Text style={{padding:5, textAlign:'center'}}>Ok</Text>
             </TouchableOpacity>
