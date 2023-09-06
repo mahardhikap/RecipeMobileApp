@@ -58,9 +58,15 @@ const EditProfile = () => {
     formData.append('username', inputData?.username);
     formData.append('email', inputData?.email);
     formData.append('password', inputData?.password || '');
-    if (selectedImage) {
+    if (selectedImage && selectedImage.uri) {
       formData.append('photo', {
-        uri: selectedImage?.uri,
+        uri: selectedImage.uri,
+        name: 'photo.jpg',
+        type: 'image/jpeg',
+      });
+    } else if (inputData.photo_url) {
+      formData.append('photo', {
+        uri: inputData.photo_url,
         name: 'photo.jpg',
         type: 'image/jpeg',
       });
@@ -102,7 +108,7 @@ const EditProfile = () => {
               alignItems: 'center',
               marginTop: 20,
             }}>
-            {selectedImage && (
+            {selectedImage && selectedImage?.uri && (
               <Image
                 resizeMode="cover"
                 style={{
@@ -115,20 +121,19 @@ const EditProfile = () => {
                 source={{uri: selectedImage?.uri}}
               />
             )}
-            {!selectedImage &&
-              inputData?.photo_url && ( // Use inputData.photo_url here
-                <Image
-                  resizeMode="cover"
-                  style={{
-                    height: 120,
-                    width: 120,
-                    borderRadius: 75,
-                    borderColor: GlobalStyle.color_recipe.font_y,
-                    borderWidth: 1,
-                  }}
-                  source={{uri: inputData?.photo_url}}
-                />
-              )}
+            {!selectedImage && inputData?.photo_url && (
+              <Image
+                resizeMode="cover"
+                style={{
+                  height: 120,
+                  width: 120,
+                  borderRadius: 75,
+                  borderColor: GlobalStyle.color_recipe.font_y,
+                  borderWidth: 1,
+                }}
+                source={{uri: inputData?.photo_url}}
+              />
+            )}
           </View>
           <View
             style={{
