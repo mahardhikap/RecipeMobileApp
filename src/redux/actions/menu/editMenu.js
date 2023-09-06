@@ -12,7 +12,7 @@ export const editMenu = (data, id, navigate) => async (dispatch) => {
     dispatch(getMenuUser())
     setTimeout(() => {
         navigate('InputMenu');
-      }, 2000);
+      }, 1000);
   } catch (err) {
     console.error("Error during edit menu user:", err);
     dispatch({ type: "EDIT_MENU_FAILED", payload: err.response.data });

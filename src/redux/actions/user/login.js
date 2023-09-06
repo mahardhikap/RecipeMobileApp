@@ -13,7 +13,7 @@ export const login = (data, navigate) => async (dispatch) => {
     dispatch({ type: "USER_LOGIN_SUCCESS", payload: response.data.data });
     setTimeout(() => {
       navigate('IndexRoute');
-    }, 2000);
+    }, 1000);
   } catch (err) {
     console.error("Error during login:", err);
     dispatch({ type: "USER_LOGIN_FAILED", payload: err.response.data });
