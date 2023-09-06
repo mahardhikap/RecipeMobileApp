@@ -9,7 +9,7 @@ export const register = (data, navigate) => async (dispatch) => {
     const response = await instance.post(`${url}/register`, data); 
     dispatch({ type: "REGISTER_SUCCESS", payload: response.data.data });
     setTimeout(() => {
-      navigate('Login');
+      navigate('ActivateUser');
     }, 1000);
   } catch (err) {
     console.error("Error during register:", err);

@@ -7,6 +7,8 @@ import editMenu from "./editMenu";
 import getMenuById from "./getMenuById";
 import editProfile from "./editProfile";
 import getAllMenu from "./getAllMenu";
+import register from "./register";
+import activateUser from "./activateUser";
 
 const rootReducers = combineReducers({
     loginUser,
@@ -16,7 +18,9 @@ const rootReducers = combineReducers({
     editMenu,
     getMenuById,
     editProfile,
-    getAllMenu
+    getAllMenu,
+    register,
+    activateUser
 })
 
 export default rootReducers
