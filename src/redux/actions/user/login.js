@@ -1,13 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { instance } from "../../../utils/serviceApi";
 import {RN_BASE_URL} from "@env"
+import axios from "axios";
 
 const url = RN_BASE_URL;
 
 export const login = (data, navigate) => async (dispatch) => {
   try {
     dispatch({ type: "USER_LOGIN_PENDING" });
-    const response = await instance.post(`${url}/login`, data); 
+    const response = await axios.post(`${url}/login`, data); 
     const getToken = await response.data.data.token;
     await AsyncStorage.setItem("token", getToken);
     dispatch({ type: "USER_LOGIN_SUCCESS", payload: response.data.data });

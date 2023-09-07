@@ -25,7 +25,7 @@ const AddMenu = () => {
     title: '',
     ingredients: '',
     category_id: '2',
-    photo_url: '',
+    photo: '',
   });
 
   const cameraLaunch = async () => {
@@ -58,12 +58,12 @@ const AddMenu = () => {
 
   const uploadRecipe = async () => {
     let formData = new FormData();
-    formData.append('title', inputData.title);
-    formData.append('ingredients', inputData.ingredients);
-    formData.append('category_id', inputData.category_id);
+    formData.append('title', inputData?.title);
+    formData.append('ingredients', inputData?.ingredients);
+    formData.append('category_id', inputData?.category_id);
     if (selectedImage) {
       formData.append('photo', {
-        uri: selectedImage.uri,
+        uri: selectedImage?.uri,
         name: 'photo.jpg',
         type: 'image/jpeg',
       });
@@ -100,7 +100,7 @@ const AddMenu = () => {
             <View>
               <TextInput
                 onChangeText={value => onChangeInput('title', value)}
-                value={inputData.title}
+                value={inputData?.title}
                 placeholder="Title"
                 placeholderTextColor={GlobalStyle.color_recipe.font_g}
                 style={{
@@ -113,7 +113,7 @@ const AddMenu = () => {
               />
               <TextInput
                 onChangeText={value => onChangeInput('ingredients', value)}
-                value={inputData.ingredients}
+                value={inputData?.ingredients}
                 placeholder="Ingredients"
                 placeholderTextColor={GlobalStyle.color_recipe.font_g}
                 multiline={true}
@@ -191,7 +191,7 @@ const AddMenu = () => {
                   <Image
                     resizeMode="cover"
                     style={{height: 200, width: 200}}
-                    source={{uri: selectedImage.uri}}
+                    source={{uri: selectedImage?.uri}}
                   />
                 )}
               </View>

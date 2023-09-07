@@ -5,6 +5,9 @@ let url = "https://fluffy-ox-lapel.cyclic.app";
 
 const instance = axios.create({
   baseURL: `${url}`,
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
 });
 
 instance.interceptors.request.use(async (config) => {
