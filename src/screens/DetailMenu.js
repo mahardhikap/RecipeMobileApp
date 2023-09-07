@@ -48,7 +48,7 @@ const DetailMenu = () => {
         />
       </View>
       <View style={{position: 'relative'}}>
-        <TouchableOpacity style={{position: 'absolute', top: -350, zIndex: 1, left:10}}>
+        <TouchableOpacity style={{position: 'absolute', top: -350, zIndex: 1, left:10}} onPress={()=> navigation.goBack()}>
           <Ionicons
             name="arrow-back-circle-outline"
             size={30}

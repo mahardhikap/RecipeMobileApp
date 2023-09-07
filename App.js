@@ -15,6 +15,7 @@ import SavedLikedMenu from './src/screens/SavedLikedMenu';
 import PopularMenu from './src/screens/PopularMenu';
 import DetailMenu from './src/screens/DetailMenu';
 import ActivateUser from './src/screens/ActivateUser';
+import DessertPage from './src/screens/DessertPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +38,7 @@ function App() {
         <Stack.Screen name="PopularMenu" component={PopularMenu} />
         <Stack.Screen name="DetailMenu" component={DetailMenu} />
         <Stack.Screen name="ActivateUser" component={ActivateUser} />
+        <Stack.Screen name="DessertPage" component={DessertPage} />
       </Stack.Navigator>
     // </NavigationContainer>
   );

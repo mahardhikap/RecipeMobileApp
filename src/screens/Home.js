@@ -60,8 +60,7 @@ const Home = () => {
                       marginLeft: 10,
                       width: 140,
                     }}>
-                    <Text
-                      style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>
+                    <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>
                       {item.title}
                     </Text>
                     <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14}}>
@@ -77,7 +76,7 @@ const Home = () => {
                         style={{width: 20, height: 20}}
                         source={require('../assets/images/user.png')}
                       />
-                      <Text style={{fontFamily: 'Poppins-Bold', fontSize:12}}>
+                      <Text style={{fontFamily: 'Poppins-Bold', fontSize: 12}}>
                         {item.username}
                       </Text>
                     </View>
@@ -186,11 +185,13 @@ const Home = () => {
                 </Text>
               </View>
               <View>
-                <Image source={require('../assets/images/Group_50.png')} />
-                <Text
-                  style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
-                  Dessert
-                </Text>
+                <TouchableOpacity onPress={()=>navigation.navigate('DessertPage')}>
+                  <Image source={require('../assets/images/Group_50.png')} />
+                  <Text
+                    style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
+                    Dessert
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
             <Text
