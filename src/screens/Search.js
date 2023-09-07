@@ -1,4 +1,11 @@
-import {ScrollView, View, Image, Text, TouchableOpacity} from 'react-native';
+import {
+  ScrollView,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  RefreshControl,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import SearchBar from '../components/SearchBar';
 import GlobalStyle from '../assets/styles/style';
@@ -17,9 +24,16 @@ const Search = () => {
   const [limit, setLimit] = useState(4);
   const [search, setSearch] = useState('');
   const [searchby, setSearchby] = useState('title');
+  const [refreshing, setRefreshing] = useState(false);
 
   const handleSearchChange = value => {
     setSearch(value);
+  };
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    onSearchSubmit();
+    setRefreshing(false);
   };
 
   const onSearchSubmit = () => {
@@ -37,7 +51,10 @@ const Search = () => {
   }, [search, page]);
 
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+      }>
       <View style={{marginBottom: 60}}>
         <View style={GlobalStyle.container_bootstrap}>
           <View style={{marginTop: 20}}>
@@ -50,9 +67,8 @@ const Search = () => {
               <TouchableOpacity
                 key={item.id}
                 onPress={() =>
-                  navigation.navigate('DetailMenu', { id: item.id })
-                }
-              >
+                  navigation.navigate('DetailMenu', {id: item.id})
+                }>
                 <View
                   style={{
                     marginTop: 20,
@@ -72,8 +88,7 @@ const Search = () => {
                       marginLeft: 10,
                       width: 140,
                     }}>
-                    <Text
-                      style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>
+                    <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>
                       {item.title}
                     </Text>
                     <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14}}>
@@ -89,7 +104,7 @@ const Search = () => {
                         style={{width: 20, height: 20}}
                         source={require('../assets/images/user.png')}
                       />
-                      <Text style={{fontFamily: 'Poppins-Bold', fontSize:12}}>
+                      <Text style={{fontFamily: 'Poppins-Bold', fontSize: 12}}>
                         {item.username}
                       </Text>
                     </View>

@@ -24,31 +24,30 @@ const styles = StyleSheet.create({
   },
 });
 const DetailMenu = () => {
-  const dispatch = useDispatch()
-  const navigation = useNavigation()
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
   const route = useRoute();
   const {id} = route.params;
   const {data} = useSelector(state => state.getMenuById);
 
   const getDetail = () => {
-    dispatch(getMenuById(id))
-  }
+    dispatch(getMenuById(id));
+  };
 
-  useEffect(()=>{
-    getDetail()
-  },[])
+  useEffect(() => {
+    getDetail();
+  }, []);
 
   return (
     <ScrollView>
       <StatusBar translucent backgroundColor="transparent" />
       <View>
-        <Image
-          style={styles.stretch}
-          source={{uri:data?.photo_menu}}
-        />
+        <Image style={styles.stretch} source={{uri: data?.photo_menu}} />
       </View>
       <View style={{position: 'relative'}}>
-        <TouchableOpacity style={{position: 'absolute', top: -350, zIndex: 1, left:10}} onPress={()=> navigation.goBack()}>
+        <TouchableOpacity
+          style={{position: 'absolute', top: -350, zIndex: 1, left: 10}}
+          onPress={() => navigation.goBack()}>
           <Ionicons
             name="arrow-back-circle-outline"
             size={30}
@@ -76,8 +75,19 @@ const DetailMenu = () => {
           <Text style={{padding: 10, fontFamily: 'Poppins-Bold', fontSize: 20}}>
             Ingredients
           </Text>
-          <View style={{marginHorizontal:10, marginTop:15, backgroundColor:'#FAF7ED', borderRadius:10, padding:10}}>
-            <Text style={{fontFamily:'Poppins-Regular'}}>-{data?.ingredients}</Text>
+          <View
+            style={{
+              marginHorizontal: 10,
+              marginTop: 15,
+              backgroundColor: '#FAF7ED',
+              borderRadius: 10,
+              padding: 10,
+            }}>
+            {data?.ingredients?.split(',').map((material, index) => {
+              return (
+                <Text key={index} style={{fontFamily: 'Poppins-Regular'}}>-{material}</Text>
+              );
+            })}
           </View>
         </View>
       </View>
