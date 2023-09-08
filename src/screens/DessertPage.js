@@ -11,41 +11,46 @@ const DessertPage = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {data} = useSelector(state => state.getAllMenu);
-  const [sortby, setSortby] = useState('title');
-  const [sort, setSort] = useState('ASC');
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(4);
-  const [search, setSearch] = useState('Dessert');
-  const [searchby, setSearchby] = useState('category.name');
 
   const onSearchSubmit = () => {
-    dispatch(getAllMenu(searchby, search, sortby, sort, page, limit));
+    dispatch(
+      getAllMenu('category.name', 'Dessert', 'created_at', 'DESC', page, 4),
+    );
   };
 
   const goToPage = pageNumber => {
     if (pageNumber >= 1 && pageNumber <= data?.pages.totalPage) {
       setPage(pageNumber);
+      dispatch(
+        getAllMenu(
+          'category.name',
+          'Dessert',
+          'created_at',
+          'DESC',
+          pageNumber,
+          4,
+        ),
+      );
     }
   };
 
   useEffect(() => {
     onSearchSubmit();
-  }, [search, page]);
+  }, [page]);
 
   return (
     <ScrollView>
-      <View style={{marginBottom: 60}}>
+      <View style={{marginBottom: 60, marginTop: 40}}>
         <View style={GlobalStyle.container_bootstrap}>
           {data?.rows?.map(item => {
             return (
               <TouchableOpacity
                 key={item.id}
-                onPress={() =>
-                  navigation.navigate('DetailMenu', {id: item.id})
-                }>
+                onPress={() => navigation.push('DetailMenu', {id: item.id})}>
                 <View
                   style={{
-                    marginTop: 20,
+                    marginTop: 10,
                     flexDirection: 'row',
                     alignItems: 'center',
                     backgroundColor: 'white',
@@ -53,14 +58,21 @@ const DessertPage = () => {
                     borderRadius: 10,
                   }}>
                   <Image
-                    style={{width: 100, height: 100, resizeMode: 'cover'}}
+                    style={{
+                      width: 100,
+                      height: 100,
+                      resizeMode: 'cover',
+                      borderRadius: 10,
+                      borderColor: 'yellow',
+                      borderWidth: 2,
+                    }}
                     source={{uri: item.photo_menu}}
                   />
                   <View
                     style={{
                       flexDirection: 'column',
-                      marginLeft: 10,
-                      width: 140,
+                      marginHorizontal: 8,
+                      width: 150,
                     }}>
                     <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>
                       {item.title}
@@ -109,17 +121,21 @@ const DessertPage = () => {
               justifyContent: 'space-between',
               marginTop: 20,
             }}>
-            <TouchableOpacity onPress={() => goToPage(page - 1)}>
+            <TouchableOpacity
+              onPress={() => goToPage(page - 1)}
+              disabled={page === 1}>
               <Ionicons
                 name="arrow-back-circle-outline"
                 size={30}
                 color={GlobalStyle.color_recipe.font_y}
               />
             </TouchableOpacity>
-            <Text style={{fontSize: 20}}>
+            <Text style={{fontSize: 18, fontFamily:'Poppins-Medium', color:GlobalStyle.color_recipe.font_y}}>
               Halaman {page} dari {data?.pages.totalPage}
             </Text>
-            <TouchableOpacity onPress={() => goToPage(page + 1)}>
+            <TouchableOpacity
+              onPress={() => goToPage(page + 1)}
+              disabled={page === data?.pages.totalPage}>
               <Ionicons
                 name="arrow-forward-circle-outline"
                 size={30}

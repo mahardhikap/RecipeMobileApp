@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   TextInput,
   ScrollView,
+  StatusBar
 } from 'react-native';
 import {useDispatch} from 'react-redux';
 import {login} from '../redux/actions/user/login';
@@ -27,9 +28,10 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 60,
-    borderWidth: 1,
+    borderWidth: 2,
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 10,
+    borderColor: GlobalStyle.color_recipe.font_y,
     width: '100%',
     marginVertical: 12,
   },
@@ -54,6 +56,7 @@ const Login = () => {
 
   return (
     <>
+    <StatusBar translucent backgroundColor="transparent"/>
       <ScrollView>
         <Image
           style={styles.stretch}
@@ -81,14 +84,14 @@ const Login = () => {
             </Text>
           </View>
           <SafeAreaView>
-            <Text style={{marginTop: 20}}>Email</Text>
+            <Text style={{marginTop: 20, fontFamily:'Poppins-Medium'}}>Email</Text>
             <TextInput
               style={styles.input}
               placeholder="Input email"
               onChangeText={value => onChangeLogin('email', value)}
               value={inputData.email}
             />
-            <Text>Password</Text>
+            <Text style={{fontFamily:'Poppins-Medium'}}>Password</Text>
             <TextInput
               secureTextEntry={true}
               style={styles.input}
@@ -132,6 +135,7 @@ const Login = () => {
               fontFamily: 'Poppins-Medium',
               marginTop: 10,
               textAlign: 'center',
+              marginBottom:50
             }}>
             Don’t have an account?{' '}
             <Text

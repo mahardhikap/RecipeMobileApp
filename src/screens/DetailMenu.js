@@ -22,6 +22,14 @@ const styles = StyleSheet.create({
     height: 400,
     resizeMode: 'cover',
   },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: 400,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Sesuaikan dengan kegelapan yang Anda inginkan
+  },
 });
 const DetailMenu = () => {
   const dispatch = useDispatch();
@@ -44,6 +52,7 @@ const DetailMenu = () => {
       <View>
         <Image style={styles.stretch} source={{uri: data?.photo_menu}} />
       </View>
+      <View style={styles.overlay} />
       <View style={{position: 'relative'}}>
         <TouchableOpacity
           style={{position: 'absolute', top: -350, zIndex: 1, left: 10}}
@@ -60,8 +69,8 @@ const DetailMenu = () => {
             {data?.title}
           </Text>
           <Text
-            style={{fontFamily: 'Poppins-Bold', fontSize: 10, color: 'white'}}>
-            {data?.username}
+            style={{fontFamily: 'Poppins-Bold', fontSize: 15, color: 'white'}}>
+            <Text style={{color:GlobalStyle.color_recipe.font_y}}>Chef</Text> {data?.username}
           </Text>
         </View>
         <View

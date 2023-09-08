@@ -48,16 +48,16 @@ const Search = () => {
 
   useEffect(() => {
     onSearchSubmit();
-  }, [search, page]);
+  }, [page, search]);
 
   return (
     <ScrollView
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
       }>
-      <View style={{marginBottom: 60}}>
+      <View style={{marginBottom: 30}}>
         <View style={GlobalStyle.container_bootstrap}>
-          <View style={{marginTop: 20}}>
+          <View style={{marginTop: 40}}>
             <SearchBar changeText={handleSearchChange} />
           </View>
         </View>
@@ -71,7 +71,7 @@ const Search = () => {
                 }>
                 <View
                   style={{
-                    marginTop: 20,
+                    marginTop: 10,
                     flexDirection: 'row',
                     alignItems: 'center',
                     backgroundColor: 'white',
@@ -79,14 +79,14 @@ const Search = () => {
                     borderRadius: 10,
                   }}>
                   <Image
-                    style={{width: 100, height: 100, resizeMode: 'cover'}}
+                    style={{width: 100, height: 100, resizeMode: 'cover', borderRadius:10, borderColor:'yellow', borderWidth:2}}
                     source={{uri: item.photo_menu}}
                   />
                   <View
                     style={{
                       flexDirection: 'column',
-                      marginLeft: 10,
-                      width: 140,
+                      marginHorizontal:8,
+                      width: 150,
                     }}>
                     <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>
                       {item.title}
@@ -145,7 +145,7 @@ const Search = () => {
                   color={GlobalStyle.color_recipe.font_y}
                 />
               </TouchableOpacity>
-              <Text style={{fontSize: 20}}>
+              <Text style={{fontSize: 18, fontFamily:'Poppins-Medium', color:GlobalStyle.color_recipe.font_y}}>
                 Halaman {page} dari {data?.pages.totalPage}
               </Text>
               <TouchableOpacity onPress={() => goToPage(page + 1)}>

@@ -1,4 +1,11 @@
-import {Text, View, TouchableOpacity, ScrollView, Image} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  Image,
+  StatusBar,
+} from 'react-native';
 import {Card, ListItem, Button, Icon} from 'react-native-elements';
 import React, {useState, useEffect} from 'react';
 import SearchBar from '../components/SearchBar';
@@ -31,19 +38,20 @@ const Home = () => {
   return (
     <ScrollView>
       <View style={GlobalStyle.container_bootstrap}>
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 40}}>
           <SearchBar changeText={handleSearchChange} />
         </View>
       </View>
       {search ? (
         <ScrollView>
+          <StatusBar translucent backgroundColor="black" />
           <View style={GlobalStyle.container_bootstrap}>
             {data?.rows?.map(item => {
               return (
                 <View
                   key={item.id}
                   style={{
-                    marginTop: 20,
+                    marginTop: 10,
                     flexDirection: 'row',
                     alignItems: 'center',
                     backgroundColor: 'white',
@@ -51,14 +59,21 @@ const Home = () => {
                     borderRadius: 10,
                   }}>
                   <Image
-                    style={{width: 100, height: 100, resizeMode: 'cover'}}
+                    style={{
+                      width: 100,
+                      height: 100,
+                      resizeMode: 'cover',
+                      borderRadius: 10,
+                      borderColor: 'yellow',
+                      borderWidth: 2,
+                    }}
                     source={{uri: item.photo_menu}}
                   />
                   <View
                     style={{
                       flexDirection: 'column',
-                      marginLeft: 10,
-                      width: 140,
+                      marginHorizontal: 8,
+                      width: 150,
                     }}>
                     <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>
                       {item.title}
@@ -104,6 +119,7 @@ const Home = () => {
         </ScrollView>
       ) : (
         <ScrollView>
+          <StatusBar translucent backgroundColor="black" />
           <View style={GlobalStyle.container_bootstrap}>
             <TouchableOpacity
               onPress={() => {
@@ -163,29 +179,30 @@ const Home = () => {
             </Text>
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <View>
+              <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 <Image source={require('../assets/images/Group_48.png')} />
                 <Text
                   style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
                   Soup
                 </Text>
               </View>
-              <View>
+              <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 <Image source={require('../assets/images/Group_47.png')} />
                 <Text
                   style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
-                  Chicken
+                  Appetizer
                 </Text>
               </View>
-              <View>
+              <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 <Image source={require('../assets/images/Group_49.png')} />
                 <Text
                   style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
-                  Seafood
+                  Main Course
                 </Text>
               </View>
-              <View>
-                <TouchableOpacity onPress={()=>navigation.navigate('DessertPage')}>
+              <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                <TouchableOpacity
+                  onPress={() => navigation.push('DessertPage')}>
                   <Image source={require('../assets/images/Group_50.png')} />
                   <Text
                     style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
@@ -203,7 +220,9 @@ const Home = () => {
               }}>
               Popular For You
             </Text>
-            <ScrollView horizontal={true} style={{flexDirection: 'row'}}>
+            <ScrollView
+              horizontal={true}
+              style={{flexDirection: 'row', marginBottom: 50}}>
               <View style={{width: 180, position: 'relative', marginRight: 10}}>
                 <Image
                   style={{borderRadius: 10}}

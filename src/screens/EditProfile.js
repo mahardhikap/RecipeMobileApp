@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import GlobalStyle from '../assets/styles/style';
 import {useNavigation} from '@react-navigation/native';
 import {editProfile} from '../redux/actions/user/editProfile';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const EditProfile = () => {
   const navigation = useNavigation();
@@ -91,7 +92,7 @@ const EditProfile = () => {
   return (
     <View style={GlobalStyle.container_bootstrap}>
       <ScrollView>
-        <View style={{marginTop: 30}}>
+        <View style={{marginTop: 40}}>
           <Text
             style={{
               fontSize: 25,
@@ -144,26 +145,28 @@ const EditProfile = () => {
             <TouchableOpacity
               onPress={() => cameraLaunch()}
               style={{
-                backgroundColor: '#30C0F3',
-                padding: 10,
-                width: 100,
-                borderRadius: 10,
+                padding: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
               }}>
-              <Text style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
-                Take Foto
-              </Text>
+              <Ionicons
+                name="camera"
+                size={50}
+                color={GlobalStyle.color_recipe.font_g}
+              />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => galleryLaunch()}
               style={{
-                backgroundColor: '#F57E71',
-                padding: 10,
-                width: 100,
-                borderRadius: 10,
+                padding: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
               }}>
-              <Text style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
-                Gallery Foto
-              </Text>
+              <Ionicons
+                name="image"
+                size={50}
+                color={GlobalStyle.color_recipe.font_g}
+              />
             </TouchableOpacity>
           </View>
           <View style={{marginTop: 10}}>
@@ -172,9 +175,14 @@ const EditProfile = () => {
               onChangeText={value => onChangeInput('username', value)}
               value={inputData?.username}
               style={{
+                padding: 15,
+                paddingLeft: 15,
                 backgroundColor: '#FFFFFF',
                 borderRadius: 10,
-                padding: 10,
+                fontFamily: 'Poppins-SemiBold',
+                borderColor: GlobalStyle.color_recipe.font_y,
+                borderWidth: 2,
+                color: GlobalStyle.color_recipe.font_g,
               }}
             />
           </View>
@@ -184,9 +192,14 @@ const EditProfile = () => {
               onChangeText={value => onChangeInput('email', value)}
               value={inputData?.email}
               style={{
+                padding: 15,
+                paddingLeft: 15,
                 backgroundColor: '#FFFFFF',
                 borderRadius: 10,
-                padding: 10,
+                fontFamily: 'Poppins-SemiBold',
+                borderColor: GlobalStyle.color_recipe.font_y,
+                borderWidth: 2,
+                color: GlobalStyle.color_recipe.font_g,
               }}
             />
           </View>
@@ -196,9 +209,14 @@ const EditProfile = () => {
               onChangeText={value => onChangeInput('password', value)}
               value={inputData?.password}
               style={{
+                padding: 15,
+                paddingLeft: 15,
                 backgroundColor: '#FFFFFF',
                 borderRadius: 10,
-                padding: 10,
+                fontFamily: 'Poppins-SemiBold',
+                borderColor: GlobalStyle.color_recipe.font_y,
+                borderWidth: 2,
+                color: GlobalStyle.color_recipe.font_g,
               }}
               secureTextEntry={true}
             />
@@ -213,7 +231,7 @@ const EditProfile = () => {
             <TouchableOpacity
               onPress={updateProfile}
               style={{
-                backgroundColor: '#30C0F3',
+                backgroundColor: GlobalStyle.color_recipe.font_y,
                 width: 100,
                 borderRadius: 10,
               }}>

@@ -10,23 +10,40 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import GlobalStyle from '../assets/styles/style';
-import {Picker} from '@react-native-picker/picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {postMenu} from '../redux/actions/menu/postMenu';
 import {useDispatch, useSelector} from 'react-redux';
-import { useNavigation } from "@react-navigation/native";
+import {useNavigation} from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import Modal from 'react-native-modal';
 
 const AddMenu = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState(null);
-  const [selectedOption, setSelectedOption] = useState('2');
   const [inputData, setInputData] = useState({
     title: '',
     ingredients: '',
     category_id: '2',
     photo: '',
   });
+
+  const [isCategoryModalVisible, setCategoryModalVisible] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
+
+  const showCategoryModal = () => {
+    setCategoryModalVisible(true);
+  };
+
+  const hideCategoryModal = () => {
+    setCategoryModalVisible(false);
+  };
+
+  const selectCategory = (categoryId, categoryName) => {
+    setSelectedCategory(categoryName);
+    setInputData({ ...inputData, category_id: categoryId });
+    hideCategoryModal();
+  };
 
   const cameraLaunch = async () => {
     let options = {
@@ -77,15 +94,15 @@ const AddMenu = () => {
   };
 
   const categoryOptions = [
-    { label: 'Appetizer', value: '1' },
-    { label: 'Main Course', value: '2' },
-    { label: 'Dessert', value: '3' },
+    {label: 'Appetizer', value: '1'},
+    {label: 'Main Course', value: '2'},
+    {label: 'Dessert', value: '3'},
   ];
   return (
     <>
       <ScrollView>
         <View style={GlobalStyle.container_bootstrap}>
-          <View style={{marginVertical: 30}}>
+          <View style={{marginTop: 40, marginBottom: 20}}>
             <Text
               style={{
                 fontSize: 25,
@@ -109,6 +126,9 @@ const AddMenu = () => {
                   backgroundColor: '#FFFFFF',
                   borderRadius: 10,
                   fontFamily: 'Poppins-SemiBold',
+                  borderColor: GlobalStyle.color_recipe.font_y,
+                  borderWidth: 2,
+                  color: GlobalStyle.color_recipe.font_g,
                 }}
               />
               <TextInput
@@ -124,29 +144,103 @@ const AddMenu = () => {
                   backgroundColor: '#FFFFFF',
                   borderRadius: 10,
                   fontFamily: 'Poppins-SemiBold',
+                  borderColor: GlobalStyle.color_recipe.font_y,
+                  borderWidth: 2,
+                  color: GlobalStyle.color_recipe.font_g,
                 }}
               />
-              <Picker
+
+              <TouchableOpacity onPress={showCategoryModal}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    marginTop: 20,
+                    backgroundColor: 'white',
+                    padding: 10,
+                    borderRadius: 10,
+                    borderWidth: 2,
+                    borderColor: GlobalStyle.color_recipe.font_y,
+                  }}>
+                  {selectedCategory ? (
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-SemiBold',
+                        color: GlobalStyle.color_recipe.font_g,
+                      }}>
+                      {selectedCategory}
+                    </Text>
+                  ) : (
+                    <Text
+                      style={{
+                        flex: 1,
+                        paddingRight: 10,
+                        fontFamily: 'Poppins-SemiBold',
+                        color: GlobalStyle.color_recipe.font_g,
+                      }}>
+                      Select Category
+                    </Text>
+                  )}
+                </View>
+              </TouchableOpacity>
+
+              <Modal
+                isVisible={isCategoryModalVisible}
+                backdropOpacity={0.5}
+                onBackdropPress={hideCategoryModal}>
+                <View
+                  style={{
+                    backgroundColor: 'white',
+                    padding: 20,
+                    borderRadius: 10,
+                  }}>
+                  {categoryOptions.map(option => (
+                    <TouchableOpacity
+                      key={option.value}
+                      onPress={() => selectCategory(option.value, option.label)}
+                      style={{ paddingVertical: 10 }}>
+                      <Text
+                        style={{
+                          fontFamily: 'Poppins-SemiBold',
+                          color: GlobalStyle.color_recipe.font_g,
+                        }}>
+                        {option.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </Modal>
+
+              <View
                 style={{
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: 10,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                   marginTop: 20,
-                  color: GlobalStyle.color_recipe.font_g,
-                  fontFamily: 'Poppins-SemiBold',
-                }}
-                selectedValue={selectedOption}
-                onValueChange={itemValue => {
-                  setSelectedOption(itemValue);
-                  setInputData({...inputData, category_id: itemValue}); // Update category_id
+                  height: 200,
+                  width: '100%',
+                  borderWidth: 2,
+                  borderColor: GlobalStyle.color_recipe.font_y,
+                  backgroundColor: 'white',
+                  borderRadius: 10,
+                  padding: 10,
                 }}>
-                {categoryOptions.map(option => (
-                  <Picker.Item
-                    key={option.value}
-                    label={option.label}
-                    value={option.value}
+                {selectedImage ? (
+                  <Image
+                    resizeMode="cover"
+                    style={{height: '100%', width: '100%', borderRadius: 10}}
+                    source={{uri: selectedImage?.uri}}
                   />
-                ))}
-              </Picker>
+                ) : (
+                  <Text
+                    style={{
+                      fontFamily: 'Poppins-SemiBold',
+                      color: GlobalStyle.color_recipe.font_g,
+                    }}>
+                    Image/Foto
+                  </Text>
+                )}
+              </View>
               <View
                 style={{
                   marginTop: 20,
@@ -156,51 +250,36 @@ const AddMenu = () => {
                 <TouchableOpacity
                   onPress={() => cameraLaunch()}
                   style={{
-                    backgroundColor: '#30C0F3',
-                    padding: 10,
-                    width: 100,
-                    borderRadius: 10,
+                    padding: 5,
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}>
-                  <Text
-                    style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
-                    Take Foto
-                  </Text>
+                  <Ionicons
+                    name="camera"
+                    size={50}
+                    color={GlobalStyle.color_recipe.font_g}
+                  />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => galleryLaunch()}
                   style={{
-                    backgroundColor: '#F57E71',
-                    padding: 10,
-                    width: 100,
-                    borderRadius: 10,
+                    padding: 5,
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}>
-                  <Text
-                    style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
-                    Gallery Foto
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginTop: 20,
-                }}>
-                {selectedImage && (
-                  <Image
-                    resizeMode="cover"
-                    style={{height: 200, width: 200}}
-                    source={{uri: selectedImage?.uri}}
+                  <Ionicons
+                    name="image"
+                    size={50}
+                    color={GlobalStyle.color_recipe.font_g}
                   />
-                )}
+                </TouchableOpacity>
               </View>
               <TouchableOpacity
                 onPress={uploadRecipe}
                 style={{
                   backgroundColor: GlobalStyle.color_recipe.font_y,
                   borderRadius: 10,
-                  marginTop: 20,
+                  marginVertical: 20,
                 }}>
                 <Text
                   style={{

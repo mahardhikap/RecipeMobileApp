@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   TextInput,
   ScrollView,
+  StatusBar
 } from 'react-native';
 import React, {useState} from 'react';
 import GlobalStyle from '../assets/styles/style';
@@ -27,9 +28,10 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 60,
-    borderWidth: 1,
+    borderWidth: 2,
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 10,
+    borderColor:GlobalStyle.color_recipe.font_y,
     width: '100%',
     marginVertical: 12,
   },
@@ -54,6 +56,7 @@ const Register = () => {
   };
   return (
     <ScrollView>
+      <StatusBar translucent backgroundColor="transparent"/>
       <Image
         style={styles.stretch}
         source={require('../assets/images/Rectangle_63.png')}
@@ -80,21 +83,21 @@ const Register = () => {
           </Text>
         </View>
         <SafeAreaView>
-          <Text style={{marginTop: 20}}>Username</Text>
+          <Text style={{marginTop: 20, fontFamily:"Poppins-Medium"}}>Username</Text>
           <TextInput
             style={styles.input}
             placeholder="Input username"
             onChangeText={value => onChangeRegister('username', value)}
             value={inputData.username}
           />
-          <Text>Email</Text>
+          <Text style={{fontFamily:"Poppins-Medium"}}>Email</Text>
           <TextInput
             style={styles.input}
             placeholder="Input email"
             onChangeText={value => onChangeRegister('email', value)}
             value={inputData.email}
           />
-          <Text>Password</Text>
+          <Text style={{fontFamily:"Poppins-Medium"}}>Password</Text>
           <TextInput
             secureTextEntry={true}
             style={styles.input}
@@ -130,6 +133,7 @@ const Register = () => {
             fontFamily: 'Poppins-Medium',
             marginTop: 10,
             textAlign: 'center',
+            marginBottom:50
           }}>
           Have an account?{' '}
           <Text
