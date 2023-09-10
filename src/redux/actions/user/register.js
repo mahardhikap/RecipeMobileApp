@@ -3,8 +3,9 @@ import {RN_BASE_URL} from "@env"
 
 export const register = (data, navigate) => async (dispatch) => {
   try {
+    let url = await RN_BASE_URL
     dispatch({ type: "REGISTER_PENDING" });
-    const response = await axios.post(`${RN_BASE_URL}/register`, data); 
+    const response = await axios.post(`${url}/register`, data); 
     dispatch({ type: "REGISTER_SUCCESS", payload: response.data.data });
     setTimeout(() => {
       navigate('ActivateUser');

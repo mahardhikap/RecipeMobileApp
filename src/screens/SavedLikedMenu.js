@@ -1,171 +1,146 @@
-import {View, ScrollView, Image, Text} from 'react-native';
-import React from 'react';
+import {
+  View,
+  ScrollView,
+  Image,
+  Text,
+  TouchableOpacity,
+  RefreshControl,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import GlobalStyle from '../assets/styles/style';
+import {getLikedMenu} from '../redux/actions/menu/getLikedMenu';
+import {likedMenu} from '../redux/actions/menu/likedMenu';
+import {useDispatch, useSelector} from 'react-redux';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useNavigation} from '@react-navigation/native';
 
 const SavedLikedMenu = () => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const {like, errorMessage} = useSelector(state => state.getLikedMenu);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleLiked = async itemId => {
+    dispatch(likedMenu(itemId));
+  };
+  const allRecipeLiked = () => {
+    dispatch(getLikedMenu());
+  };
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    allRecipeLiked();
+    setRefreshing(false);
+  };
+
+  useEffect(() => {
+    allRecipeLiked();
+  }, []);
   return (
-    <ScrollView>
+    <ScrollView
+      style={{marginBottom: 60, marginTop: 40, flex: 1}}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+      }>
       <View style={GlobalStyle.container_bootstrap}>
-        <View style={{marginTop: 20}}>
-          <Text
+        {like && like?.length > 0 ? (
+          like?.map(item => {
+            return (
+              <View>
+                <TouchableOpacity
+                  key={item.liked_id}
+                  onPress={() =>
+                    navigation.push('DetailMenu', {id: item.recipe_id})
+                  }>
+                  <View
+                    style={{
+                      marginTop: 10,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      backgroundColor: 'white',
+                      padding: 10,
+                      borderRadius: 10,
+                    }}>
+                    <Image
+                      style={{
+                        width: 100,
+                        height: 100,
+                        resizeMode: 'cover',
+                        borderRadius: 10,
+                        borderColor: 'yellow',
+                        borderWidth: 2,
+                      }}
+                      source={{uri: item.photo_menu}}
+                    />
+                    <View
+                      style={{
+                        flexDirection: 'column',
+                        marginHorizontal: 8,
+                        width: 150,
+                      }}>
+                      <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>
+                        {item.title}
+                      </Text>
+                      <Text
+                        style={{fontFamily: 'Poppins-Medium', fontSize: 14}}>
+                        {item.category}
+                      </Text>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          width: 90,
+                        }}>
+                        <Image
+                          style={{width: 20, height: 20}}
+                          source={require('../assets/images/user.png')}
+                        />
+                        <Text
+                          style={{fontFamily: 'Poppins-Bold', fontSize: 12}}>
+                          {item.username}
+                        </Text>
+                      </View>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        width: 80,
+                        justifyContent: 'space-evenly',
+                        marginLeft: 5,
+                      }}>
+                      <Ionicons
+                        name="bookmark-outline"
+                        size={30}
+                        color={GlobalStyle.color_recipe.font_y}
+                      />
+                      <TouchableOpacity
+                        onPress={() => handleLiked(item.recipe_id)}>
+                        <Ionicons
+                          name="thumbs-up-outline"
+                          size={30}
+                          color={GlobalStyle.color_recipe.font_y}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            );
+          })
+        ) : (
+          <View
             style={{
-              color: GlobalStyle.color_recipe.font_y,
-              fontFamily: 'Poppins-Bold',
-              fontSize: 25,
-              textAlign: 'center',
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 700,
             }}>
-            Save & Like
-          </Text>
-          <View>
-            <View style={{marginTop:20, flexDirection:'row', alignItems:'center', backgroundColor:'#00E092', padding:10, borderRadius:10}}>
-                <Image
-                style={{width:120, height:120, resizeMode:'cover'}}
-                source={require('../assets/images/Rectangle_10.png')}
-                />
-                <View style={{flexDirection:'column', marginLeft:10, width:140}}>
-                    <Text style={{fontFamily:'Poppins-SemiBold', fontSize:20}}>Margherita</Text>
-                    <Text style={{fontFamily:'Poppins-Medium', fontSize:18}}>Main Course</Text>
-                    <View style={{flexDirection:'row', alignItems:'center', width:90}}>
-                        <Image
-                        style={{width:30, height:30}}
-                            source={require('../assets/images/user.png')}
-                        />
-                        <Text style={{fontFamily:'Poppins-Bold'}}>Mahardhika Putra Pratama</Text>
-                    </View>
-                </View>
-                <View style={{flexDirection:'row', width:90, justifyContent:'space-between', marginLeft:5}}>
-                    <Image source={require('../assets/images/Group_86.png')} style={{width:40, height:40}}/>
-                    <Image source={require('../assets/images/Group_87.png')} style={{width:40, height:40}}/>
-                </View>
-            </View>
-            <View style={{marginTop:20, flexDirection:'row', alignItems:'center', backgroundColor:'#00E092', padding:10, borderRadius:10}}>
-                <Image
-                style={{width:120, height:120, resizeMode:'cover'}}
-                source={require('../assets/images/Rectangle_10.png')}
-                />
-                <View style={{flexDirection:'column', marginLeft:10, width:140}}>
-                    <Text style={{fontFamily:'Poppins-SemiBold', fontSize:20}}>Margherita</Text>
-                    <Text style={{fontFamily:'Poppins-Medium', fontSize:18}}>Main Course</Text>
-                    <View style={{flexDirection:'row', alignItems:'center', width:90}}>
-                        <Image
-                        style={{width:30, height:30}}
-                            source={require('../assets/images/user.png')}
-                        />
-                        <Text style={{fontFamily:'Poppins-Bold'}}>Mahardhika Putra Pratama</Text>
-                    </View>
-                </View>
-                <View style={{flexDirection:'row', width:90, justifyContent:'space-between', marginLeft:5}}>
-                    <Image source={require('../assets/images/Group_86.png')} style={{width:40, height:40}}/>
-                    <Image source={require('../assets/images/Group_87.png')} style={{width:40, height:40}}/>
-                </View>
-            </View>
-            <View style={{marginTop:20, flexDirection:'row', alignItems:'center', backgroundColor:'#00E092', padding:10, borderRadius:10}}>
-                <Image
-                style={{width:120, height:120, resizeMode:'cover'}}
-                source={require('../assets/images/Rectangle_10.png')}
-                />
-                <View style={{flexDirection:'column', marginLeft:10, width:140}}>
-                    <Text style={{fontFamily:'Poppins-SemiBold', fontSize:20}}>Margherita</Text>
-                    <Text style={{fontFamily:'Poppins-Medium', fontSize:18}}>Main Course</Text>
-                    <View style={{flexDirection:'row', alignItems:'center', width:90}}>
-                        <Image
-                        style={{width:30, height:30}}
-                            source={require('../assets/images/user.png')}
-                        />
-                        <Text style={{fontFamily:'Poppins-Bold'}}>Mahardhika Putra Pratama</Text>
-                    </View>
-                </View>
-                <View style={{flexDirection:'row', width:90, justifyContent:'space-between', marginLeft:5}}>
-                    <Image source={require('../assets/images/Group_86.png')} style={{width:40, height:40}}/>
-                    <Image source={require('../assets/images/Group_87.png')} style={{width:40, height:40}}/>
-                </View>
-            </View>
-            <View style={{marginTop:20, flexDirection:'row', alignItems:'center', backgroundColor:'#00E092', padding:10, borderRadius:10}}>
-                <Image
-                style={{width:120, height:120, resizeMode:'cover'}}
-                source={require('../assets/images/Rectangle_10.png')}
-                />
-                <View style={{flexDirection:'column', marginLeft:10, width:140}}>
-                    <Text style={{fontFamily:'Poppins-SemiBold', fontSize:20}}>Margherita</Text>
-                    <Text style={{fontFamily:'Poppins-Medium', fontSize:18}}>Main Course</Text>
-                    <View style={{flexDirection:'row', alignItems:'center', width:90}}>
-                        <Image
-                        style={{width:30, height:30}}
-                            source={require('../assets/images/user.png')}
-                        />
-                        <Text style={{fontFamily:'Poppins-Bold'}}>Mahardhika Putra Pratama</Text>
-                    </View>
-                </View>
-                <View style={{flexDirection:'row', width:90, justifyContent:'space-between', marginLeft:5}}>
-                    <Image source={require('../assets/images/Group_86.png')} style={{width:40, height:40}}/>
-                    <Image source={require('../assets/images/Group_87.png')} style={{width:40, height:40}}/>
-                </View>
-            </View>
-            <View style={{marginTop:20, flexDirection:'row', alignItems:'center', backgroundColor:'#00E092', padding:10, borderRadius:10}}>
-                <Image
-                style={{width:120, height:120, resizeMode:'cover'}}
-                source={require('../assets/images/Rectangle_10.png')}
-                />
-                <View style={{flexDirection:'column', marginLeft:10, width:140}}>
-                    <Text style={{fontFamily:'Poppins-SemiBold', fontSize:20}}>Margherita</Text>
-                    <Text style={{fontFamily:'Poppins-Medium', fontSize:18}}>Main Course</Text>
-                    <View style={{flexDirection:'row', alignItems:'center', width:90}}>
-                        <Image
-                        style={{width:30, height:30}}
-                            source={require('../assets/images/user.png')}
-                        />
-                        <Text style={{fontFamily:'Poppins-Bold'}}>Mahardhika Putra Pratama</Text>
-                    </View>
-                </View>
-                <View style={{flexDirection:'row', width:90, justifyContent:'space-between', marginLeft:5}}>
-                    <Image source={require('../assets/images/Group_86.png')} style={{width:40, height:40}}/>
-                    <Image source={require('../assets/images/Group_87.png')} style={{width:40, height:40}}/>
-                </View>
-            </View>
-            <View style={{marginTop:20, flexDirection:'row', alignItems:'center', backgroundColor:'#00E092', padding:10, borderRadius:10}}>
-                <Image
-                style={{width:120, height:120, resizeMode:'cover'}}
-                source={require('../assets/images/Rectangle_10.png')}
-                />
-                <View style={{flexDirection:'column', marginLeft:10, width:140}}>
-                    <Text style={{fontFamily:'Poppins-SemiBold', fontSize:20}}>Margherita Enak Sekali Rasanya</Text>
-                    <Text style={{fontFamily:'Poppins-Medium', fontSize:18}}>Main Course</Text>
-                    <View style={{flexDirection:'row', alignItems:'center', width:90}}>
-                        <Image
-                        style={{width:30, height:30}}
-                            source={require('../assets/images/user.png')}
-                        />
-                        <Text style={{fontFamily:'Poppins-Bold'}}>Mahardhika Putra Pratama</Text>
-                    </View>
-                </View>
-                <View style={{flexDirection:'row', width:90, justifyContent:'space-between', marginLeft:5}}>
-                    <Image source={require('../assets/images/Group_86.png')} style={{width:40, height:40}}/>
-                    <Image source={require('../assets/images/Group_87.png')} style={{width:40, height:40}}/>
-                </View>
-            </View>
-            <View style={{marginTop:20, flexDirection:'row', alignItems:'center', backgroundColor:'#00E092', padding:10, borderRadius:10}}>
-                <Image
-                style={{width:120, height:120, resizeMode:'cover'}}
-                source={require('../assets/images/Rectangle_10.png')}
-                />
-                <View style={{flexDirection:'column', marginLeft:10, width:140}}>
-                    <Text style={{fontFamily:'Poppins-SemiBold', fontSize:20}}>Margherita</Text>
-                    <Text style={{fontFamily:'Poppins-Medium', fontSize:18}}>Main Course</Text>
-                    <View style={{flexDirection:'row', alignItems:'center', width:90}}>
-                        <Image
-                        style={{width:30, height:30}}
-                            source={require('../assets/images/user.png')}
-                        />
-                        <Text style={{fontFamily:'Poppins-Bold'}}>Mahardhika Putra Pratama</Text>
-                    </View>
-                </View>
-                <View style={{flexDirection:'row', width:90, justifyContent:'space-between', marginLeft:5}}>
-                    <Image source={require('../assets/images/Group_86.png')} style={{width:40, height:40}}/>
-                    <Image source={require('../assets/images/Group_87.png')} style={{width:40, height:40}}/>
-                </View>
+            <View>
+              <Image source={require('../assets/images/Group_697.png')} />
+              <Text style={{textAlign: 'center'}}>{errorMessage?.message}</Text>
             </View>
           </View>
-        </View>
+        )}
       </View>
     </ScrollView>
   );

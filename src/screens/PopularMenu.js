@@ -8,7 +8,7 @@ const PopularMenu = () => {
   return (
     <ScrollView>
       <View style={GlobalStyle.container_bootstrap}>
-        <View style={{marginTop: 20}}>
+        <View style={{marginTop: 40}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <TouchableOpacity onPress={() => {navigation.navigate('IndexRoute')}}>
               <View>

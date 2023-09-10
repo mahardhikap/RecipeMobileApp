@@ -1,10 +1,9 @@
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-let url = "https://fluffy-ox-lapel.cyclic.app";
+import {RN_BASE_URL} from "@env"
 
 const instance = axios.create({
-  baseURL: `${url}`,
+  baseURL: `${RN_BASE_URL}`,
   headers: {
     'Content-Type': 'multipart/form-data',
   },

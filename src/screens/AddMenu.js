@@ -3,10 +3,9 @@ import {
   Text,
   TextInput,
   ScrollView,
-  StyleSheet,
   TouchableOpacity,
-  Alert,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import GlobalStyle from '../assets/styles/style';
@@ -19,6 +18,7 @@ import Modal from 'react-native-modal';
 
 const AddMenu = () => {
   const dispatch = useDispatch();
+  const {isLoading} = useSelector(state => state.postMenu);
   const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState(null);
   const [inputData, setInputData] = useState({
@@ -41,7 +41,7 @@ const AddMenu = () => {
 
   const selectCategory = (categoryId, categoryName) => {
     setSelectedCategory(categoryName);
-    setInputData({ ...inputData, category_id: categoryId });
+    setInputData({...inputData, category_id: categoryId});
     hideCategoryModal();
   };
 
@@ -114,184 +114,193 @@ const AddMenu = () => {
             </Text>
           </View>
           <View>
-            <View>
-              <TextInput
-                onChangeText={value => onChangeInput('title', value)}
-                value={inputData?.title}
-                placeholder="Title"
-                placeholderTextColor={GlobalStyle.color_recipe.font_g}
-                style={{
-                  padding: 20,
-                  paddingLeft: 15,
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: 10,
-                  fontFamily: 'Poppins-SemiBold',
-                  borderColor: GlobalStyle.color_recipe.font_y,
-                  borderWidth: 2,
-                  color: GlobalStyle.color_recipe.font_g,
-                }}
+            {isLoading === true ? (
+              <ActivityIndicator
+                size="large"
+                color={GlobalStyle.color_recipe.font_y}
               />
-              <TextInput
-                onChangeText={value => onChangeInput('ingredients', value)}
-                value={inputData?.ingredients}
-                placeholder="Ingredients"
-                placeholderTextColor={GlobalStyle.color_recipe.font_g}
-                multiline={true}
-                numberOfLines={6}
-                style={{
-                  paddingLeft: 15,
-                  marginTop: 20,
-                  backgroundColor: '#FFFFFF',
-                  borderRadius: 10,
-                  fontFamily: 'Poppins-SemiBold',
-                  borderColor: GlobalStyle.color_recipe.font_y,
-                  borderWidth: 2,
-                  color: GlobalStyle.color_recipe.font_g,
-                }}
-              />
-
-              <TouchableOpacity onPress={showCategoryModal}>
-                <View
+            ) : (
+              <View>
+                <TextInput
+                  onChangeText={value => onChangeInput('title', value)}
+                  value={inputData?.title}
+                  placeholder="Title"
+                  placeholderTextColor={GlobalStyle.color_recipe.font_g}
                   style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    marginTop: 20,
-                    backgroundColor: 'white',
-                    padding: 10,
-                    borderRadius: 10,
-                    borderWidth: 2,
-                    borderColor: GlobalStyle.color_recipe.font_y,
-                  }}>
-                  {selectedCategory ? (
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-SemiBold',
-                        color: GlobalStyle.color_recipe.font_g,
-                      }}>
-                      {selectedCategory}
-                    </Text>
-                  ) : (
-                    <Text
-                      style={{
-                        flex: 1,
-                        paddingRight: 10,
-                        fontFamily: 'Poppins-SemiBold',
-                        color: GlobalStyle.color_recipe.font_g,
-                      }}>
-                      Select Category
-                    </Text>
-                  )}
-                </View>
-              </TouchableOpacity>
-
-              <Modal
-                isVisible={isCategoryModalVisible}
-                backdropOpacity={0.5}
-                onBackdropPress={hideCategoryModal}>
-                <View
-                  style={{
-                    backgroundColor: 'white',
                     padding: 20,
+                    paddingLeft: 15,
+                    backgroundColor: '#FFFFFF',
                     borderRadius: 10,
-                  }}>
-                  {categoryOptions.map(option => (
-                    <TouchableOpacity
-                      key={option.value}
-                      onPress={() => selectCategory(option.value, option.label)}
-                      style={{ paddingVertical: 10 }}>
+                    fontFamily: 'Poppins-SemiBold',
+                    borderColor: GlobalStyle.color_recipe.font_y,
+                    borderWidth: 2,
+                    color: GlobalStyle.color_recipe.font_g,
+                  }}
+                />
+                <TextInput
+                  onChangeText={value => onChangeInput('ingredients', value)}
+                  value={inputData?.ingredients}
+                  placeholder="Ingredients"
+                  placeholderTextColor={GlobalStyle.color_recipe.font_g}
+                  multiline={true}
+                  numberOfLines={6}
+                  style={{
+                    paddingLeft: 15,
+                    marginTop: 20,
+                    backgroundColor: '#FFFFFF',
+                    borderRadius: 10,
+                    fontFamily: 'Poppins-SemiBold',
+                    borderColor: GlobalStyle.color_recipe.font_y,
+                    borderWidth: 2,
+                    color: GlobalStyle.color_recipe.font_g,
+                  }}
+                />
+
+                <TouchableOpacity onPress={showCategoryModal}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      marginTop: 20,
+                      backgroundColor: 'white',
+                      padding: 10,
+                      borderRadius: 10,
+                      borderWidth: 2,
+                      borderColor: GlobalStyle.color_recipe.font_y,
+                    }}>
+                    {selectedCategory ? (
                       <Text
                         style={{
                           fontFamily: 'Poppins-SemiBold',
                           color: GlobalStyle.color_recipe.font_g,
                         }}>
-                        {option.label}
+                        {selectedCategory}
                       </Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-              </Modal>
+                    ) : (
+                      <Text
+                        style={{
+                          flex: 1,
+                          paddingRight: 10,
+                          fontFamily: 'Poppins-SemiBold',
+                          color: GlobalStyle.color_recipe.font_g,
+                        }}>
+                        Select Category
+                      </Text>
+                    )}
+                  </View>
+                </TouchableOpacity>
 
-              <View
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  marginTop: 20,
-                  height: 200,
-                  width: '100%',
-                  borderWidth: 2,
-                  borderColor: GlobalStyle.color_recipe.font_y,
-                  backgroundColor: 'white',
-                  borderRadius: 10,
-                  padding: 10,
-                }}>
-                {selectedImage ? (
-                  <Image
-                    resizeMode="cover"
-                    style={{height: '100%', width: '100%', borderRadius: 10}}
-                    source={{uri: selectedImage?.uri}}
-                  />
-                ) : (
+                <Modal
+                  isVisible={isCategoryModalVisible}
+                  backdropOpacity={0.5}
+                  onBackdropPress={hideCategoryModal}>
+                  <View
+                    style={{
+                      backgroundColor: 'white',
+                      padding: 20,
+                      borderRadius: 10,
+                    }}>
+                    {categoryOptions.map(option => (
+                      <TouchableOpacity
+                        key={option.value}
+                        onPress={() =>
+                          selectCategory(option.value, option.label)
+                        }
+                        style={{paddingVertical: 10}}>
+                        <Text
+                          style={{
+                            fontFamily: 'Poppins-SemiBold',
+                            color: GlobalStyle.color_recipe.font_g,
+                          }}>
+                          {option.label}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                </Modal>
+
+                <View
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop: 20,
+                    height: 200,
+                    width: '100%',
+                    borderWidth: 2,
+                    borderColor: GlobalStyle.color_recipe.font_y,
+                    backgroundColor: 'white',
+                    borderRadius: 10,
+                    padding: 10,
+                  }}>
+                  {selectedImage ? (
+                    <Image
+                      resizeMode="cover"
+                      style={{height: '100%', width: '100%', borderRadius: 10}}
+                      source={{uri: selectedImage?.uri}}
+                    />
+                  ) : (
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-SemiBold',
+                        color: GlobalStyle.color_recipe.font_g,
+                      }}>
+                      Image/Foto
+                    </Text>
+                  )}
+                </View>
+                <View
+                  style={{
+                    marginTop: 20,
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                  }}>
+                  <TouchableOpacity
+                    onPress={() => cameraLaunch()}
+                    style={{
+                      padding: 5,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Ionicons
+                      name="camera"
+                      size={50}
+                      color={GlobalStyle.color_recipe.font_g}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => galleryLaunch()}
+                    style={{
+                      padding: 5,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}>
+                    <Ionicons
+                      name="image"
+                      size={50}
+                      color={GlobalStyle.color_recipe.font_g}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <TouchableOpacity
+                  onPress={uploadRecipe}
+                  style={{
+                    backgroundColor: GlobalStyle.color_recipe.font_y,
+                    borderRadius: 10,
+                    marginVertical: 20,
+                  }}>
                   <Text
                     style={{
-                      fontFamily: 'Poppins-SemiBold',
-                      color: GlobalStyle.color_recipe.font_g,
+                      padding: 20,
+                      textAlign: 'center',
+                      fontFamily: 'Poppins-Bold',
+                      color: 'white',
                     }}>
-                    Image/Foto
+                    Submit
                   </Text>
-                )}
-              </View>
-              <View
-                style={{
-                  marginTop: 20,
-                  flexDirection: 'row',
-                  justifyContent: 'space-evenly',
-                }}>
-                <TouchableOpacity
-                  onPress={() => cameraLaunch()}
-                  style={{
-                    padding: 5,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Ionicons
-                    name="camera"
-                    size={50}
-                    color={GlobalStyle.color_recipe.font_g}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => galleryLaunch()}
-                  style={{
-                    padding: 5,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Ionicons
-                    name="image"
-                    size={50}
-                    color={GlobalStyle.color_recipe.font_g}
-                  />
                 </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                onPress={uploadRecipe}
-                style={{
-                  backgroundColor: GlobalStyle.color_recipe.font_y,
-                  borderRadius: 10,
-                  marginVertical: 20,
-                }}>
-                <Text
-                  style={{
-                    padding: 20,
-                    textAlign: 'center',
-                    fontFamily: 'Poppins-Bold',
-                    color: 'white',
-                  }}>
-                  Submit
-                </Text>
-              </TouchableOpacity>
-            </View>
+            )}
           </View>
         </View>
       </ScrollView>

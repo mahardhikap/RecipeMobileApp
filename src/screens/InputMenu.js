@@ -3,8 +3,9 @@ import {
   View,
   Text,
   Image,
-  StyleSheet,
   TouchableOpacity,
+  ActivityIndicator,
+  RefreshControl,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import GlobalStyle from '../assets/styles/style';
@@ -17,9 +18,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 const InputMenu = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {data} = useSelector(state => state.getMenuUser);
+  const {data, isLoading, errorMessage} = useSelector(
+    state => state.getMenuUser,
+  );
   const [page, setPage] = useState(1);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
 
   const getMenuByUser = () => {
     dispatch(getMenuUser('created_at', 'DESC', page, 4));
@@ -29,6 +33,12 @@ const InputMenu = () => {
     if (pageNumber >= 1 && pageNumber <= data?.pages.totalPage) {
       setPage(pageNumber);
     }
+  };
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    getMenuByUser();
+    setRefreshing(false);
   };
 
   const handleDelete = async itemId => {
@@ -42,7 +52,7 @@ const InputMenu = () => {
 
   useEffect(() => {
     getMenuByUser();
-  }, [itemToDelete, page]);
+  }, [page, itemToDelete]);
 
   useEffect(() => {
     if (itemToDelete) {
@@ -55,7 +65,10 @@ const InputMenu = () => {
 
   return (
     <>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }>
         <Text
           style={{
             textAlign: 'center',
@@ -85,7 +98,12 @@ const InputMenu = () => {
             </Text>
           </TouchableOpacity>
 
-          {data?.rows && data.rows?.length > 0 ? (
+          {isLoading === true ? (
+            <ActivityIndicator
+              size="large"
+              color={GlobalStyle.color_recipe.font_y}
+            />
+          ) : data?.rows && data.rows?.length > 0 ? (
             data.rows?.map(item => {
               return (
                 <TouchableOpacity
@@ -180,38 +198,55 @@ const InputMenu = () => {
               );
             })
           ) : (
-            <Text>No data available</Text>
-          )}
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 20,
-              marginBottom:30
-            }}>
-            <TouchableOpacity onPress={() => goToPage(page - 1)}>
-              <Ionicons
-                name="arrow-back-circle-outline"
-                size={30}
-                color={GlobalStyle.color_recipe.font_y}
-              />
-            </TouchableOpacity>
-            <Text
+            <View
               style={{
-                fontSize: 18,
-                fontFamily: 'Poppins-Medium',
-                color: GlobalStyle.color_recipe.font_y,
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 500,
               }}>
-              Halaman {page} dari {data?.pages.totalPage}
-            </Text>
-            <TouchableOpacity onPress={() => goToPage(page + 1)}>
-              <Ionicons
-                name="arrow-forward-circle-outline"
-                size={30}
-                color={GlobalStyle.color_recipe.font_y}
-              />
-            </TouchableOpacity>
-          </View>
+              <View>
+                <Image source={require('../assets/images/Group_697.png')} />
+                <Text style={{textAlign: 'center'}}>
+                  {errorMessage?.message}
+                </Text>
+              </View>
+            </View>
+          )}
+          {data ? (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginTop: 20,
+                marginBottom: 30,
+              }}>
+              <TouchableOpacity onPress={() => goToPage(page - 1)}>
+                <Ionicons
+                  name="arrow-back-circle-outline"
+                  size={30}
+                  color={GlobalStyle.color_recipe.font_y}
+                />
+              </TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontFamily: 'Poppins-Medium',
+                  color: GlobalStyle.color_recipe.font_y,
+                }}>
+                Halaman {page} dari {data?.pages.totalPage}
+              </Text>
+              <TouchableOpacity onPress={() => goToPage(page + 1)}>
+                <Ionicons
+                  name="arrow-forward-circle-outline"
+                  size={30}
+                  color={GlobalStyle.color_recipe.font_y}
+                />
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View></View>
+          )}
         </View>
       </ScrollView>
     </>

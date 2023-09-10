@@ -5,14 +5,14 @@ const initialState = {
     isError: false,
   };
   
-  const likedMenu = (state = initialState,{type, payload}) => {
+  const getLikedMenu = (state = initialState,{type, payload}) => {
     switch (type) {
-      case "LIKE_MENU_PENDING":
+      case "GET_LIKE_PENDING":
         return {
           ...state,
           isLoading: true,
         };
-      case "LIKE_MENU_SUCCESS":
+      case "GET_LIKE_SUCCESS":
         return {
           ...state,
           like: payload,
@@ -20,7 +20,7 @@ const initialState = {
           errorMessage: "",
           isError: false,
         };
-      case "LIKE_MENU_FAILED":
+      case "GET_LIKE_FAILED":
         return {
           ...state,
           like: null,
@@ -33,4 +33,4 @@ const initialState = {
     }
   };
   
-  export default likedMenu;
+  export default getLikedMenu;

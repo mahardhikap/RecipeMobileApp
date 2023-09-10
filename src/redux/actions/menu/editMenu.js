@@ -4,8 +4,9 @@ import {RN_BASE_URL} from "@env"
 
 export const editMenu = (data, id, navigate) => async (dispatch) => {
   try {
+    let url = await RN_BASE_URL
     dispatch({ type: "EDIT_MENU_PENDING" });
-    const response = await instance.put(`${RN_BASE_URL}/menu/${id}`, data); 
+    const response = await instance.put(`${url}/menu/${id}`, data); 
     dispatch({ type: "EDIT_MENU_SUCCESS", payload: response.data.data });
     dispatch(getMenuUser())
     setTimeout(() => {
