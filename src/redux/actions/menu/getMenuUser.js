@@ -5,7 +5,7 @@ export const getMenuUser = (sortby, sort, page, limit) => async (dispatch) => {
   try {
     let url = await RN_BASE_URL
     dispatch({ type: "GETMENU_USER_PENDING" });
-    const response = await instance.get(`${url}/user/page/sort?sortby=${sortby}&sort=${sort}&page=${page}&limit=${limit}`); 
+    const response = await instance.get(`${url}/menu-user?sortby=${sortby}&sort=${sort}&page=${page}&limit=${limit}`); 
     dispatch({ type: "GETMENU_USER_SUCCESS", payload: response.data.data });
   } catch (err) {
     console.error("Error during get menu user:", err);
