@@ -19,7 +19,7 @@ import {likedMenu} from '../redux/actions/menu/likedMenu';
 const Search = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {data, isLoading} = useSelector(state => state.getAllMenu);
+  const {data, isLoading, errorMessage} = useSelector(state => state.getAllMenu);
   const {like} = useSelector(state => state.getLikedMenu);
   const [sortby, setSortby] = useState('title');
   const [sort, setSort] = useState('ASC');

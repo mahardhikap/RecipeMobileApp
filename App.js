@@ -16,6 +16,9 @@ import PopularMenu from './src/screens/PopularMenu';
 import DetailMenu from './src/screens/DetailMenu';
 import ActivateUser from './src/screens/ActivateUser';
 import DessertPage from './src/screens/DessertPage';
+import MainCoursePage from './src/screens/MainCoursePage';
+import AppetizerPage from './src/screens/AppetizerPage';
+import NewMenuPage from './src/screens/NewMenuPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +42,9 @@ function App() {
         <Stack.Screen name="DetailMenu" component={DetailMenu} />
         <Stack.Screen name="ActivateUser" component={ActivateUser} />
         <Stack.Screen name="DessertPage" component={DessertPage} />
+        <Stack.Screen name="MainCoursePage" component={MainCoursePage} />
+        <Stack.Screen name="AppetizerPage" component={AppetizerPage} />
+        <Stack.Screen name="NewMenuPage" component={NewMenuPage} />
       </Stack.Navigator>
     // </NavigationContainer>
   );

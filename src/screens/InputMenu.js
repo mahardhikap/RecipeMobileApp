@@ -6,6 +6,10 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   RefreshControl,
+  Alert,
+  Modal,
+  StyleSheet,
+  Pressable,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import GlobalStyle from '../assets/styles/style';
@@ -23,7 +27,10 @@ const InputMenu = () => {
   );
   const [page, setPage] = useState(1);
   const [itemToDelete, setItemToDelete] = useState(null);
+  const [idDelete, setIdDelete] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [menuTitle, setMenuTitle] = useState('');
 
   const getMenuByUser = () => {
     dispatch(getMenuUser('created_at', 'DESC', page, 4));
@@ -183,7 +190,11 @@ const InputMenu = () => {
                           paddingHorizontal: 10,
                           paddingVertical: 5,
                         }}
-                        onPress={() => handleDelete(item.id)}>
+                        onPress={() => {
+                          setModalVisible(true);
+                          setIdDelete(item.id);
+                          setMenuTitle(item.title);
+                        }}>
                         <Text
                           style={{
                             color: 'white',
@@ -248,9 +259,104 @@ const InputMenu = () => {
             <View></View>
           )}
         </View>
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
+              setModalVisible(!modalVisible);
+            }}>
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>
+                  Are you sure want to delete{' '}
+                  <Text style={{fontWeight: 'bold'}}>{menuTitle}</Text>?
+                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                  }}>
+                  <Pressable
+                    style={{
+                      paddingHorizontal: 10,
+                      paddingVertical: 5,
+                      backgroundColor: 'red',
+                      alignItems: 'center',
+                      borderRadius: 10,
+                      justifyContent: 'center',
+                      marginRight: 20,
+                    }}
+                    onPress={() => {
+                      handleDelete(idDelete);
+                      setModalVisible(!modalVisible);
+                    }}>
+                    <Text style={styles.textStyle}>Yes</Text>
+                  </Pressable>
+                  <Pressable
+                    style={{
+                      paddingHorizontal: 10,
+                      paddingVertical: 5,
+                      backgroundColor: 'gray',
+                      alignItems: 'center',
+                      borderRadius: 10,
+                      justifyContent: 'center',
+                      marginLeft: 20,
+                    }}
+                    onPress={() => setModalVisible(!modalVisible)}>
+                    <Text style={styles.textStyle}>No</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </View>
+          </Modal>
+        </View>
       </ScrollView>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 2,
+      height: 2,
+    },
+    shadowOpacity: 0.75,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1,
+  },
+});
 
 export default InputMenu;

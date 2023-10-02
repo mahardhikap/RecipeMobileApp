@@ -180,25 +180,35 @@ const Home = () => {
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <TouchableOpacity
+                  onPress={() => navigation.push('NewMenuPage')}>
                 <Image source={require('../assets/images/Group_48.png')} />
                 <Text
                   style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
-                  Soup
+                  New Menu
                 </Text>
+              </TouchableOpacity>
               </View>
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <TouchableOpacity
+                  onPress={() => navigation.push('AppetizerPage')}>
                 <Image source={require('../assets/images/Group_47.png')} />
                 <Text
                   style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
                   Appetizer
                 </Text>
+              </TouchableOpacity>
               </View>
-              <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <View>
+              <TouchableOpacity
+              style={{justifyContent: 'center', alignItems: 'center'}}
+                  onPress={() => navigation.push('MainCoursePage')}>
                 <Image source={require('../assets/images/Group_49.png')} />
                 <Text
                   style={{textAlign: 'center', fontFamily: 'Poppins-Medium'}}>
                   Main Course
                 </Text>
+              </TouchableOpacity>
               </View>
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 <TouchableOpacity
