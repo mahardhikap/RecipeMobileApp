@@ -20,16 +20,19 @@ import {
     const {bookmark, errorMessage} = useSelector(state => state.getBookmarkedMenu);
     const [refreshing, setRefreshing] = useState(false);
   
-    const handleBookmarked = async itemId => {
-      dispatch(bookmarkedMenu(itemId));
-    };
     const allRecipeBookmarked = () => {
       dispatch(getBookmarkedMenu());
+    };
+    
+    const handleBookmarked = async itemId => {
+      dispatch(bookmarkedMenu(itemId));
+      allRecipeBookmarked()
     };
   
     const handleRefresh = () => {
       setRefreshing(true);
       allRecipeBookmarked();
+      dispatch(getBookmarkedMenu())
       setRefreshing(false);
     };
   

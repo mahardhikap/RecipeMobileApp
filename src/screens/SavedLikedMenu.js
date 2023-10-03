@@ -20,16 +20,19 @@ const SavedLikedMenu = () => {
   const {like, errorMessage} = useSelector(state => state.getLikedMenu);
   const [refreshing, setRefreshing] = useState(false);
 
-  const handleLiked = async itemId => {
-    dispatch(likedMenu(itemId));
-  };
   const allRecipeLiked = () => {
     dispatch(getLikedMenu());
+  };
+
+  const handleLiked = async itemId => {
+    dispatch(likedMenu(itemId));
+    allRecipeLiked()
   };
 
   const handleRefresh = () => {
     setRefreshing(true);
     allRecipeLiked();
+    dispatch(getLikedMenu())
     setRefreshing(false);
   };
 

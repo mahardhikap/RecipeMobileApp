@@ -38,17 +38,19 @@ const Search = () => {
   const handleSearchChange = value => {
     setSearch(value);
   };
+  
+  const onSearchSubmit = () => {
+    dispatch(getAllMenu(searchby, search, sortby, sort, page, limit));
+  };
 
   const handleLiked = async itemId => {
     dispatch(likedMenu(itemId));
+    onSearchSubmit();
   };
 
   const handleBookmarked = async itemId => {
     dispatch(bookmarkedMenu(itemId));
-  };
-
-  const onSearchSubmit = () => {
-    dispatch(getAllMenu(searchby, search, sortby, sort, page, limit));
+    onSearchSubmit()
   };
 
   const handleRefresh = () => {

@@ -51,6 +51,7 @@ const MainCoursePage = () => {
 
   const handleBookmarked = async itemId => {
     dispatch(bookmarkedMenu(itemId));
+    onSearchSubmit();
   };
 
   const goToPage = pageNumber => {

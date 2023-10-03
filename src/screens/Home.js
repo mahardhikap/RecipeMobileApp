@@ -55,13 +55,18 @@ const Home = () => {
 
   const handleBookmarked = async itemId => {
     dispatch(bookmarkedMenu(itemId));
+    onSearchSubmit();
   };
 
   useEffect(() => {
     onSearchSubmit();
+  }, [search]);
+
+  useEffect(()=>{
     popularCheckMenu();
     forMenuUser();
-  }, [search]);
+  }, [])
+  
   const navigation = useNavigation();
   return (
     <ScrollView>

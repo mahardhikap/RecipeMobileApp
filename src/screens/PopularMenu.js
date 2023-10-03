@@ -40,6 +40,7 @@ const PopularMenu = () => {
 
   const handleBookmarked = async itemId => {
     dispatch(bookmarkedMenu(itemId));
+    getDataMenu()
   };
 
   const handleRefresh = () => {
