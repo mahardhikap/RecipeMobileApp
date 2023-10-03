@@ -107,11 +107,6 @@ const SavedLikedMenu = () => {
                         justifyContent: 'space-evenly',
                         marginLeft: 5,
                       }}>
-                      <Ionicons
-                        name="bookmark-outline"
-                        size={30}
-                        color={GlobalStyle.color_recipe.font_y}
-                      />
                       <TouchableOpacity
                         onPress={() => handleLiked(item.recipe_id)}>
                         <Ionicons
