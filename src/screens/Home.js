@@ -13,6 +13,8 @@ import GlobalStyle from '../assets/styles/style';
 import {useNavigation} from '@react-navigation/native';
 import {getAllMenu} from '../redux/actions/menu/getAllMenu';
 import {useDispatch, useSelector} from 'react-redux';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { likedMenu } from '../redux/actions/menu/likedMenu';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -23,9 +25,14 @@ const Home = () => {
   const [limit, setLimit] = useState(4);
   const [search, setSearch] = useState('');
   const [searchby, setSearchby] = useState('title');
+  const {like} = useSelector(state => state.getLikedMenu);
 
   const handleSearchChange = value => {
     setSearch(value);
+  };
+
+  const handleLiked = async itemId => {
+    dispatch(likedMenu(itemId));
   };
 
   const onSearchSubmit = () => {
@@ -48,71 +55,99 @@ const Home = () => {
           <View style={GlobalStyle.container_bootstrap}>
             {data?.rows?.map(item => {
               return (
-                <View
-                  key={item.id}
-                  style={{
-                    marginTop: 10,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    backgroundColor: 'white',
-                    padding: 10,
-                    borderRadius: 10,
-                  }}>
-                  <Image
-                    style={{
-                      width: 100,
-                      height: 100,
-                      resizeMode: 'cover',
-                      borderRadius: 10,
-                      borderColor: 'yellow',
-                      borderWidth: 2,
-                    }}
-                    source={{uri: item.photo_menu}}
-                  />
-                  <View
-                    style={{
-                      flexDirection: 'column',
-                      marginHorizontal: 8,
-                      width: 150,
-                    }}>
-                    <Text style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>
-                      {item.title}
-                    </Text>
-                    <Text style={{fontFamily: 'Poppins-Medium', fontSize: 14}}>
-                      {item.category}
-                    </Text>
+                <TouchableOpacity
+                    key={item.id}
+                    onPress={() =>
+                      navigation.navigate('DetailMenu', {id: item.id})
+                    }>
                     <View
                       style={{
+                        marginTop: 10,
                         flexDirection: 'row',
                         alignItems: 'center',
-                        width: 90,
+                        backgroundColor: 'white',
+                        padding: 10,
+                        borderRadius: 10,
                       }}>
                       <Image
-                        style={{width: 20, height: 20}}
-                        source={require('../assets/images/user.png')}
+                        style={{
+                          width: 100,
+                          height: 100,
+                          resizeMode: 'cover',
+                          borderRadius: 10,
+                          borderColor: 'yellow',
+                          borderWidth: 2,
+                        }}
+                        source={{uri: item.photo_menu}}
                       />
-                      <Text style={{fontFamily: 'Poppins-Bold', fontSize: 12}}>
-                        {item.username}
-                      </Text>
+                      <View
+                        style={{
+                          flexDirection: 'column',
+                          marginHorizontal: 8,
+                          width: 150,
+                        }}>
+                        <Text
+                          style={{fontFamily: 'Poppins-Bold', fontSize: 18}}>
+                          {item.title}
+                        </Text>
+                        <Text
+                          style={{fontFamily: 'Poppins-Medium', fontSize: 14}}>
+                          {item.category}
+                        </Text>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            width: 90,
+                          }}>
+                          <Image
+                            style={{width: 20, height: 20}}
+                            source={require('../assets/images/user.png')}
+                          />
+                          <Text
+                            style={{fontFamily: 'Poppins-Bold', fontSize: 12}}>
+                            {item.username}
+                          </Text>
+                        </View>
+                      </View>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          width: 80,
+                          justifyContent: 'space-evenly',
+                          marginLeft: 5,
+                        }}>
+                        <Ionicons
+                          name="bookmark-outline"
+                          size={30}
+                          color={GlobalStyle.color_recipe.font_y}
+                        />
+                        <TouchableOpacity onPress={() => handleLiked(item.id)}>
+                          <Ionicons
+                            name={
+                              like &&
+                              like !== null &&
+                              like?.some(
+                                likedItem => likedItem.recipe_id === item.id,
+                              )
+                                ? 'thumbs-up-outline'
+                                : 'thumbs-up-outline'
+                            }
+                            size={30}
+                            color={
+                              like &&
+                              like !== null &&
+                              like?.some(
+                                likedItem => likedItem.recipe_id === item.id,
+                              )
+                                ? GlobalStyle.color_recipe.font_y
+                                : GlobalStyle.color_recipe.font_g
+                            }
+                          />
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      width: 90,
-                      justifyContent: 'space-between',
-                      marginLeft: 5,
-                    }}>
-                    <Image
-                      source={require('../assets/images/Group_86.png')}
-                      style={{width: 40, height: 40}}
-                    />
-                    <Image
-                      source={require('../assets/images/Group_87.png')}
-                      style={{width: 40, height: 40}}
-                    />
-                  </View>
-                </View>
+                  </TouchableOpacity>
               );
             })}
           </View>
