@@ -47,6 +47,11 @@ const Search = () => {
     dispatch(bookmarkedMenu(itemId))
   }
 
+  
+  const onSearchSubmit = () => {
+    dispatch(getAllMenu(searchby, search, sortby, sort, page, limit));
+  };
+  
   const handleRefresh = () => {
     setRefreshing(true);
     onSearchSubmit();
@@ -54,11 +59,7 @@ const Search = () => {
     dispatch(getBookmarkedMenu())
     setRefreshing(false);
   };
-
-  const onSearchSubmit = () => {
-    dispatch(getAllMenu(searchby, search, sortby, sort, page, limit));
-  };
-
+  
   const goToPage = pageNumber => {
     if (pageNumber >= 1 && pageNumber <= data?.pages.totalPage) {
       setPage(pageNumber);
