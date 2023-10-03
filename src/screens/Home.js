@@ -18,6 +18,7 @@ import {likedMenu} from '../redux/actions/menu/likedMenu';
 import {bookmarkedMenu} from '../redux/actions/menu/bookmarkedMenu';
 import {getBookmarkedMenu} from '../redux/actions/menu/getBookmarkedMenu';
 import {getMenuUser} from '../redux/actions/menu/getMenuUser';
+import getLikedMenu from '../redux/reducers/getLikedMenu';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -51,11 +52,13 @@ const Home = () => {
   const handleLiked = async itemId => {
     dispatch(likedMenu(itemId));
     onSearchSubmit();
+    dispatch(getLikedMenu())
   };
 
   const handleBookmarked = async itemId => {
     dispatch(bookmarkedMenu(itemId));
     onSearchSubmit();
+    dispatch(getBookmarkedMenu())
   };
 
   useEffect(() => {
@@ -66,7 +69,7 @@ const Home = () => {
     popularCheckMenu();
     forMenuUser();
   }, [])
-  
+
   const navigation = useNavigation();
   return (
     <ScrollView>

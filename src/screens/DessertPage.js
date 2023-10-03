@@ -47,11 +47,13 @@ const DessertPage = () => {
   const handleLiked = async itemId => {
     dispatch(likedMenu(itemId));
     onSearchSubmit();
+    dispatch(getLikedMenu());
   };
 
   const handleBookmarked = async itemId => {
     dispatch(bookmarkedMenu(itemId));
     onSearchSubmit();
+    dispatch(getBookmarkedMenu());
   };
 
   const goToPage = pageNumber => {
@@ -73,6 +75,12 @@ const DessertPage = () => {
   useEffect(() => {
     onSearchSubmit();
   }, [page]);
+
+  useEffect(()=>{
+    onSearchSubmit();
+    dispatch(getLikedMenu());
+    dispatch(getBookmarkedMenu());
+  },[])
 
   return (
     <ScrollView

@@ -26,7 +26,7 @@ import {
     
     const handleBookmarked = async itemId => {
       dispatch(bookmarkedMenu(itemId));
-      allRecipeBookmarked()
+      dispatch(getBookmarkedMenu())
     };
   
     const handleRefresh = () => {

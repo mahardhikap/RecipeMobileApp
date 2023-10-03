@@ -36,11 +36,13 @@ const PopularMenu = () => {
   const handleLiked = async itemId => {
     dispatch(likedMenu(itemId));
     getDataMenu();
+    dispatch(getLikedMenu());
   };
 
   const handleBookmarked = async itemId => {
     dispatch(bookmarkedMenu(itemId));
     getDataMenu()
+    dispatch(getBookmarkedMenu());
   };
 
   const handleRefresh = () => {
@@ -61,6 +63,12 @@ const PopularMenu = () => {
   useEffect(() => {
     getDataMenu();
   }, [page]);
+
+  useEffect(()=>{
+    getDataMenu()
+    dispatch(getLikedMenu());
+    dispatch(getBookmarkedMenu());
+  },[])
 
   return (
     <ScrollView

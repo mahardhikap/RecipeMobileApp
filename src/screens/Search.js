@@ -46,11 +46,13 @@ const Search = () => {
   const handleLiked = async itemId => {
     dispatch(likedMenu(itemId));
     onSearchSubmit();
+    dispatch(getLikedMenu());
   };
 
   const handleBookmarked = async itemId => {
     dispatch(bookmarkedMenu(itemId));
     onSearchSubmit()
+    dispatch(getBookmarkedMenu());
   };
 
   const handleRefresh = () => {
@@ -70,6 +72,12 @@ const Search = () => {
   useEffect(() => {
     onSearchSubmit();
   }, [page, search]);
+
+  useEffect(() => {
+    onSearchSubmit()
+    dispatch(getLikedMenu());
+    dispatch(getBookmarkedMenu());
+  }, [])
 
   return (
     <ScrollView

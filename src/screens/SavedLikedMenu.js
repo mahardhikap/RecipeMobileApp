@@ -26,7 +26,7 @@ const SavedLikedMenu = () => {
 
   const handleLiked = async itemId => {
     dispatch(likedMenu(itemId));
-    allRecipeLiked()
+    dispatch(getLikedMenu())
   };
 
   const handleRefresh = () => {
