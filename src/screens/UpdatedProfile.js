@@ -5,7 +5,7 @@ import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {logout} from '../redux/actions/user/logout';
 import {useDispatch} from 'react-redux';
-import { updateUser } from '../redux/actions/user/updateUser';
+import {updateUser} from '../redux/actions/user/updateUser';
 import IndexRoute from '../IndexRoute';
 
 const {width: screenWidth} = Dimensions.get('window');
@@ -17,9 +17,9 @@ const UpdatedProfile = () => {
   const userLogout = () => {
     dispatch(logout(navigation.navigate));
   };
-  useEffect(()=>{
-    dispatch(updateUser())
-  },[])
+  useEffect(() => {
+    dispatch(updateUser());
+  }, []);
   return (
     <View>
       <View>
@@ -177,7 +177,25 @@ const UpdatedProfile = () => {
               marginTop: 60,
             }}>
             <TouchableOpacity
-              style={{backgroundColor: 'red', borderRadius: 10, width: 200}}
+            style={{backgroundColor:'grey', borderRadius: 10, width: 200, margin:3}}
+              onPress={() => {
+                navigation.reset({
+                  index: 0,
+                  routes: [{name: 'IndexRoute'}], // Mengatur ulang tumpukan navigator ke SplashScreen
+                });
+              }}>
+                <Text
+                style={{
+                  textAlign: 'center',
+                  padding: 10,
+                  fontFamily: 'Poppins-Bold',
+                  color: 'white',
+                }}>
+                Back Menu
+              </Text>
+              </TouchableOpacity>
+            <TouchableOpacity
+              style={{backgroundColor: 'red', borderRadius: 10, width: 200, margin:3}}
               onPress={() => {
                 userLogout();
               }}>

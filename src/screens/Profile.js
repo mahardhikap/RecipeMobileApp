@@ -11,7 +11,8 @@ const {width: screenWidth} = Dimensions.get('window');
 const Profile = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const {data} = useSelector(state => state.updateUser);
+  const {data: profileBefore} = useSelector(state => state.loginUser);
+  const {data: profileAfter} = useSelector(state => state.updateUser);
 
   const userLogout = () => {
     dispatch(logout(navigation.navigate));
@@ -31,7 +32,7 @@ const Profile = () => {
           }}>
           <Image
             source={{
-              uri: data?.photo || 'https://i.ibb.co/M2JSRmW/noimage.png',
+              uri: profileAfter ? profileAfter?.photo : profileBefore?.photo || 'https://i.ibb.co/M2JSRmW/noimage.png',
             }}
             style={{
               marginTop: 50,
@@ -48,7 +49,7 @@ const Profile = () => {
               fontSize: 20,
               marginTop: 10,
             }}>
-            {data?.username}
+            {profileAfter ? profileAfter?.username : profileBefore?.username}
           </Text>
         </View>
         <View

@@ -19,7 +19,8 @@ const EditProfile = () => {
   const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState(null);
   const dispatch = useDispatch();
-  const {data} = useSelector(state => state.updateUser);
+  const {data : profileBefore} = useSelector(state => state.loginUser);
+  const {data : profileAfter} = useSelector(state => state.updateUser);
   const {isLoading} =useSelector(state => state.editProfile)
   const [inputData, setInputData] = useState({
     username: '',
@@ -82,14 +83,14 @@ const EditProfile = () => {
   };
 
   useEffect(() => {
-    if (data) {
+    if (profileBefore) {
       setInputData({
-        username: data?.username,
-        email: data?.email,
-        photo_url: data?.photo,
+        username: profileAfter ? profileAfter?.username : profileBefore?.username,
+        email: profileAfter ? profileAfter?.email : profileBefore?.email,
+        photo_url: profileAfter ? profileAfter?.photo : profileBefore?.photo,
       });
     }
-  }, [data]);
+  }, [profileBefore]);
 
   return (
     <View style={GlobalStyle.container_bootstrap}>

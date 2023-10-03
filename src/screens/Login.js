@@ -9,9 +9,10 @@ import {
   SafeAreaView,
   TextInput,
   ScrollView,
-  StatusBar
+  StatusBar,
+  ActivityIndicator
 } from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../redux/actions/user/login';
 import GlobalStyle from '../assets/styles/style';
 import {useNavigation} from '@react-navigation/native';
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
 
 const Login = () => {
   const navigation = useNavigation();
+  const {errorMessage, isLoading} = useSelector(state => state.loginUser);
   const dispatch = useDispatch();
   const [inputData, setInputData] = useState({
     email: '',
@@ -56,7 +58,7 @@ const Login = () => {
 
   return (
     <>
-    <StatusBar translucent backgroundColor="transparent"/>
+      <StatusBar translucent backgroundColor="transparent" />
       <ScrollView>
         <Image
           style={styles.stretch}
@@ -84,14 +86,28 @@ const Login = () => {
             </Text>
           </View>
           <SafeAreaView>
-            <Text style={{marginTop: 20, fontFamily:'Poppins-Medium'}}>Email</Text>
+            <Text
+              style={{
+                color: 'red',
+                textAlign: 'center',
+                fontSize: 12,
+                fontFamily: 'Poppins-Medium',
+                // backgroundColor: 'grey',
+                borderRadius: 10,
+                paddingVertical: 5,
+              }}>
+              {errorMessage ? errorMessage?.message : ''}
+            </Text>
+            <Text style={{marginTop: 20, fontFamily: 'Poppins-Medium'}}>
+              Email
+            </Text>
             <TextInput
               style={styles.input}
               placeholder="Input email"
               onChangeText={value => onChangeLogin('email', value)}
               value={inputData.email}
             />
-            <Text style={{fontFamily:'Poppins-Medium'}}>Password</Text>
+            <Text style={{fontFamily: 'Poppins-Medium'}}>Password</Text>
             <TextInput
               secureTextEntry={true}
               style={styles.input}
@@ -99,7 +115,8 @@ const Login = () => {
               onChangeText={value => onChangeLogin('password', value)}
               value={inputData.password}
             />
-            <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+            <View
+              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('ActivateUser')}>
                 <Text style={{fontFamily: 'Poppins-Medium'}}>
@@ -118,7 +135,13 @@ const Login = () => {
                 marginTop: 30,
               }}
               onPress={postDataLogin}>
-              <Text
+              {isLoading === true ? (
+                <ActivityIndicator
+                size="small"
+                color={'white'}
+              />
+              ) : (
+                <Text
                 style={{
                   textAlign: 'center',
                   color: 'white',
@@ -128,6 +151,7 @@ const Login = () => {
                 }}>
                 LOGIN
               </Text>
+              )}
             </TouchableOpacity>
           </SafeAreaView>
           <Text
@@ -135,7 +159,7 @@ const Login = () => {
               fontFamily: 'Poppins-Medium',
               marginTop: 10,
               textAlign: 'center',
-              marginBottom:50
+              marginBottom: 50,
             }}>
             Don’t have an account?{' '}
             <Text

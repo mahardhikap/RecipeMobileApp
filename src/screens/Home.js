@@ -216,86 +216,99 @@ const Home = () => {
             </TouchableOpacity>
             <Text style={{fontFamily: 'Poppins-Bold'}}>Popular check</Text>
             <ScrollView horizontal={true} style={{flexDirection: 'row'}}>
-              {menuData?.rows?.map(popular => {
-                return (
-                  <TouchableOpacity
-                    key={popular.id}
-                    onPress={() =>
-                      navigation.push('DetailMenu', {id: popular.id})
-                    }>
-                    <View
-                      style={{position: 'relative', marginRight: 10}}
-                      key={popular.id}>
-                      <Image
-                        style={{
-                          width: 310,
-                          height: 200,
-                          resizeMode: 'cover',
-                          borderRadius: 10,
-                          borderWidth: 2,
-                          elevation: 5,
-                          // shadowColor: 'black',
-                          // shadowOffset: {width: 0, height: 5},
-                          // shadowOpacity: 0.5,
-                          // shadowRadius: 10,
-                        }}
-                        source={{uri: popular.photo_menu}}
-                      />
+              {menuData ? (
+                menuData?.rows?.map(popular => {
+                  return (
+                    <TouchableOpacity
+                      key={popular.id}
+                      onPress={() =>
+                        navigation.push('DetailMenu', {id: popular.id})
+                      }>
                       <View
-                        style={{
-                          position: 'absolute',
-                          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                          padding: 15,
-                          width: '100%',
-                          height: '100%',
-                          bottom: 0,
-                          borderRadius: 10,
-                        }}>
-                        <Text
+                        style={{position: 'relative', marginRight: 10}}
+                        key={popular.id}>
+                        <Image
                           style={{
-                            color: 'white',
-                            fontFamily: 'Poppins-Bold',
-                            fontSize: 18,
-                            position: 'absolute',
-                            bottom: 0,
-                            paddingBottom: 30,
-                            paddingLeft: 10,
-                            width: '65%',
-                          }}>
-                          {popular.title}
-                        </Text>
-                        <Text
-                          style={{
-                            color: '#EFC81A',
-                            fontSize: 14,
-                            fontFamily: 'Poppins-Bold',
-                            position: 'absolute',
-                            bottom: 0,
-                            paddingBottom: 12,
-                            paddingLeft: 10,
-                          }}>
-                          {popular.username}
-                        </Text>
-                        <Text
+                            width: 310,
+                            height: 200,
+                            resizeMode: 'cover',
+                            borderRadius: 10,
+                            borderWidth: 2,
+                            elevation: 5,
+                            // shadowColor: 'black',
+                            // shadowOffset: {width: 0, height: 5},
+                            // shadowOpacity: 0.5,
+                            // shadowRadius: 10,
+                          }}
+                          source={{uri: popular.photo_menu}}
+                        />
+                        <View
                           style={{
                             position: 'absolute',
+                            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                            padding: 15,
+                            width: '100%',
+                            height: '100%',
                             bottom: 0,
-                            right: 0,
-                            color: 'white',
-                            fontFamily: 'Poppins-Bold',
-                            fontSize: 12,
-                            padding: 10,
+                            borderRadius: 10,
                           }}>
-                          Like{' '}
-                          <Text style={{color: '#EFC81A'}}>
-                            {popular.like_count}
+                          <Text
+                            style={{
+                              color: 'white',
+                              fontFamily: 'Poppins-Bold',
+                              fontSize: 18,
+                              position: 'absolute',
+                              bottom: 0,
+                              paddingBottom: 30,
+                              paddingLeft: 10,
+                              width: '65%',
+                            }}>
+                            {popular.title}
                           </Text>
-                        </Text>
+                          <Text
+                            style={{
+                              color: '#EFC81A',
+                              fontSize: 14,
+                              fontFamily: 'Poppins-Bold',
+                              position: 'absolute',
+                              bottom: 0,
+                              paddingBottom: 12,
+                              paddingLeft: 10,
+                            }}>
+                            {popular.username}
+                          </Text>
+                          <Text
+                            style={{
+                              position: 'absolute',
+                              bottom: 0,
+                              right: 0,
+                              color: 'white',
+                              fontFamily: 'Poppins-Bold',
+                              fontSize: 12,
+                              padding: 10,
+                            }}>
+                            Like{' '}
+                            <Text style={{color: '#EFC81A'}}>
+                              {popular.like_count}
+                            </Text>
+                          </Text>
+                        </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
-                );
-              })}
+                    </TouchableOpacity>
+                  );
+                })
+              ) : (
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: 'black',
+                      fontFamily: 'Poppins-Bold',
+                    }}>
+                    No recipe found! No one upload recipe!
+                  </Text>
+                </View>
+              )}
             </ScrollView>
             <Text
               style={{
@@ -362,34 +375,52 @@ const Home = () => {
             <ScrollView
               horizontal={true}
               style={{flexDirection: 'row', marginBottom: 50}}>
-              {menuUser.rows?.map(user => {
-                return (
-                  <View
-                    style={{width: 190, position: 'relative', marginRight: 10}}>
-                    <Image
-                      style={{borderRadius: 10, width: 190, height: 150}}
-                      source={{uri:user.photo_menu}}
-                    />
+              {menuUser ? (
+                menuUser.rows?.map(user => {
+                  return (
                     <View
+                      key={user.id}
                       style={{
-                        backgroundColor: 'white',
-                        position: 'absolute',
-                        width: '100%',
-                        bottom: 0,
-                        borderBottomEndRadius: 10,
-                        borderBottomLeftRadius: 10,
-                        padding: 5,
+                        width: 190,
+                        position: 'relative',
+                        marginRight: 10,
                       }}>
-                      <Text style={{fontFamily: 'Poppins-ExtraBold'}}>
-                        {user.title}
-                      </Text>
-                      <Text style={{fontFamily: 'Poppins-Medium'}}>
-                        {user.category}
-                      </Text>
+                      <Image
+                        style={{borderRadius: 10, width: 190, height: 150}}
+                        source={{uri: user.photo_menu}}
+                      />
+                      <View
+                        style={{
+                          backgroundColor: 'white',
+                          position: 'absolute',
+                          width: '100%',
+                          bottom: 0,
+                          borderBottomEndRadius: 10,
+                          borderBottomLeftRadius: 10,
+                          padding: 5,
+                        }}>
+                        <Text style={{fontFamily: 'Poppins-ExtraBold'}}>
+                          {user.title}
+                        </Text>
+                        <Text style={{fontFamily: 'Poppins-Medium'}}>
+                          {user.category}
+                        </Text>
+                      </View>
                     </View>
-                  </View>
-                );
-              })}
+                  );
+                })
+              ) : (
+                <View>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: 'black',
+                      fontFamily: 'Poppins-Bold',
+                    }}>
+                    No recipe found! Make your first recipe
+                  </Text>
+                </View>
+              )}
             </ScrollView>
           </View>
         </ScrollView>

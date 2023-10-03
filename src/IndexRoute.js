@@ -59,7 +59,7 @@ function IndexRoute() {
         />
         <Tab.Screen
           name="Profile"
-          component={UpdatedProfile}
+          component={Profile}
           options={{
             tabBarIcon: ({focused}) => getTabBarIcon('person-sharp', focused),
             headerShown: false,
