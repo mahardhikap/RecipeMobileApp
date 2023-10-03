@@ -16,8 +16,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {likedMenu} from '../redux/actions/menu/likedMenu';
-import { bookmarkedMenu } from '../redux/actions/menu/bookmarkedMenu';
-import { getBookmarkedMenu } from '../redux/actions/menu/getBookmarkedMenu';
+import {bookmarkedMenu} from '../redux/actions/menu/bookmarkedMenu';
+import {getBookmarkedMenu} from '../redux/actions/menu/getBookmarkedMenu';
 
 const Search = () => {
   const navigation = useNavigation();
@@ -26,7 +26,7 @@ const Search = () => {
     state => state.getAllMenu,
   );
   const {like} = useSelector(state => state.getLikedMenu);
-  const {bookmark} = useSelector(state => state.getBookmarkedMenu)
+  const {bookmark} = useSelector(state => state.getBookmarkedMenu);
   const [sortby, setSortby] = useState('title');
   const [sort, setSort] = useState('ASC');
   const [page, setPage] = useState(1);
@@ -44,22 +44,21 @@ const Search = () => {
   };
 
   const handleBookmarked = async itemId => {
-    dispatch(bookmarkedMenu(itemId))
-  }
+    dispatch(bookmarkedMenu(itemId));
+  };
 
-  
   const onSearchSubmit = () => {
     dispatch(getAllMenu(searchby, search, sortby, sort, page, limit));
   };
-  
+
   const handleRefresh = () => {
     setRefreshing(true);
     onSearchSubmit();
-    dispatch(getLikedMenu())
-    dispatch(getBookmarkedMenu())
+    dispatch(getLikedMenu());
+    dispatch(getBookmarkedMenu());
     setRefreshing(false);
   };
-  
+
   const goToPage = pageNumber => {
     if (pageNumber >= 1 && pageNumber <= data?.pages.totalPage) {
       setPage(pageNumber);
@@ -94,7 +93,7 @@ const Search = () => {
                   <TouchableOpacity
                     key={item.id}
                     onPress={() =>
-                      navigation.navigate('DetailMenu', {id: item.id})
+                      navigation.push('DetailMenu', {id: item.id})
                     }>
                     <View
                       style={{
@@ -158,13 +157,15 @@ const Search = () => {
                           size={30}
                           color={GlobalStyle.color_recipe.font_y}
                         /> */}
-                        <TouchableOpacity onPress={() => handleBookmarked(item.id)}>
+                        <TouchableOpacity
+                          onPress={() => handleBookmarked(item.id)}>
                           <Ionicons
                             name={
                               bookmark &&
                               bookmark !== null &&
                               bookmark?.some(
-                                bookmarkedItem => bookmarkedItem.recipe_id === item.id,
+                                bookmarkedItem =>
+                                  bookmarkedItem.recipe_id === item.id,
                               )
                                 ? 'bookmark-outline'
                                 : 'bookmark-outline'
@@ -174,7 +175,8 @@ const Search = () => {
                               bookmark &&
                               bookmark !== null &&
                               bookmark?.some(
-                                bookmarkedItem => bookmarkedItem.recipe_id === item.id,
+                                bookmarkedItem =>
+                                  bookmarkedItem.recipe_id === item.id,
                               )
                                 ? GlobalStyle.color_recipe.font_y
                                 : GlobalStyle.color_recipe.font_g
@@ -203,6 +205,9 @@ const Search = () => {
                                 : GlobalStyle.color_recipe.font_g
                             }
                           />
+                          <Text style={{textAlign: 'center'}}>
+                            {item.like_count}
+                          </Text>
                         </TouchableOpacity>
                       </View>
                     </View>

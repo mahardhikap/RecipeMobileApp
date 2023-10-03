@@ -5,7 +5,7 @@ import {
   Text,
   TouchableOpacity,
   ActivityIndicator,
-  RefreshControl
+  RefreshControl,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import GlobalStyle from '../assets/styles/style';
@@ -13,10 +13,10 @@ import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {getAllMenu} from '../redux/actions/menu/getAllMenu';
 import {useDispatch, useSelector} from 'react-redux';
-import { likedMenu } from '../redux/actions/menu/likedMenu'
-import { getLikedMenu } from '../redux/actions/menu/getLikedMenu'
-import { bookmarkedMenu } from '../redux/actions/menu/bookmarkedMenu'
-import { getBookmarkedMenu } from '../redux/actions/menu/getBookmarkedMenu'
+import {likedMenu} from '../redux/actions/menu/likedMenu';
+import {getLikedMenu} from '../redux/actions/menu/getLikedMenu';
+import {bookmarkedMenu} from '../redux/actions/menu/bookmarkedMenu';
+import {getBookmarkedMenu} from '../redux/actions/menu/getBookmarkedMenu';
 
 const PopularMenu = () => {
   const navigation = useNavigation();
@@ -27,7 +27,7 @@ const PopularMenu = () => {
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
   const {like} = useSelector(state => state.getLikedMenu);
-  const {bookmark} = useSelector(state => state.getBookmarkedMenu)
+  const {bookmark} = useSelector(state => state.getBookmarkedMenu);
 
   const getDataMenu = () => {
     dispatch(getAllMenu('', '', 'like_count', 'DESC', page, 10));
@@ -39,14 +39,14 @@ const PopularMenu = () => {
   };
 
   const handleBookmarked = async itemId => {
-    dispatch(bookmarkedMenu(itemId))
-  }
+    dispatch(bookmarkedMenu(itemId));
+  };
 
   const handleRefresh = () => {
     setRefreshing(true);
-    getDataMenu()
-    dispatch(getLikedMenu())
-    dispatch(getBookmarkedMenu())
+    getDataMenu();
+    dispatch(getLikedMenu());
+    dispatch(getBookmarkedMenu());
     setRefreshing(false);
   };
 
@@ -62,9 +62,10 @@ const PopularMenu = () => {
   }, [page]);
 
   return (
-    <ScrollView refreshControl={
-      <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-    }>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+      }>
       <View style={GlobalStyle.container_bootstrap}>
         <View style={{marginTop: 40}}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -95,7 +96,11 @@ const PopularMenu = () => {
             ) : (
               data?.rows?.map(item => {
                 return (
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    key={item.id}
+                    onPress={() =>
+                      navigation.push('DetailMenu', {id: item.id})
+                    }>
                     <View
                       style={{
                         marginTop: 10,
@@ -159,13 +164,15 @@ const PopularMenu = () => {
                           justifyContent: 'space-evenly',
                           marginLeft: 5,
                         }}>
-                        <TouchableOpacity onPress={() => handleBookmarked(item.id)}>
+                        <TouchableOpacity
+                          onPress={() => handleBookmarked(item.id)}>
                           <Ionicons
                             name={
                               bookmark &&
                               bookmark !== null &&
                               bookmark?.some(
-                                bookmarkedItem => bookmarkedItem.recipe_id === item.id,
+                                bookmarkedItem =>
+                                  bookmarkedItem.recipe_id === item.id,
                               )
                                 ? 'bookmark-outline'
                                 : 'bookmark-outline'
@@ -175,7 +182,8 @@ const PopularMenu = () => {
                               bookmark &&
                               bookmark !== null &&
                               bookmark?.some(
-                                bookmarkedItem => bookmarkedItem.recipe_id === item.id,
+                                bookmarkedItem =>
+                                  bookmarkedItem.recipe_id === item.id,
                               )
                                 ? GlobalStyle.color_recipe.font_y
                                 : GlobalStyle.color_recipe.font_g
@@ -203,13 +211,15 @@ const PopularMenu = () => {
                                 ? GlobalStyle.color_recipe.font_y
                                 : GlobalStyle.color_recipe.font_g
                             }
-                            />
-                            <Text style={{textAlign:'center'}}>{item.like_count}</Text>
+                          />
+                          <Text style={{textAlign: 'center'}}>
+                            {item.like_count}
+                          </Text>
                         </TouchableOpacity>
                       </View>
                     </View>
                   </TouchableOpacity>
-                );
+                )
               })
             )}
           </View>

@@ -15,7 +15,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {likedMenu} from '../redux/actions/menu/likedMenu';
-import { getLikedMenu } from '../redux/actions/menu/getLikedMenu';
+import {getLikedMenu} from '../redux/actions/menu/getLikedMenu';
+import {bookmarkedMenu} from '../redux/actions/menu/bookmarkedMenu';
+import {getBookmarkedMenu} from '../redux/actions/menu/getBookmarkedMenu';
 
 const DessertPage = () => {
   const navigation = useNavigation();
@@ -24,6 +26,7 @@ const DessertPage = () => {
     state => state.getAllMenu,
   );
   const {like} = useSelector(state => state.getLikedMenu);
+  const {bookmark} = useSelector(state => state.getBookmarkedMenu);
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -36,12 +39,18 @@ const DessertPage = () => {
   const handleRefresh = () => {
     setRefreshing(true);
     onSearchSubmit();
-    dispatch(getLikedMenu())
+    dispatch(getLikedMenu());
+    dispatch(getBookmarkedMenu());
     setRefreshing(false);
   };
 
   const handleLiked = async itemId => {
     dispatch(likedMenu(itemId));
+    onSearchSubmit();
+  };
+
+  const handleBookmarked = async itemId => {
+    dispatch(bookmarkedMenu(itemId));
   };
 
   const goToPage = pageNumber => {
@@ -69,8 +78,28 @@ const DessertPage = () => {
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
       }>
-      <View style={{marginBottom: 60, marginTop: 40}}>
-        <View style={GlobalStyle.container_bootstrap}>
+      <View style={GlobalStyle.container_bootstrap}>
+        <View style={{marginBottom: 60, marginTop: 40}}>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('IndexRoute');
+              }}>
+              <View>
+                <Image source={require('../assets/images/Group_51.png')} />
+              </View>
+            </TouchableOpacity>
+            <Text
+              style={{
+                color: GlobalStyle.color_recipe.font_y,
+                fontFamily: 'Poppins-Bold',
+                fontSize: 25,
+                marginLeft: 60,
+              }}>
+              Dessert
+            </Text>
+          </View>
+
           {data ? (
             <View>
               {isLoading ? (
@@ -149,11 +178,32 @@ const DessertPage = () => {
                             justifyContent: 'space-evenly',
                             marginLeft: 5,
                           }}>
-                          <Ionicons
-                            name="bookmark-outline"
-                            size={30}
-                            color={GlobalStyle.color_recipe.font_y}
-                          />
+                          <TouchableOpacity
+                            onPress={() => handleBookmarked(item.id)}>
+                            <Ionicons
+                              name={
+                                bookmark &&
+                                bookmark !== null &&
+                                bookmark?.some(
+                                  bookmarkedItem =>
+                                    bookmarkedItem.recipe_id === item.id,
+                                )
+                                  ? 'bookmark-outline'
+                                  : 'bookmark-outline'
+                              }
+                              size={30}
+                              color={
+                                bookmark &&
+                                bookmark !== null &&
+                                bookmark?.some(
+                                  bookmarkedItem =>
+                                    bookmarkedItem.recipe_id === item.id,
+                                )
+                                  ? GlobalStyle.color_recipe.font_y
+                                  : GlobalStyle.color_recipe.font_g
+                              }
+                            />
+                          </TouchableOpacity>
                           <TouchableOpacity
                             onPress={() => handleLiked(item.id)}>
                             <Ionicons
@@ -177,6 +227,9 @@ const DessertPage = () => {
                                   : GlobalStyle.color_recipe.font_g
                               }
                             />
+                            <Text style={{textAlign: 'center'}}>
+                              {item.like_count}
+                            </Text>
                           </TouchableOpacity>
                         </View>
                       </View>
