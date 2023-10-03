@@ -11,7 +11,7 @@ const {width: screenWidth} = Dimensions.get('window');
 const Profile = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const {data} = useSelector(state => state.loginUser);
+  const {data} = useSelector(state => state.updateUser);
 
   const userLogout = () => {
     dispatch(logout(navigation.navigate));
