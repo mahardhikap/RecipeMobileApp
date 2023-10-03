@@ -11,6 +11,8 @@ import register from "./register";
 import activateUser from "./activateUser";
 import likedMenu from "./likedMenu";
 import getLikedMenu from "./getLikedMenu";
+import bookmarkedMenu from "./bookmarkedMenu";
+import getBookmarkedMenu from "./getBookmarkedMenu";
 
 const rootReducers = combineReducers({
     loginUser,
@@ -24,7 +26,9 @@ const rootReducers = combineReducers({
     register,
     activateUser,
     likedMenu,
-    getLikedMenu
+    getLikedMenu,
+    bookmarkedMenu,
+    getBookmarkedMenu
 })
 
 export default rootReducers

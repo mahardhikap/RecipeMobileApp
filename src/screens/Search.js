@@ -16,6 +16,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {likedMenu} from '../redux/actions/menu/likedMenu';
+import { bookmarkedMenu } from '../redux/actions/menu/bookmarkedMenu';
+import { getBookmarkedMenu } from '../redux/actions/menu/getBookmarkedMenu';
 
 const Search = () => {
   const navigation = useNavigation();
@@ -24,6 +26,7 @@ const Search = () => {
     state => state.getAllMenu,
   );
   const {like} = useSelector(state => state.getLikedMenu);
+  const {bookmark} = useSelector(state => state.getBookmarkedMenu)
   const [sortby, setSortby] = useState('title');
   const [sort, setSort] = useState('ASC');
   const [page, setPage] = useState(1);
@@ -40,10 +43,15 @@ const Search = () => {
     dispatch(likedMenu(itemId));
   };
 
+  const handleBookmarked = async itemId => {
+    dispatch(bookmarkedMenu(itemId))
+  }
+
   const handleRefresh = () => {
     setRefreshing(true);
     onSearchSubmit();
     dispatch(getLikedMenu())
+    dispatch(getBookmarkedMenu())
     setRefreshing(false);
   };
 
@@ -144,11 +152,34 @@ const Search = () => {
                           justifyContent: 'space-evenly',
                           marginLeft: 5,
                         }}>
-                        <Ionicons
+                        {/* <Ionicons
                           name="bookmark-outline"
                           size={30}
                           color={GlobalStyle.color_recipe.font_y}
-                        />
+                        /> */}
+                        <TouchableOpacity onPress={() => handleBookmarked(item.id)}>
+                          <Ionicons
+                            name={
+                              bookmark &&
+                              bookmark !== null &&
+                              bookmark?.some(
+                                bookmarkedItem => bookmarkedItem.recipe_id === item.id,
+                              )
+                                ? 'bookmark-outline'
+                                : 'bookmark-outline'
+                            }
+                            size={30}
+                            color={
+                              bookmark &&
+                              bookmark !== null &&
+                              bookmark?.some(
+                                bookmarkedItem => bookmarkedItem.recipe_id === item.id,
+                              )
+                                ? GlobalStyle.color_recipe.font_y
+                                : GlobalStyle.color_recipe.font_g
+                            }
+                          />
+                        </TouchableOpacity>
                         <TouchableOpacity onPress={() => handleLiked(item.id)}>
                           <Ionicons
                             name={

@@ -19,6 +19,7 @@ import DessertPage from './src/screens/DessertPage';
 import MainCoursePage from './src/screens/MainCoursePage';
 import AppetizerPage from './src/screens/AppetizerPage';
 import NewMenuPage from './src/screens/NewMenuPage';
+import SavedBookmarkedMenu from './src/screens/SavedBookmarkedMenu';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,7 @@ function App() {
         <Stack.Screen name="MainCoursePage" component={MainCoursePage} />
         <Stack.Screen name="AppetizerPage" component={AppetizerPage} />
         <Stack.Screen name="NewMenuPage" component={NewMenuPage} />
+        <Stack.Screen name="SavedBookmarkedMenu" component={SavedBookmarkedMenu} />
       </Stack.Navigator>
     // </NavigationContainer>
   );

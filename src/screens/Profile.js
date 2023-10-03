@@ -112,7 +112,7 @@ const Profile = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('SavedLikedMenu');
+              navigation.push('SavedBookmarkedMenu');
             }}>
             <View
               style={{
@@ -138,7 +138,7 @@ const Profile = () => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('SavedLikedMenu');
+              navigation.push('SavedLikedMenu');
             }}>
             <View
               style={{
