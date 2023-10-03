@@ -7,9 +7,9 @@ export const likedMenu = id => async dispatch => {
     let url = await RN_BASE_URL;
     dispatch({type: 'LIKE_MENU_PENDING'});
     const response = await instance.post(`${url}/like/${id}`);
-    console.log(response, 'ini response dari liked');
+    await dispatch({type: 'LIKE_MENU_SUCCESS', payload: response.data.data});
+    console.log('ini response dari liked', response);
     dispatch(getLikedMenu())
-    dispatch({type: 'LIKE_MENU_SUCCESS', payload: response.data.data});
   } catch (err) {
     console.error('Error during like menu:', err);
     dispatch({type: 'LIKE_MENU_FAILED', payload: err.response.data});

@@ -46,9 +46,8 @@ const SavedLikedMenu = () => {
         {like && like?.length > 0 ? (
           like?.map(item => {
             return (
-              <View>
+              <View key={item.liked_id}>
                 <TouchableOpacity
-                  key={item.liked_id}
                   onPress={() =>
                     navigation.push('DetailMenu', {id: item.recipe_id})
                   }>

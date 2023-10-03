@@ -11,6 +11,7 @@ import React, {useState, useEffect} from 'react';
 import SearchBar from '../components/SearchBar';
 import GlobalStyle from '../assets/styles/style';
 import {getAllMenu} from '../redux/actions/menu/getAllMenu';
+import {getLikedMenu} from '../redux/actions/menu/getLikedMenu';
 import {useDispatch, useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
@@ -19,7 +20,9 @@ import {likedMenu} from '../redux/actions/menu/likedMenu';
 const Search = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {data, isLoading, errorMessage} = useSelector(state => state.getAllMenu);
+  const {data, isLoading, errorMessage} = useSelector(
+    state => state.getAllMenu,
+  );
   const {like} = useSelector(state => state.getLikedMenu);
   const [sortby, setSortby] = useState('title');
   const [sort, setSort] = useState('ASC');
@@ -40,6 +43,7 @@ const Search = () => {
   const handleRefresh = () => {
     setRefreshing(true);
     onSearchSubmit();
+    dispatch(getLikedMenu())
     setRefreshing(false);
   };
 
@@ -146,26 +150,27 @@ const Search = () => {
                           color={GlobalStyle.color_recipe.font_y}
                         />
                         <TouchableOpacity onPress={() => handleLiked(item.id)}>
-                          {isLoading === true ? (
-                            <ActivityIndicator
-                              size="large"
-                              color={GlobalStyle.color_recipe.font_y}
-                            />
-                          ) : like?.some(
-                              likedItem => likedItem.recipe_id === item.id,
-                            ) ? (
-                            <Ionicons
-                              name="thumbs-up-outline"
-                              size={30}
-                              color={GlobalStyle.color_recipe.font_y}
-                            />
-                          ) : (
-                            <Ionicons
-                              name="thumbs-up-outline"
-                              size={30}
-                              color={GlobalStyle.color_recipe.font_g}
-                            />
-                          )}
+                          <Ionicons
+                            name={
+                              like &&
+                              like !== null &&
+                              like?.some(
+                                likedItem => likedItem.recipe_id === item.id,
+                              )
+                                ? 'thumbs-up-outline'
+                                : 'thumbs-up-outline'
+                            }
+                            size={30}
+                            color={
+                              like &&
+                              like !== null &&
+                              like?.some(
+                                likedItem => likedItem.recipe_id === item.id,
+                              )
+                                ? GlobalStyle.color_recipe.font_y
+                                : GlobalStyle.color_recipe.font_g
+                            }
+                          />
                         </TouchableOpacity>
                       </View>
                     </View>

@@ -15,11 +15,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 import {likedMenu} from '../redux/actions/menu/likedMenu';
+import { getLikedMenu } from '../redux/actions/menu/getLikedMenu';
 
 const DessertPage = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {data, isLoading} = useSelector(state => state.getAllMenu);
+  const {data, isLoading, errorMessage} = useSelector(
+    state => state.getAllMenu,
+  );
   const {like} = useSelector(state => state.getLikedMenu);
   const [page, setPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
@@ -33,6 +36,7 @@ const DessertPage = () => {
   const handleRefresh = () => {
     setRefreshing(true);
     onSearchSubmit();
+    dispatch(getLikedMenu())
     setRefreshing(false);
   };
 
@@ -152,21 +156,27 @@ const DessertPage = () => {
                           />
                           <TouchableOpacity
                             onPress={() => handleLiked(item.id)}>
-                            {like?.some(
-                              likedItem => likedItem.recipe_id === item.id,
-                            ) ? (
-                              <Ionicons
-                                name="thumbs-up-outline"
-                                size={30}
-                                color={GlobalStyle.color_recipe.font_y}
-                              />
-                            ) : (
-                              <Ionicons
-                                name="thumbs-up-outline"
-                                size={30}
-                                color={GlobalStyle.color_recipe.font_g}
-                              />
-                            )}
+                            <Ionicons
+                              name={
+                                like &&
+                                like !== null &&
+                                like?.some(
+                                  likedItem => likedItem.recipe_id === item.id,
+                                )
+                                  ? 'thumbs-up-outline'
+                                  : 'thumbs-up-outline'
+                              }
+                              size={30}
+                              color={
+                                like &&
+                                like !== null &&
+                                like?.some(
+                                  likedItem => likedItem.recipe_id === item.id,
+                                )
+                                  ? GlobalStyle.color_recipe.font_y
+                                  : GlobalStyle.color_recipe.font_g
+                              }
+                            />
                           </TouchableOpacity>
                         </View>
                       </View>
@@ -193,39 +203,39 @@ const DessertPage = () => {
           )}
           {data ? (
             <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 20,
-            }}>
-            <TouchableOpacity
-              onPress={() => goToPage(page - 1)}
-              disabled={page === 1}>
-              <Ionicons
-                name="arrow-back-circle-outline"
-                size={30}
-                color={GlobalStyle.color_recipe.font_y}
-              />
-            </TouchableOpacity>
-            <Text
               style={{
-                fontSize: 18,
-                fontFamily: 'Poppins-Medium',
-                color: GlobalStyle.color_recipe.font_y,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                marginTop: 20,
               }}>
-              Halaman {page} dari {data?.pages.totalPage}
-            </Text>
-            <TouchableOpacity
-              onPress={() => goToPage(page + 1)}
-              disabled={page === data?.pages.totalPage}>
-              <Ionicons
-                name="arrow-forward-circle-outline"
-                size={30}
-                color={GlobalStyle.color_recipe.font_y}
-              />
-            </TouchableOpacity>
-          </View>
-          ):(
+              <TouchableOpacity
+                onPress={() => goToPage(page - 1)}
+                disabled={page === 1}>
+                <Ionicons
+                  name="arrow-back-circle-outline"
+                  size={30}
+                  color={GlobalStyle.color_recipe.font_y}
+                />
+              </TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontFamily: 'Poppins-Medium',
+                  color: GlobalStyle.color_recipe.font_y,
+                }}>
+                Halaman {page} dari {data?.pages.totalPage}
+              </Text>
+              <TouchableOpacity
+                onPress={() => goToPage(page + 1)}
+                disabled={page === data?.pages.totalPage}>
+                <Ionicons
+                  name="arrow-forward-circle-outline"
+                  size={30}
+                  color={GlobalStyle.color_recipe.font_y}
+                />
+              </TouchableOpacity>
+            </View>
+          ) : (
             <View></View>
           )}
         </View>
