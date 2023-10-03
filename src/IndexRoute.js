@@ -5,6 +5,7 @@ import Home from './screens/Home';
 import Search from './screens/Search';
 import InputMenu from './screens/InputMenu';
 import Profile from './screens/Profile';
+import UpdatedProfile from './screens/UpdatedProfile';
 import {NavigationContainer} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
@@ -58,7 +59,7 @@ function IndexRoute() {
         />
         <Tab.Screen
           name="Profile"
-          component={Profile}
+          component={UpdatedProfile}
           options={{
             tabBarIcon: ({focused}) => getTabBarIcon('person-sharp', focused),
             headerShown: false,

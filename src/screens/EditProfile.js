@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   ScrollView,
+  ActivityIndicator
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -12,13 +13,14 @@ import {useDispatch, useSelector} from 'react-redux';
 import GlobalStyle from '../assets/styles/style';
 import {useNavigation} from '@react-navigation/native';
 import {editProfile} from '../redux/actions/user/editProfile';
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const EditProfile = () => {
   const navigation = useNavigation();
   const [selectedImage, setSelectedImage] = useState(null);
   const dispatch = useDispatch();
-  const {data} = useSelector(state => state.loginUser);
+  const {data} = useSelector(state => state.updateUser);
+  const {isLoading} =useSelector(state => state.editProfile)
   const [inputData, setInputData] = useState({
     username: '',
     email: '',
@@ -228,23 +230,30 @@ const EditProfile = () => {
               alignItems: 'center',
               marginTop: 50,
             }}>
-            <TouchableOpacity
-              onPress={updateProfile}
-              style={{
-                backgroundColor: GlobalStyle.color_recipe.font_y,
-                width: 100,
-                borderRadius: 10,
-              }}>
-              <Text
+            {isLoading ? (
+              <ActivityIndicator
+                size="large"
+                color={GlobalStyle.color_recipe.font_y}
+              />
+            ) : (
+              <TouchableOpacity
+                onPress={updateProfile}
                 style={{
-                  padding: 10,
-                  textAlign: 'center',
-                  color: 'white',
-                  fontFamily: 'Poppins-Bold',
+                  backgroundColor: GlobalStyle.color_recipe.font_y,
+                  width: 100,
+                  borderRadius: 10,
                 }}>
-                Save
-              </Text>
-            </TouchableOpacity>
+                <Text
+                  style={{
+                    padding: 10,
+                    textAlign: 'center',
+                    color: 'white',
+                    fontFamily: 'Poppins-Bold',
+                  }}>
+                  Save
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </ScrollView>

@@ -6,12 +6,13 @@ import {useNavigation} from '@react-navigation/native';
 import {logout} from '../redux/actions/user/logout';
 import {useDispatch} from 'react-redux';
 import { updateUser } from '../redux/actions/user/updateUser';
+import IndexRoute from '../IndexRoute';
 
 const {width: screenWidth} = Dimensions.get('window');
-const Profile = () => {
+const UpdatedProfile = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const {data} = useSelector(state => state.loginUser);
+  const {data} = useSelector(state => state.updateUser);
 
   const userLogout = () => {
     dispatch(logout(navigation.navigate));
@@ -197,4 +198,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UpdatedProfile;
