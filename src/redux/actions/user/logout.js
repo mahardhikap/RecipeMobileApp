@@ -5,8 +5,10 @@ export const logout = (navigate) => {
     try {
       const token = await AsyncStorage.getItem('token');
       if (token) {
-        navigate('Login');
         await AsyncStorage.removeItem('token');
+        setTimeout(()=>{
+          navigate('Login');
+        }, 2000)
       }
       dispatch({ type: 'USER_DELETE_TOKEN' });
     } catch (error) {

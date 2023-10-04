@@ -5,24 +5,25 @@ import * as React from 'react';
 import {StackActions} from '@react-navigation/native';
 import GlobalStyle from '../assets/styles/style';
 
-const Home = ({navigation}) => {
+const SplashScreen = ({navigation}) => {
   React.useEffect(() => {
+    let timeoutId
     try {
       async function alreadyLogin() {
         const token = await AsyncStorage.getItem('token');
-        setTimeout(() => {
+        timeoutId = setTimeout(() => {
           if (token) {
             navigation.dispatch(StackActions.replace('IndexRoute'));
           } else {
             navigation.dispatch(StackActions.replace('Login'));
           }
-        }, 500);
+        }, 1000);
       }
       alreadyLogin();
     } catch (error) {
       console.log(error);
     }
-    return () => clearTimeout();
+    return () => clearTimeout(timeoutId);
   }, [navigation]);
 
   return (
@@ -38,4 +39,4 @@ const Home = ({navigation}) => {
   );
 };
 
-export default Home;
+export default SplashScreen;

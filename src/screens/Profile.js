@@ -1,4 +1,4 @@
-import {View, Text, Dimensions, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Dimensions, Image, TouchableOpacity, ActivityIndicator} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import GlobalStyle from '../assets/styles/style';
 import {useSelector} from 'react-redux';
