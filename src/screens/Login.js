@@ -10,7 +10,7 @@ import {
   TextInput,
   ScrollView,
   StatusBar,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../redux/actions/user/login';
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     borderColor: GlobalStyle.color_recipe.font_y,
     width: '100%',
     marginVertical: 12,
+    backgroundColor:'white'
   },
 });
 
@@ -117,15 +118,17 @@ const Login = () => {
             />
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <TouchableOpacity
-                onPress={() => navigation.navigate('ActivateUser')}>
+              <TouchableOpacity onPress={() => navigation.push('ActivateUser')}>
                 <Text style={{fontFamily: 'Poppins-Medium'}}>
                   Activate User?
                 </Text>
               </TouchableOpacity>
-              <Text style={{fontFamily: 'Poppins-Medium'}}>
-                Forgot Password?
-              </Text>
+              <TouchableOpacity
+                onPress={() => navigation.push('ForgetPassword')}>
+                <Text style={{fontFamily: 'Poppins-Medium'}}>
+                  Forgot Password?
+                </Text>
+              </TouchableOpacity>
             </View>
             <TouchableOpacity
               style={{
@@ -136,21 +139,18 @@ const Login = () => {
               }}
               onPress={postDataLogin}>
               {isLoading === true ? (
-                <ActivityIndicator
-                size="small"
-                color={'white'}
-              />
+                <ActivityIndicator size="small" color={'white'} />
               ) : (
                 <Text
-                style={{
-                  textAlign: 'center',
-                  color: 'white',
-                  fontSize: 18,
-                  fontWeight: 'bold',
-                  fontFamily: 'Poppins-Bold',
-                }}>
-                LOGIN
-              </Text>
+                  style={{
+                    textAlign: 'center',
+                    color: 'white',
+                    fontSize: 18,
+                    fontWeight: 'bold',
+                    fontFamily: 'Poppins-Bold',
+                  }}>
+                  LOGIN
+                </Text>
               )}
             </TouchableOpacity>
           </SafeAreaView>

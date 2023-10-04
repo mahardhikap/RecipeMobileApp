@@ -21,6 +21,8 @@ import AppetizerPage from './src/screens/AppetizerPage';
 import NewMenuPage from './src/screens/NewMenuPage';
 import SavedBookmarkedMenu from './src/screens/SavedBookmarkedMenu';
 import UpdatedProfile from './src/screens/UpdatedProfile';
+import ForgetPassword from './src/screens/ForgetPassword';
+import ChangePassword from './src/screens/ChangePassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +51,8 @@ function App() {
         <Stack.Screen name="NewMenuPage" component={NewMenuPage} />
         <Stack.Screen name="SavedBookmarkedMenu" component={SavedBookmarkedMenu} />
         <Stack.Screen name="UpdatedProfile" component={UpdatedProfile} />
+        <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
+        <Stack.Screen name="ChangePassword" component={ChangePassword} />
       </Stack.Navigator>
     // </NavigationContainer>
   );

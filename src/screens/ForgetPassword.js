@@ -3,27 +3,30 @@ import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import GlobalStyle from '../assets/styles/style';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
-import { activateUser } from '../redux/actions/user/activateUser';
+import { sendOTP } from '../redux/actions/user/sendOTP';
 import Modal from 'react-native-modal';
 
-const ActivateUser = () => {
+const ForgetPassword = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { isError, errorMessage, data } = useSelector((state) => state.activateUser);
+  const { isError, errorMessage, data } = useSelector((state) => state.sendOTP);
 
-  const [activationCode, setActivationCode] = useState('');
+  const [sendEmail, setSendEmail] = useState('');
   const [isModalVisible, setModalVisible] = useState(false);
 
-  const handleActivationCodeChange = (text) => {
-    setActivationCode(text);
+  const handleSendEmail = (email) => {
+    setSendEmail(email);
   };
+
+  console.log('ini send email', sendEmail)
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
-    if (!isModalVisible && activationCode) {
-      dispatch(activateUser(activationCode));
-    } else if (!isError) {
-      navigation.navigate('Login');
+    if (!isModalVisible && sendEmail) {
+      dispatch(sendOTP(sendEmail));
+    } 
+    else if (!isError) {
+      navigation.push('ChangePassword');
     }
   };
 
@@ -33,9 +36,9 @@ const ActivateUser = () => {
         <Modal isVisible={isModalVisible}>
           <View
             style={{ backgroundColor: 'white', padding: 40, borderRadius: 10 }}>
-            <Text style={{fontFamily:'Poppins-Bold'}}>{errorMessage?.message || data?.message}</Text>
-            <TouchableOpacity title="email" onPress={toggleModal} style={{backgroundColor:GlobalStyle.color_recipe.font_y, borderRadius:5, marginHorizontal:100, marginTop:10}}>
-              <Text style={{padding:5, textAlign:'center', fontFamily:'Poppins-Bold', color:'white'}}>Ok</Text>
+            <Text style={{fontFamily:'Poppins-Bold'}}>{data?.message || errorMessage?.message}</Text>
+            <TouchableOpacity title="for hide" onPress={toggleModal} style={{backgroundColor:GlobalStyle.color_recipe.font_y, borderRadius:5, marginHorizontal:100, marginTop:10}}>
+              <Text style={{padding:5, textAlign:'center', fontFamily:'Poppins-Bold',color:'white'}}>Ok</Text>
             </TouchableOpacity>
           </View>
         </Modal>
@@ -48,10 +51,10 @@ const ActivateUser = () => {
             color: GlobalStyle.color_recipe.font_y,
             textAlign:'center'
           }}>
-          Input Code Activate:
+          Input Email to Reset:
         </Text>
         <TextInput
-          placeholder="e671-8hjk1-12312-xxxx-xxxx"
+          placeholder="your@mail.com"
           style={{
             backgroundColor: 'white',
             padding: 10,
@@ -60,7 +63,7 @@ const ActivateUser = () => {
             borderWidth:2,
             borderColor:GlobalStyle.color_recipe.font_y
           }}
-          onChangeText={handleActivationCodeChange}
+          onChangeText={handleSendEmail}
         />
         <TouchableOpacity
           style={{
@@ -80,9 +83,12 @@ const ActivateUser = () => {
             Submit
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity style={{marginTop:30}} onPress={() => navigation.push('ChangePassword')}>
+          <Text style={{fontFamily:'Poppins-SemiBold', color:GlobalStyle.color_recipe.font_g, textAlign:'center'}}>I have code OTP</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-export default ActivateUser;
+export default ForgetPassword;

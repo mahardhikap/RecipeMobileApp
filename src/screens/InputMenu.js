@@ -7,7 +7,6 @@ import {
   ActivityIndicator,
   RefreshControl,
   Alert,
-  Modal,
   StyleSheet,
   Pressable,
 } from 'react-native';
@@ -18,6 +17,7 @@ import {getMenuUser} from '../redux/actions/menu/getMenuUser';
 import {deleteMenu} from '../redux/actions/menu/deleteMenu';
 import {useDispatch, useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Modal from 'react-native-modal';
 
 const InputMenu = () => {
   const navigation = useNavigation();
@@ -50,7 +50,7 @@ const InputMenu = () => {
 
   const handleDelete = async itemId => {
     try {
-      await dispatch(deleteMenu(itemId));
+      dispatch(deleteMenu(itemId));
       setItemToDelete(itemId);
     } catch (error) {
       console.error('error saat delete', error);
@@ -259,7 +259,70 @@ const InputMenu = () => {
             <View></View>
           )}
         </View>
-        <View style={styles.centeredView}>
+        <Modal
+  isVisible={modalVisible}
+  backdropOpacity={0.5}
+  backdropColor="black"
+>
+  <View style={{ backgroundColor: 'white', padding: 30, borderRadius: 10 }}>
+    <Text style={{ textAlign: 'center', fontFamily: 'Poppins-Bold' }}>
+      Are you sure want to delete{' '}
+      <Text style={{ color: GlobalStyle.color_recipe.font_y }}>{menuTitle}</Text>?
+    </Text>
+    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
+      <TouchableOpacity
+        title="for hide"
+        style={{
+          flex: 1,
+          backgroundColor: GlobalStyle.color_recipe.font_y,
+          borderRadius: 5,
+          marginHorizontal: 5,
+          marginTop: 10,
+        }}
+        onPress={() => {
+          handleDelete(idDelete);
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <Text
+          style={{
+            padding: 5,
+            textAlign: 'center',
+            fontFamily: 'Poppins-Bold',
+            color:'white'
+          }}
+        >
+          Yes
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        title="for hide"
+        style={{
+          flex: 1,
+          backgroundColor: GlobalStyle.color_recipe.font_g,
+          borderRadius: 5,
+          marginHorizontal: 5,
+          marginTop: 10,
+        }}
+        onPress={() => setModalVisible(!modalVisible)}
+      >
+        <Text
+          style={{
+            padding: 5,
+            textAlign: 'center',
+            fontFamily: 'Poppins-Bold',
+            color: 'white',
+          }}
+        >
+          Cancel
+        </Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+</Modal>
+
+
+        {/* <View style={styles.centeredView}>
           <Modal
             animationType="slide"
             transparent={true}
@@ -311,7 +374,7 @@ const InputMenu = () => {
               </View>
             </View>
           </Modal>
-        </View>
+        </View> */}
       </ScrollView>
     </>
   );

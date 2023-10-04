@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   TextInput,
   ScrollView,
-  StatusBar
+  StatusBar,
 } from 'react-native';
 import React, {useState} from 'react';
 import GlobalStyle from '../assets/styles/style';
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     padding: 10,
     borderRadius: 10,
-    borderColor:GlobalStyle.color_recipe.font_y,
+    borderColor: GlobalStyle.color_recipe.font_y,
     width: '100%',
     marginVertical: 12,
   },
@@ -56,7 +56,7 @@ const Register = () => {
   };
   return (
     <ScrollView>
-      <StatusBar translucent backgroundColor="transparent"/>
+      <StatusBar translucent backgroundColor="transparent" />
       <Image
         style={styles.stretch}
         source={require('../assets/images/Rectangle_63.png')}
@@ -83,21 +83,23 @@ const Register = () => {
           </Text>
         </View>
         <SafeAreaView>
-          <Text style={{marginTop: 20, fontFamily:"Poppins-Medium"}}>Username</Text>
+          <Text style={{marginTop: 20, fontFamily: 'Poppins-Medium'}}>
+            Username
+          </Text>
           <TextInput
             style={styles.input}
             placeholder="Input username"
             onChangeText={value => onChangeRegister('username', value)}
             value={inputData.username}
           />
-          <Text style={{fontFamily:"Poppins-Medium"}}>Email</Text>
+          <Text style={{fontFamily: 'Poppins-Medium'}}>Email</Text>
           <TextInput
             style={styles.input}
             placeholder="Input email"
             onChangeText={value => onChangeRegister('email', value)}
             value={inputData.email}
           />
-          <Text style={{fontFamily:"Poppins-Medium"}}>Password</Text>
+          <Text style={{fontFamily: 'Poppins-Medium'}}>Password</Text>
           <TextInput
             secureTextEntry={true}
             style={styles.input}
@@ -105,9 +107,11 @@ const Register = () => {
             onChangeText={value => onChangeRegister('password', value)}
             value={inputData.password}
           />
-          <Text style={{textAlign: 'right', fontFamily: 'Poppins-Medium'}}>
-            Forgot Password?
-          </Text>
+          <TouchableOpacity onPress={()=>navigation.navigate('ForgetPassword')}>
+            <Text style={{textAlign: 'right', fontFamily: 'Poppins-Medium'}}>
+              Forgot Password?
+            </Text>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={postDataRegister}
             style={{
@@ -133,7 +137,7 @@ const Register = () => {
             fontFamily: 'Poppins-Medium',
             marginTop: 10,
             textAlign: 'center',
-            marginBottom:50
+            marginBottom: 50,
           }}>
           Have an account?{' '}
           <Text
