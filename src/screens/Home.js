@@ -12,6 +12,7 @@ import SearchBar from '../components/SearchBar';
 import GlobalStyle from '../assets/styles/style';
 import {useNavigation} from '@react-navigation/native';
 import {getAllMenu} from '../redux/actions/menu/getAllMenu';
+import { getPopularMenu } from '../redux/actions/menu/getPopularMenu';
 import {useDispatch, useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {likedMenu} from '../redux/actions/menu/likedMenu';
@@ -22,7 +23,7 @@ import getLikedMenu from '../redux/reducers/getLikedMenu';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const {data: menuData} = useSelector(state => state.getAllMenu);
+  const {data: menuData} = useSelector(state => state.getPopularMenu);
   const {data: menuUser} = useSelector(state => state.getMenuUser);
   const [sortby, setSortby] = useState('title');
   const [sort, setSort] = useState('ASC');
@@ -42,7 +43,7 @@ const Home = () => {
   };
 
   const popularCheckMenu = () => {
-    dispatch(getAllMenu('', '', 'like_count', 'DESC', page, 3));
+    dispatch(getPopularMenu())
   };
 
   const forMenuUser = () => {
