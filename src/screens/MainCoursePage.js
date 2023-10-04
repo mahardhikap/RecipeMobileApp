@@ -36,6 +36,10 @@ const MainCoursePage = () => {
     );
   };
 
+  const controlBackHome = () => {
+    dispatch(getAllMenu('', '', 'like_count', 'DESC', page, 3));
+  }
+
   const handleRefresh = () => {
     setRefreshing(true);
     onSearchSubmit();
@@ -91,6 +95,7 @@ const MainCoursePage = () => {
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('IndexRoute');
+                controlBackHome()
               }}>
               <View>
                 <Image source={require('../assets/images/Group_51.png')} />

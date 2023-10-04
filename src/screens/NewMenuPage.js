@@ -52,6 +52,10 @@ const NewMenuPage = () => {
     handleRefresh()
   };
 
+  const controlBackHome = () => {
+    dispatch(getAllMenu('', '', 'like_count', 'DESC', page, 3));
+  }
+
   const goToPage = pageNumber => {
     if (pageNumber >= 1 && pageNumber <= data?.pages.totalPage) {
       setPage(pageNumber);
@@ -80,6 +84,7 @@ const NewMenuPage = () => {
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('IndexRoute');
+                controlBackHome()
               }}>
               <View>
                 <Image source={require('../assets/images/Group_51.png')} />
