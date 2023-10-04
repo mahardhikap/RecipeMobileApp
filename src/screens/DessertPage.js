@@ -46,14 +46,12 @@ const DessertPage = () => {
 
   const handleLiked = async itemId => {
     dispatch(likedMenu(itemId));
-    onSearchSubmit();
-    dispatch(getLikedMenu());
+    handleRefresh()
   };
 
   const handleBookmarked = async itemId => {
     dispatch(bookmarkedMenu(itemId));
-    onSearchSubmit();
-    dispatch(getBookmarkedMenu());
+    handleRefresh()
   };
 
   const goToPage = pageNumber => {
@@ -197,7 +195,7 @@ const DessertPage = () => {
                                   bookmarkedItem =>
                                     bookmarkedItem.recipe_id === item.id,
                                 )
-                                  ? 'bookmark-outline'
+                                  ? 'bookmark'
                                   : 'bookmark-outline'
                               }
                               size={30}
@@ -222,7 +220,7 @@ const DessertPage = () => {
                                 like?.some(
                                   likedItem => likedItem.recipe_id === item.id,
                                 )
-                                  ? 'thumbs-up-outline'
+                                  ? 'thumbs-up'
                                   : 'thumbs-up-outline'
                               }
                               size={30}

@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   RefreshControl,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import GlobalStyle from '../assets/styles/style';
@@ -17,25 +18,27 @@ import {useNavigation} from '@react-navigation/native';
 const SavedLikedMenu = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {like, errorMessage} = useSelector(state => state.getLikedMenu);
+  const {like, errorMessage, isLoading} = useSelector(
+    state => state.getLikedMenu,
+  );
   const [refreshing, setRefreshing] = useState(false);
 
   const allRecipeLiked = () => {
     dispatch(getLikedMenu());
   };
-
-  const handleLiked = async itemId => {
-    dispatch(likedMenu(itemId));
-    dispatch(getLikedMenu())
-  };
-
+  
   const handleRefresh = () => {
     setRefreshing(true);
     allRecipeLiked();
-    dispatch(getLikedMenu())
+    dispatch(getLikedMenu());
     setRefreshing(false);
   };
-
+  
+  const handleLiked = async itemId => {
+    dispatch(likedMenu(itemId));
+    handleRefresh()
+  };
+  
   useEffect(() => {
     allRecipeLiked();
   }, []);
@@ -110,14 +113,18 @@ const SavedLikedMenu = () => {
                         justifyContent: 'space-evenly',
                         marginLeft: 5,
                       }}>
-                      <TouchableOpacity
-                        onPress={() => handleLiked(item.recipe_id)}>
-                        <Ionicons
-                          name="thumbs-up-outline"
-                          size={30}
-                          color={GlobalStyle.color_recipe.font_y}
-                        />
-                      </TouchableOpacity>
+                      {isLoading === true ? (
+                        <ActivityIndicator size="small" color={'#EFC81A'} />
+                      ) : (
+                        <TouchableOpacity
+                          onPress={() => handleLiked(item.recipe_id)}>
+                          <Ionicons
+                            name="thumbs-up"
+                            size={30}
+                            color={GlobalStyle.color_recipe.font_y}
+                          />
+                        </TouchableOpacity>
+                      )}
                     </View>
                   </View>
                 </TouchableOpacity>

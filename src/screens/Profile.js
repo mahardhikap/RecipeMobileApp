@@ -5,7 +5,8 @@ import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {logout} from '../redux/actions/user/logout';
 import {useDispatch} from 'react-redux';
-import { updateUser } from '../redux/actions/user/updateUser';
+import {updateUser} from '../redux/actions/user/updateUser';
+import {Linking} from 'react-native';
 
 const {width: screenWidth} = Dimensions.get('window');
 const Profile = () => {
@@ -13,13 +14,14 @@ const Profile = () => {
   const navigation = useNavigation();
   const {data: profileBefore} = useSelector(state => state.loginUser);
   const {data: profileAfter} = useSelector(state => state.updateUser);
+  const url = 'https://github.com/mahardhikap/RecipeMobileApp';
 
   const userLogout = () => {
     dispatch(logout(navigation.navigate));
   };
-  useEffect(()=>{
-    dispatch(updateUser())
-  },[])
+  useEffect(() => {
+    dispatch(updateUser());
+  }, []);
   return (
     <View>
       <View>
@@ -32,7 +34,10 @@ const Profile = () => {
           }}>
           <Image
             source={{
-              uri: profileAfter ? profileAfter?.photo : profileBefore?.photo || 'https://i.ibb.co/M2JSRmW/noimage.png',
+              uri: profileAfter
+                ? profileAfter?.photo
+                : profileBefore?.photo ||
+                  'https://i.ibb.co/M2JSRmW/noimage.png',
             }}
             style={{
               marginTop: 50,
@@ -191,6 +196,15 @@ const Profile = () => {
                 Logout
               </Text>
             </TouchableOpacity>
+          </View>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 100,
+            }}>
+            <Text style={{fontFamily:'Poppins-Medium'}} onPress={() => Linking.openURL(url)}>About This App. Version 0.0.1</Text>
+            <Text style={{fontFamily:'Poppins-Medium'}} onPress={() => Linking.openURL(url)}>Created with &#10084;</Text>
           </View>
         </View>
       </View>

@@ -31,7 +31,8 @@ const loginUser = (state = initialState, {type, payload}) => {
     case 'USER_DELETE_TOKEN':
       return {
         ...state,
-        data: payload,
+        data: null,
+        errorMessage: '',
         isLoading: false,
         isError: false,
       };

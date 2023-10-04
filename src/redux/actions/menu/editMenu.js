@@ -8,7 +8,7 @@ export const editMenu = (data, id, navigate) => async (dispatch) => {
     dispatch({ type: "EDIT_MENU_PENDING" });
     const response = await instance.put(`${url}/menu/${id}`, data); 
     dispatch({ type: "EDIT_MENU_SUCCESS", payload: response.data.data });
-    dispatch(getMenuUser())
+    dispatch(getMenuUser('created_at', 'DESC', 1, 4))
     setTimeout(() => {
         navigate('InputMenu');
       }, 1000);

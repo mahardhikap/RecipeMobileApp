@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as React from 'react';
 
 import {StackActions} from '@react-navigation/native';
+import GlobalStyle from '../assets/styles/style';
 
 const Home = ({navigation}) => {
   React.useEffect(() => {
@@ -26,12 +27,13 @@ const Home = ({navigation}) => {
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text style={{fontWeight: 'semibold', fontSize: 18}}>Welcome to</Text>
-      <Text style={{fontWeight: 'bold', fontSize: 30}}>Recipe App</Text>
+      <Text style={{fontFamily: 'Poppins-SemiBold', fontSize: 18, color:GlobalStyle.color_recipe.font_g}}>Welcome to</Text>
+      <Text style={{fontFamily: 'Poppins-Bold', fontSize: 30, color:GlobalStyle.color_recipe.font_g}}>Recipe App</Text>
       <Image
         style={{marginTop: 10}}
         source={require('../assets/images/Group_697.png')}
       />
+      <Text style={{fontFamily: 'Poppins-Medium', color:GlobalStyle.color_recipe.font_g}}>github.com/mahardhikap</Text>
     </View>
   );
 };

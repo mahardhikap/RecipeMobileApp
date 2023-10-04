@@ -69,9 +69,10 @@ const DetailMenu = () => {
             {data?.title}
           </Text>
           <Text
-            style={{fontFamily: 'Poppins-Bold', fontSize: 15, color: 'white'}}>
-            <Text style={{color:GlobalStyle.color_recipe.font_y}}>Chef</Text> {data?.username}
+            style={{fontFamily: 'Poppins-Bold', fontSize: 15, color:GlobalStyle.color_recipe.font_y}}>
+            <Text style={{color:'white'}}>Chef</Text> {data?.username}
           </Text>
+          <Text style={{color:'white',fontFamily:'Poppins-Bold'}}>Like <Text style={{color:GlobalStyle.color_recipe.font_y}}>{data?.like_count}</Text></Text>
         </View>
         <View
           style={{

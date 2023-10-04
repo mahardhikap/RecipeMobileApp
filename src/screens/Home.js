@@ -53,11 +53,13 @@ const Home = () => {
     dispatch(likedMenu(itemId));
     onSearchSubmit();
     dispatch(getLikedMenu())
+    dispatch(getBookmarkedMenu())
   };
 
   const handleBookmarked = async itemId => {
     dispatch(bookmarkedMenu(itemId));
     onSearchSubmit();
+    dispatch(getLikedMenu())
     dispatch(getBookmarkedMenu())
   };
 
@@ -155,7 +157,7 @@ const Home = () => {
                               bookmarkedItem =>
                                 bookmarkedItem.recipe_id === item.id,
                             )
-                              ? 'bookmark-outline'
+                              ? 'bookmark'
                               : 'bookmark-outline'
                           }
                           size={30}
@@ -179,7 +181,7 @@ const Home = () => {
                             like?.some(
                               likedItem => likedItem.recipe_id === item.id,
                             )
-                              ? 'thumbs-up-outline'
+                              ? 'thumbs-up'
                               : 'thumbs-up-outline'
                           }
                           size={30}
@@ -283,6 +285,7 @@ const Home = () => {
                               paddingBottom: 12,
                               paddingLeft: 10,
                             }}>
+                            <Text style={{color:'white'}}>Chef </Text>
                             {popular.username}
                           </Text>
                           <Text
