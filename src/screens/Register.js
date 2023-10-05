@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     borderColor: GlobalStyle.color_recipe.font_y,
     width: '100%',
     marginVertical: 12,
+    backgroundColor:'white'
   },
 });
 
