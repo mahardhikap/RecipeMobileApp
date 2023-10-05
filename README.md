@@ -49,16 +49,16 @@ Before you install this project on your Mobile Phone. You need:
 ## Built with
 - [**react-native@0.70.6**](https://reactnative.dev/docs/0.70/getting-started)
 - [**Javascript**]()
-- [**Axios**]()
-- [**Redux**]()
-- [**OneSignal**]()
-- [**FireBase**]()
+- [**Axios**](https://www.npmjs.com/package/axios)
+- [**Redux**](https://react-redux.js.org/introduction/getting-started)
+- [**OneSignal**](https://documentation.onesignal.com/docs)
+- [**FireBase**](https://firebase.google.com/docs)
 
 ## Installation
 
 Click this button for download the complete built project APK:
 
-[![Download APK](https://img.shields.io/badge/Recipe-gray?logo=android)](https://drive.google.com/file/d/1tczeWKv9Enm6eMQZvrjaBCsLtAMyK461/view?usp=drive_link) [![download](https://img.shields.io/badge/Download-32CD32)](https://drive.google.com/file/d/1tczeWKv9Enm6eMQZvrjaBCsLtAMyK461/view?usp=drive_link)
+[![Download APK](https://img.shields.io/badge/Recipe-gray?logo=android)](https://drive.google.com/drive/folders/1s1nirZtGVaHSVg_Py70vKlo3XPmOn5cj?usp=sharing) [![download](https://img.shields.io/badge/Download-32CD32)](https://drive.google.com/drive/folders/1s1nirZtGVaHSVg_Py70vKlo3XPmOn5cj?usp=sharing)
 
 or
 ```
