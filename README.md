@@ -50,55 +50,47 @@ Before you install this project on your Mobile Phone. You need:
 Click this link for the complete built project:
 
 [![download](https://img.shields.io/badge/Download-32CD32)](https://drive.google.com/file/d/1KtysTALWSLv3X-dLP6pvBHFXr88vz9nf/view?usp=drive_link)
+
+or
 ```
-git clone https://github.com/mahardhikap/recipeApiV2.git
+git clone https://github.com/mahardhikap/RecipeMobileApp.git
 ```
-After installation is done, on your terminal type:
+After process cloning is done, on your terminal type:
 
 ```
-cd recipeApiV2
+cd RecipeMobileApp
 ```
 
 You need install package dependencies, to make this project work properly, in your terminal type:
 ```
 npm install
 ```
-Open folder **recipeApiV2**, if you have Visual Studio Code installed on you computer, you can type on terminal:
+Open folder **RecipeMobileApp**, if you have Visual Studio Code installed on you computer, you can type on terminal:
 ```
 code .
 ```
 or open it manually, with search in directories libraries windows explorer
 
-Theres two important file for guide the set up database and env, you will found file named **database.sql** and **.example.env**, open your PostgreSQL then set up like query in database.sql. For .example.env set up you can follow this next tutorial below
-
-You need to put file name **.env** in folder **recipeApiV2**, the **.env** should include this:
+You need to put file name **.env** in folder **RecipeMobileApp**, the **.env** should include this:
 ```
-USER= your database username
-HOST= your database host 127.0.0.1 for localhost
-DATABASE= your database name
-PASSWORD= your database password
-PORT= your port database / 5432
-CLOUDINARY_CLOUD_NAME= your cloudinary name
-CLOUDINARY_API_KEY= your cloudinary api key
-CLOUDINARY_SECRET_KEY= your cloudinary secret key
-SECRET= your secret word in jwt setup
-EMAIL_NAME= your ftp email
-EMAIL_PASS= your password ftp email
-BASE_URL= your access url, default http://localhost:3000
+RN_BASE_URL= Your url API project
+ONESIGNAL_APP_ID= Your ID OneSignall
+```
+[Learn how to get OneSignal ID](https://documentation.onesignal.com/docs)
+
+After all above is done, you need to run android simulator
+
+[Docs how to run Android Simulator](https://developer.android.com/studio/run/emulator#get-started)
+
+Then, you can run this project with type on terminal:
+```
+npm run android
 ```
 
-After all above is done, you can run this project with type on terminal:
-```
-node index.js
-```
-
-you will see 'App running on http://localhost:3000'
-## How Use
-Open Postman, go to workspace then import postman collection on folder recipeApiV2, name is **recipeApiV2.postman_collection**
 ## Related Project
 You can visit my github where I'm using this API for the server:
 - **[Recipe Web App](https://github.com/mahardhikap/recipeWebApp)**
-- **[Recipe Mobile App](https://github.com/mahardhikap/RecipeMobileApp)**
+- **[Recipe API](https://github.com/mahardhikap/recipeApiV2)**
 
 ##  Contact
 You can reach me on:
