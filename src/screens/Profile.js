@@ -1,4 +1,11 @@
-import {View, Text, Dimensions, Image, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import GlobalStyle from '../assets/styles/style';
 import {useSelector} from 'react-redux';
@@ -7,6 +14,7 @@ import {logout} from '../redux/actions/user/logout';
 import {useDispatch} from 'react-redux';
 import {updateUser} from '../redux/actions/user/updateUser';
 import {Linking} from 'react-native';
+import Modal from 'react-native-modal';
 
 const {width: screenWidth} = Dimensions.get('window');
 const Profile = () => {
@@ -15,6 +23,7 @@ const Profile = () => {
   const {data: profileBefore} = useSelector(state => state.loginUser);
   const {data: profileAfter} = useSelector(state => state.updateUser);
   const url = 'https://github.com/mahardhikap/RecipeMobileApp';
+  const [modalVisible, setModalVisible] = useState(false);
 
   const userLogout = () => {
     dispatch(logout(navigation.navigate));
@@ -183,9 +192,7 @@ const Profile = () => {
             }}>
             <TouchableOpacity
               style={{backgroundColor: 'red', borderRadius: 10, width: 200}}
-              onPress={() => {
-                userLogout();
-              }}>
+              onPress={() => setModalVisible(!modalVisible)}>
               <Text
                 style={{
                   textAlign: 'center',
@@ -203,11 +210,76 @@ const Profile = () => {
               alignItems: 'center',
               marginTop: 100,
             }}>
-            <Text style={{fontFamily:'Poppins-Medium'}} onPress={() => Linking.openURL(url)}>About This App. Version 0.0.1</Text>
-            <Text style={{fontFamily:'Poppins-Medium'}} onPress={() => Linking.openURL(url)}>Created with &#10084;</Text>
+            <Text
+              style={{fontFamily: 'Poppins-Medium'}}
+              onPress={() => Linking.openURL(url)}>
+              About This App. Version 0.0.1
+            </Text>
+            <Text
+              style={{fontFamily: 'Poppins-Medium'}}
+              onPress={() => Linking.openURL(url)}>
+              Created with &#10084;
+            </Text>
           </View>
         </View>
       </View>
+      <Modal
+        isVisible={modalVisible}
+        backdropOpacity={0.5}
+        backdropColor="black">
+        <View style={{backgroundColor: 'white', padding: 30, borderRadius: 10}}>
+          <Text style={{textAlign: 'center', fontFamily: 'Poppins-Bold'}}>
+            Are you sure want to logout?
+          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginTop: 10,
+            }}>
+            <TouchableOpacity
+              title="for hide"
+              style={{
+                flex: 1,
+                backgroundColor: GlobalStyle.color_recipe.font_y,
+                borderRadius: 5,
+                marginHorizontal: 5,
+                marginTop: 10,
+              }}
+              onPress={() => userLogout()}>
+              <Text
+                style={{
+                  padding: 5,
+                  textAlign: 'center',
+                  fontFamily: 'Poppins-Bold',
+                  color: 'white',
+                }}>
+                Yes
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              title="for hide"
+              style={{
+                flex: 1,
+                backgroundColor: GlobalStyle.color_recipe.font_g,
+                borderRadius: 5,
+                marginHorizontal: 5,
+                marginTop: 10,
+              }}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text
+                style={{
+                  padding: 5,
+                  textAlign: 'center',
+                  fontFamily: 'Poppins-Bold',
+                  color: 'white',
+                }}>
+                Cancel
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };

@@ -6,13 +6,14 @@ import {useNavigation} from '@react-navigation/native';
 import {logout} from '../redux/actions/user/logout';
 import {useDispatch} from 'react-redux';
 import {updateUser} from '../redux/actions/user/updateUser';
-import IndexRoute from '../IndexRoute';
+import Modal from 'react-native-modal';
 
 const {width: screenWidth} = Dimensions.get('window');
 const UpdatedProfile = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {data} = useSelector(state => state.updateUser);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const userLogout = () => {
     dispatch(logout(navigation.navigate));
@@ -177,14 +178,19 @@ const UpdatedProfile = () => {
               marginTop: 60,
             }}>
             <TouchableOpacity
-            style={{backgroundColor:'grey', borderRadius: 10, width: 200, margin:3}}
+              style={{
+                backgroundColor: 'grey',
+                borderRadius: 10,
+                width: 200,
+                margin: 3,
+              }}
               onPress={() => {
                 navigation.reset({
                   index: 0,
-                  routes: [{name: 'IndexRoute'}], // Mengatur ulang tumpukan navigator ke SplashScreen
+                  routes: [{name: 'IndexRoute'}],
                 });
               }}>
-                <Text
+              <Text
                 style={{
                   textAlign: 'center',
                   padding: 10,
@@ -193,12 +199,15 @@ const UpdatedProfile = () => {
                 }}>
                 Back Menu
               </Text>
-              </TouchableOpacity>
+            </TouchableOpacity>
             <TouchableOpacity
-              style={{backgroundColor: 'red', borderRadius: 10, width: 200, margin:3}}
-              onPress={() => {
-                userLogout();
-              }}>
+              style={{
+                backgroundColor: 'red',
+                borderRadius: 10,
+                width: 200,
+                margin: 3,
+              }}
+              onPress={() => setModalVisible(!modalVisible)}>
               <Text
                 style={{
                   textAlign: 'center',
@@ -212,6 +221,63 @@ const UpdatedProfile = () => {
           </View>
         </View>
       </View>
+      <Modal
+        isVisible={modalVisible}
+        backdropOpacity={0.5}
+        backdropColor="black">
+        <View style={{backgroundColor: 'white', padding: 30, borderRadius: 10}}>
+          <Text style={{textAlign: 'center', fontFamily: 'Poppins-Bold'}}>
+            Are you sure want to logout?
+          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginTop: 10,
+            }}>
+            <TouchableOpacity
+              title="for hide"
+              style={{
+                flex: 1,
+                backgroundColor: GlobalStyle.color_recipe.font_y,
+                borderRadius: 5,
+                marginHorizontal: 5,
+                marginTop: 10,
+              }}
+              onPress={() => userLogout()}>
+              <Text
+                style={{
+                  padding: 5,
+                  textAlign: 'center',
+                  fontFamily: 'Poppins-Bold',
+                  color: 'white',
+                }}>
+                Yes
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              title="for hide"
+              style={{
+                flex: 1,
+                backgroundColor: GlobalStyle.color_recipe.font_g,
+                borderRadius: 5,
+                marginHorizontal: 5,
+                marginTop: 10,
+              }}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text
+                style={{
+                  padding: 5,
+                  textAlign: 'center',
+                  fontFamily: 'Poppins-Bold',
+                  color: 'white',
+                }}>
+                Cancel
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };

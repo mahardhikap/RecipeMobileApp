@@ -65,7 +65,7 @@ const InputMenu = () => {
     if (itemToDelete) {
       const delay = setTimeout(() => {
         setItemToDelete(null);
-      }, 300);
+      }, 1000);
       return () => clearTimeout(delay);
     }
   }, [itemToDelete]);
@@ -260,166 +260,74 @@ const InputMenu = () => {
           )}
         </View>
         <Modal
-  isVisible={modalVisible}
-  backdropOpacity={0.5}
-  backdropColor="black"
->
-  <View style={{ backgroundColor: 'white', padding: 30, borderRadius: 10 }}>
-    <Text style={{ textAlign: 'center', fontFamily: 'Poppins-Bold' }}>
-      Are you sure want to delete{' '}
-      <Text style={{ color: GlobalStyle.color_recipe.font_y }}>{menuTitle}</Text>?
-    </Text>
-    <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 10 }}>
-      <TouchableOpacity
-        title="for hide"
-        style={{
-          flex: 1,
-          backgroundColor: GlobalStyle.color_recipe.font_y,
-          borderRadius: 5,
-          marginHorizontal: 5,
-          marginTop: 10,
-        }}
-        onPress={() => {
-          handleDelete(idDelete);
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <Text
-          style={{
-            padding: 5,
-            textAlign: 'center',
-            fontFamily: 'Poppins-Bold',
-            color:'white'
-          }}
-        >
-          Yes
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        title="for hide"
-        style={{
-          flex: 1,
-          backgroundColor: GlobalStyle.color_recipe.font_g,
-          borderRadius: 5,
-          marginHorizontal: 5,
-          marginTop: 10,
-        }}
-        onPress={() => setModalVisible(!modalVisible)}
-      >
-        <Text
-          style={{
-            padding: 5,
-            textAlign: 'center',
-            fontFamily: 'Poppins-Bold',
-            color: 'white',
-          }}
-        >
-          Cancel
-        </Text>
-      </TouchableOpacity>
-    </View>
-  </View>
-</Modal>
-
-
-        {/* <View style={styles.centeredView}>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              Alert.alert('Modal has been closed.');
-              setModalVisible(!modalVisible);
-            }}>
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Text style={styles.modalText}>
-                  Are you sure want to delete{' '}
-                  <Text style={{fontWeight: 'bold'}}>{menuTitle}</Text>?
-                </Text>
-                <View
+          isVisible={modalVisible}
+          backdropOpacity={0.5}
+          backdropColor="black">
+          <View
+            style={{backgroundColor: 'white', padding: 30, borderRadius: 10}}>
+            <Text style={{textAlign: 'center', fontFamily: 'Poppins-Bold'}}>
+              Are you sure want to delete{' '}
+              <Text style={{color: GlobalStyle.color_recipe.font_y}}>
+                {menuTitle}
+              </Text>
+              ?
+            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                marginTop: 10,
+              }}>
+              <TouchableOpacity
+                title="for hide"
+                style={{
+                  flex: 1,
+                  backgroundColor: GlobalStyle.color_recipe.font_y,
+                  borderRadius: 5,
+                  marginHorizontal: 5,
+                  marginTop: 10,
+                }}
+                onPress={() => {
+                  handleDelete(idDelete);
+                  setModalVisible(!modalVisible);
+                  getMenuByUser();
+                }}>
+                <Text
                   style={{
-                    flexDirection: 'row',
+                    padding: 5,
+                    textAlign: 'center',
+                    fontFamily: 'Poppins-Bold',
+                    color: 'white',
                   }}>
-                  <Pressable
-                    style={{
-                      paddingHorizontal: 10,
-                      paddingVertical: 5,
-                      backgroundColor: 'red',
-                      alignItems: 'center',
-                      borderRadius: 10,
-                      justifyContent: 'center',
-                      marginRight: 20,
-                    }}
-                    onPress={() => {
-                      handleDelete(idDelete);
-                      setModalVisible(!modalVisible);
-                    }}>
-                    <Text style={styles.textStyle}>Yes</Text>
-                  </Pressable>
-                  <Pressable
-                    style={{
-                      paddingHorizontal: 10,
-                      paddingVertical: 5,
-                      backgroundColor: 'gray',
-                      alignItems: 'center',
-                      borderRadius: 10,
-                      justifyContent: 'center',
-                      marginLeft: 20,
-                    }}
-                    onPress={() => setModalVisible(!modalVisible)}>
-                    <Text style={styles.textStyle}>No</Text>
-                  </Pressable>
-                </View>
-              </View>
+                  Yes
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                title="for hide"
+                style={{
+                  flex: 1,
+                  backgroundColor: GlobalStyle.color_recipe.font_g,
+                  borderRadius: 5,
+                  marginHorizontal: 5,
+                  marginTop: 10,
+                }}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text
+                  style={{
+                    padding: 5,
+                    textAlign: 'center',
+                    fontFamily: 'Poppins-Bold',
+                    color: 'white',
+                  }}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
             </View>
-          </Modal>
-        </View> */}
+          </View>
+        </Modal>
       </ScrollView>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 2,
-      height: 2,
-    },
-    shadowOpacity: 0.75,
-    shadowRadius: 10,
-    elevation: 5,
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  overlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    zIndex: 1,
-  },
-});
 
 export default InputMenu;
