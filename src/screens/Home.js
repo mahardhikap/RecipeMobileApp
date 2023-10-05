@@ -25,6 +25,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const {data: menuData} = useSelector(state => state.getPopularMenu);
   const {data: menuUser} = useSelector(state => state.getMenuUser);
+  const {data: menuSearch} = useSelector(state => state.getAllMenu);
   const [sortby, setSortby] = useState('title');
   const [sort, setSort] = useState('ASC');
   const [page, setPage] = useState(1);
@@ -85,7 +86,7 @@ const Home = () => {
         <ScrollView>
           <StatusBar translucent backgroundColor="black" />
           <View style={GlobalStyle.container_bootstrap}>
-            {menuData?.rows?.map(item => {
+            {menuSearch?.rows?.map(item => {
               return (
                 <TouchableOpacity
                   key={item.id}
