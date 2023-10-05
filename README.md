@@ -1,5 +1,11 @@
 
 # Recipe App Mobile
+<div align="center">
+<a href="https://github.com/mahardhikap/RecipeMobileApp">
+    <img src="https://i.ibb.co/ZcsX3g3/fix.png" alt="Logo" width="150" height="150">
+</a>
+<p style="font-weight:bold; font-size:30px; color:#EFC81A">Mama Recipe</p>
+</div>
 
 ## Table of Contents
 
@@ -17,6 +23,7 @@ Mama Recipe: Your Culinary Companion
 Introducing Mama Recipe, the ultimate culinary companion for all your cooking adventures. Whether you're a passionate home chef or simply looking to share your cooking expertise, our application is tailor-made for you. With Mama Recipe, you'll discover a world of culinary delights right at your fingertips.
 
 Key Features:
+
 🍳 Recipe Sharing: Share your favorite recipes with the global cooking community. Connect with fellow food enthusiasts and showcase your culinary talents.
 
 📚 Recipe Library: Access an extensive library of diverse recipes, from traditional classics to innovative dishes. Never run out of inspiration for your next meal.
@@ -86,6 +93,19 @@ Then, you can run this project with type on terminal:
 ```
 npm run android
 ```
+
+## ScreenShoot Project
+| Login Screen | Register Screen | Activate Screen | Forgot Screen |
+| :---: | :---: | :---: | :---: |
+|![Login Screen](https://i.ibb.co/4RFFMpp/Screenshot-2023-10-05-08-29-58-736-com-recipe.jpg)|![Register Screen](https://i.ibb.co/wzzbbnh/Screenshot-2023-10-05-08-30-05-731-com-recipe.jpg)|![Activate Screen](https://i.ibb.co/2YqZbxz/Screenshot-2023-10-05-08-30-11-028-com-recipe.jpg)|![Forgot Screen](https://i.ibb.co/JxxTmwH/Screenshot-2023-10-05-08-30-14-533-com-recipe.jpg)|
+
+| Splash Screen | Home Screen | Search Screen | My Menu Screen |
+| :---: | :---: | :---: | :---: |
+|![Splash Screen](https://i.ibb.co/VVwY2Wq/Screenshot-2023-10-05-08-29-36-212-com-recipe.jpg)|![Home Screen](https://i.ibb.co/tPs8gvc/1696471230121.jpg)|![Search Screen](https://i.ibb.co/0sZPdbx/1696471229941.jpg)|![My Menu Screen](https://i.ibb.co/q5Qhmk7/Screenshot-2023-10-05-10-27-25-538-com-recipe.jpg)|
+
+| Input Menu Screen | Detail Menu Screen | Profile Screen | Update Profile Screen |
+| :---: | :---: | :---: | :---: |
+|![Input Menu Screen](https://i.ibb.co/yPhN2Jh/1696471229974.jpg)|![Detail Menu Screen](https://i.ibb.co/8YN4bnn/1696471229957.jpg)|![Profile Screen](https://i.ibb.co/J3wjXJX/1696471230084.jpg)|![Update Profile Screen](https://i.ibb.co/CMBdrCx/Screenshot-2023-10-05-10-33-50-289-com-recipe.jpg)|
 
 ## Related Project
 You can visit my github where I'm using this API for the server:
