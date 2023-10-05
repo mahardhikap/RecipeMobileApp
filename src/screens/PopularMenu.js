@@ -188,7 +188,7 @@ const PopularMenu = () => {
                                 bookmarkedItem =>
                                   bookmarkedItem.recipe_id === item.id,
                               )
-                                ? 'bookmark-outline'
+                                ? 'bookmark'
                                 : 'bookmark-outline'
                             }
                             size={30}
@@ -212,7 +212,7 @@ const PopularMenu = () => {
                               like?.some(
                                 likedItem => likedItem.recipe_id === item.id,
                               )
-                                ? 'thumbs-up-outline'
+                                ? 'thumbs-up'
                                 : 'thumbs-up-outline'
                             }
                             size={30}
