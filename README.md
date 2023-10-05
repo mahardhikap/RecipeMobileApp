@@ -4,7 +4,9 @@
 <a href="https://github.com/mahardhikap/RecipeMobileApp">
     <img src="https://i.ibb.co/ZcsX3g3/fix.png" alt="Logo" width="150" height="150">
 </a>
-<p style="font-weight:bold; font-size:30px; color:#EFC81A">Mama Recipe</p>
+<p style="text-align: center;">
+    <span style="font-weight: bold; font-size: 30px; color: #EFC81A;">Mama Recipe</span>
+</p>
 </div>
 
 ## Table of Contents
@@ -54,9 +56,9 @@ Before you install this project on your Mobile Phone. You need:
 
 ## Installation
 
-Click this link for the complete built project:
+Click this button for download the complete built project APK:
 
-[![download](https://img.shields.io/badge/Download-32CD32)](https://drive.google.com/file/d/1KtysTALWSLv3X-dLP6pvBHFXr88vz9nf/view?usp=drive_link)
+[![Download APK](https://img.shields.io/badge/Recipe-gray?logo=android)](https://drive.google.com/file/d/1KtysTALWSLv3X-dLP6pvBHFXr88vz9nf/view?usp=drive_link) [![download](https://img.shields.io/badge/Download-32CD32)](https://drive.google.com/file/d/1KtysTALWSLv3X-dLP6pvBHFXr88vz9nf/view?usp=drive_link)
 
 or
 ```
