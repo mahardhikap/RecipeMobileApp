@@ -13,8 +13,9 @@ import {
 import React, {useState} from 'react';
 import GlobalStyle from '../assets/styles/style';
 import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {register} from '../redux/actions/user/register';
+import Modal from 'react-native-modal';
 
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -41,11 +42,13 @@ const styles = StyleSheet.create({
 const Register = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const {errorMessage, isError} = useSelector(state => state.register);
   const [inputData, setInputData] = useState({
     username: '',
     email: '',
     password: '',
   });
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const postDataRegister = async () => {
     dispatch(register(inputData, navigation.navigate));
@@ -55,6 +58,16 @@ const Register = () => {
     setInputData({...inputData, [name]: value});
     // console.log('Login User', inputData);
   };
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+    if (!isModalVisible) {
+      postDataRegister();
+    } else if (!isError) {
+        navigation.navigate('ActivateUser');
+    }
+  };
+
   return (
     <ScrollView>
       <StatusBar translucent backgroundColor="transparent" />
@@ -114,7 +127,7 @@ const Register = () => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={postDataRegister}
+            onPress={()=>toggleModal()}
             style={{
               backgroundColor: GlobalStyle.color_recipe.font_y,
               borderRadius: 10,
@@ -150,11 +163,17 @@ const Register = () => {
           </Text>
         </Text>
       </View>
-
-      {/* <TouchableOpacity onPress={() => navigation.pop()}>
-        <Text>Go back</Text>
-      </TouchableOpacity> */}
-      {/* <Text>Login</Text> */}
+      <View>
+        <Modal isVisible={isModalVisible}>
+          <View
+            style={{ backgroundColor: 'white', padding: 40, borderRadius: 10 }}>
+            <Text style={{fontFamily:'Poppins-Bold'}}>{errorMessage?.message || 'Register success, check email for verification!'}</Text>
+            <TouchableOpacity title="email" onPress={toggleModal} style={{backgroundColor:GlobalStyle.color_recipe.font_y, borderRadius:5, marginHorizontal:100, marginTop:10}}>
+              <Text style={{padding:5, textAlign:'center', fontFamily:'Poppins-Bold', color:'white'}}>Ok</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      </View>
     </ScrollView>
   );
 };

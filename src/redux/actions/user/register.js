@@ -7,9 +7,9 @@ export const register = (data, navigate) => async (dispatch) => {
     dispatch({ type: "REGISTER_PENDING" });
     const response = await axios.post(`${url}/register`, data); 
     dispatch({ type: "REGISTER_SUCCESS", payload: response.data.data });
-    setTimeout(() => {
-      navigate('ActivateUser');
-    }, 1000);
+    // setTimeout(() => {
+    //   navigate('ActivateUser');
+    // }, 1000);
   } catch (err) {
     console.error("Error during register:", err);
     dispatch({ type: "REGISTER_FAILED", payload: err.response.data });

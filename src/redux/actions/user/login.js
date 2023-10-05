@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {RN_BASE_URL} from "@env"
 import axios from "axios";
 
-export const login = (data, navigate) => async (dispatch) => {
+export const login = (data) => async (dispatch) => {
   try {
     let url = await RN_BASE_URL
     dispatch({ type: "USER_LOGIN_PENDING" });
@@ -13,9 +13,9 @@ export const login = (data, navigate) => async (dispatch) => {
     await AsyncStorage.setItem("token", getToken);
     await AsyncStorage.setItem("id", getUserId.toString());
     dispatch({ type: "USER_LOGIN_SUCCESS", payload: response.data.data });
-    setTimeout(() => {
-      navigate('IndexRoute');
-    }, 1000);
+    // setTimeout(() => {
+    //   navigate('IndexRoute');
+    // }, 1000);
   } catch (err) {
     console.error("Error during login:", err);
     dispatch({ type: "USER_LOGIN_FAILED", payload: err.response.data });

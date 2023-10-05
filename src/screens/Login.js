@@ -16,6 +16,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../redux/actions/user/login';
 import GlobalStyle from '../assets/styles/style';
 import {useNavigation} from '@react-navigation/native';
+import Modal from 'react-native-modal';
 
 const {width: screenWidth} = Dimensions.get('window');
 
@@ -41,20 +42,30 @@ const styles = StyleSheet.create({
 
 const Login = () => {
   const navigation = useNavigation();
-  const {errorMessage, isLoading} = useSelector(state => state.loginUser);
+  const {errorMessage, isError} = useSelector(state => state.loginUser);
   const dispatch = useDispatch();
   const [inputData, setInputData] = useState({
     email: '',
     password: '',
   });
+  const [isModalVisible, setModalVisible] = useState(false);
 
   const postDataLogin = async () => {
-    dispatch(login(inputData, navigation.navigate));
+    dispatch(login(inputData));
   };
 
   const onChangeLogin = (name, value) => {
     setInputData({...inputData, [name]: value});
     // console.log('Login User', inputData);
+  };
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+    if (!isModalVisible) {
+      postDataLogin();
+    } else if (!isError) {
+        navigation.navigate('IndexRoute');
+    }
   };
 
   return (
@@ -97,7 +108,6 @@ const Login = () => {
                 borderRadius: 10,
                 paddingVertical: 5,
               }}>
-              {errorMessage ? errorMessage?.message : ''}
             </Text>
             <Text style={{marginTop: 20, fontFamily: 'Poppins-Medium'}}>
               Email
@@ -137,10 +147,10 @@ const Login = () => {
                 padding: 20,
                 marginTop: 30,
               }}
-              onPress={postDataLogin}>
-              {isLoading === true ? (
+              onPress={()=>toggleModal()}>
+              {/* {isLoading === true ? (
                 <ActivityIndicator size="small" color={'white'} />
-              ) : (
+              ) : ( */}
                 <Text
                   style={{
                     textAlign: 'center',
@@ -151,7 +161,7 @@ const Login = () => {
                   }}>
                   LOGIN
                 </Text>
-              )}
+              {/* )} */}
             </TouchableOpacity>
           </SafeAreaView>
           <Text
@@ -171,6 +181,17 @@ const Login = () => {
             </Text>
           </Text>
         </View>
+        <View>
+        <Modal isVisible={isModalVisible}>
+          <View
+            style={{ backgroundColor: 'white', padding: 40, borderRadius: 10 }}>
+            <Text style={{fontFamily:'Poppins-Bold'}}>{errorMessage?.message || 'Login success!'}</Text>
+            <TouchableOpacity title="email" onPress={toggleModal} style={{backgroundColor:GlobalStyle.color_recipe.font_y, borderRadius:5, marginHorizontal:100, marginTop:10}}>
+              <Text style={{padding:5, textAlign:'center', fontFamily:'Poppins-Bold', color:'white'}}>Ok</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      </View>
       </ScrollView>
     </>
   );

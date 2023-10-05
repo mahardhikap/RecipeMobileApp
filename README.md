@@ -43,7 +43,7 @@ Get ready to turn your kitchen into a gastronomic haven with Mama Recipe! Downlo
 ## Requirement
 Before you install this project on your Mobile Phone. You need:
 
-- **Mobile Phone with OS Android 10 or Later**, I'm using **Android 13** when this docs is uploaded. You can upgrade your android version for better.
+- **Mobile Phone with OS Android 10 or Later**, I'm using **Redmi 10, Android 13** when this docs is uploaded. You can upgrade your android version for better.
 - **Stable Internet Connectivity**, This application runs online, so internet connectivity is required.
 
 ## Built with
@@ -99,7 +99,7 @@ npm run android
 ## ScreenShoot Project
 | Login Screen | Register Screen | Activate Screen | Forgot Screen |
 | :---: | :---: | :---: | :---: |
-|![Login Screen](https://i.ibb.co/4RFFMpp/Screenshot-2023-10-05-08-29-58-736-com-recipe.jpg)|![Register Screen](https://i.ibb.co/wzzbbnh/Screenshot-2023-10-05-08-30-05-731-com-recipe.jpg)|![Activate Screen](https://i.ibb.co/2YqZbxz/Screenshot-2023-10-05-08-30-11-028-com-recipe.jpg)|![Forgot Screen](https://i.ibb.co/JxxTmwH/Screenshot-2023-10-05-08-30-14-533-com-recipe.jpg)|
+|![Login Screen](https://i.ibb.co/4RFFMpp/Screenshot-2023-10-05-08-29-58-736-com-recipe.jpg)|![Register Screen](https://i.ibb.co/VYLHBG4/newregister.jpg)|![Activate Screen](https://i.ibb.co/2YqZbxz/Screenshot-2023-10-05-08-30-11-028-com-recipe.jpg)|![Forgot Screen](https://i.ibb.co/JxxTmwH/Screenshot-2023-10-05-08-30-14-533-com-recipe.jpg)|
 
 | Splash Screen | Home Screen | Search Screen | My Menu Screen |
 | :---: | :---: | :---: | :---: |
