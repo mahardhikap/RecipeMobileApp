@@ -117,7 +117,7 @@ password: 123456
 |![Input Menu Screen](https://i.ibb.co/yPhN2Jh/1696471229974.jpg)|![Detail Menu Screen](https://i.ibb.co/8YN4bnn/1696471229957.jpg)|![Profile Screen](https://i.ibb.co/J3wjXJX/1696471230084.jpg)|![Update Profile Screen](https://i.ibb.co/CMBdrCx/Screenshot-2023-10-05-10-33-50-289-com-recipe.jpg)|
 
 ## Related Project
-You can visit my github where I'm using this API for the server:
+You can visit my github link related to the project::
 - **[Recipe Web App](https://github.com/mahardhikap/recipeWebApp)**
 - **[Recipe API](https://github.com/mahardhikap/recipeApiV2)**
 
