@@ -15,7 +15,7 @@
 * [Requirement](#requirement)
 * [Built With](#built-with)
 * [Installation](#installation)
-* [How use](#how-use)
+* [Demo](#demo)
 * [Related Project](#related-project)
 * [Contact](#contact)
 
@@ -95,6 +95,13 @@ Then, you can run this project with type on terminal:
 ```
 npm run android
 ```
+## Demo
+
+if you want to login, without register
+```
+email: guest@gmail.com
+password: 123456
+```
 
 ## ScreenShoot Project
 | Login Screen | Register Screen | Activate Screen | Forgot Screen |
@@ -123,10 +130,10 @@ You can reach me on:
 
 I know this project is not perfect.
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are the cornerstone of the open source community, turning it into a remarkable space for learning, inspiring, and innovating. Your contributions are **highly valued**.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b your/branch`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+3. Commit your Changes (`git commit -m 'Add amazing feature'`)
 4. Push to the Branch (`git push origin feature/yourbranch`)
 5. Open a Pull Request
